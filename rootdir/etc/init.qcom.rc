@@ -42,6 +42,8 @@ on init
     symlink /sdcard /mnt/sdcard
     symlink /sdcard /storage/sdcard0
 
+    export LD_SHIM_LIBS "/system/bin/mm-qcamera-daemon|libshim_camera.so"
+
 on early-boot
     # set RLIMIT_MEMLOCK to 64MB
     setrlimit 8 67108864 67108864
