@@ -377,14 +377,14 @@ void LocEngAdapter::reportPosition(UlpLocation &location,
     }
 }
 
-void LocInternalAdapter::reportSv(GnssSvStatus &svStatus,
+void LocInternalAdapter::reportSv(QcomGnssSvStatus &svStatus,
                                   GpsLocationExtended &locationExtended,
                                   void* svExt){
     sendMsg(new LocEngReportSv(mLocEngAdapter, svStatus,
                                locationExtended, svExt));
 }
 
-void LocEngAdapter::reportSv(GnssSvStatus &svStatus,
+void LocEngAdapter::reportSv(QcomGnssSvStatus &svStatus,
                              GpsLocationExtended &locationExtended,
                              void* svExt)
 {
