@@ -99,6 +99,7 @@ ifeq ($(HOST_OS),linux)
     endif
   endif
 endif
+WITH_DEXPREOPT_BOOT_IMG_ONLY ?= true
 
 # Display
 NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
