@@ -1,0 +1,60 @@
+# Audio
+audio.offload.buffer.size.kb=1024
+audio.offload.multiple.enabled=false
+audio.offload.pcm.16bit.enable=true
+audio.offload.pcm.24bit.enable=true
+av.offload.enable=true
+
+ro.qc.sdk.audio.fluencetype=fluence
+ro.qc.sdk.audio.ssr=false
+use.voice.path.for.pcm.voip=true
+
+persist.audio.fluence.voicecall=true
+persist.audio.fluence.voicerec=false
+persist.audio.fluence.speaker=true
+
+audio.ds1.metainfo.key=273
+dmid=-1286820014
+
+# Bluetooth
+ro.bt.bdaddr_path=/sys/module/htc_bdaddress/parameters/bdaddress
+
+# Display
+persist.hwc.mdpcomp.enable=true
+ro.opengles.version=196609
+ro.sf.lcd_density=480
+
+# Factory Reset Protection
+ro.frp.pst=/dev/block/bootdevice/by-name/config
+
+# IO Scheduler
+sys.io.scheduler=bfq
+
+# NITZ
+persist.rild.nitz_plmn=
+persist.rild.nitz_long_ons_0=
+persist.rild.nitz_long_ons_1=
+persist.rild.nitz_long_ons_2=
+persist.rild.nitz_long_ons_3=
+persist.rild.nitz_short_ons_0=
+persist.rild.nitz_short_ons_1=
+persist.rild.nitz_short_ons_2=
+persist.rild.nitz_short_ons_3=
+
+# Perf
+ro.vendor.extension_library=libqti-perfd-client.so
+
+# Radio
+rild.libpath=/vendor/lib/libril-qc-qmi-1.so
+rild.libargs=-d /dev/smd0
+ril.subscription.types=RUIM
+DEVICE_PROVISIONED=1
+ro.telephony.default_network=9
+telephony.lteOnGsmDevice=1
+persist.radio.rat_on=combine
+ro.use_data_netmgrd=true
+persist.data.netmgrd.qos.enable=true
+persist.radio.multisim.config=dsds
+
+# Wifi
+wifi.interface=wlan0
