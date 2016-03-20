@@ -373,9 +373,6 @@ etc/firmware/keymaste.b02:vendor/firmware/keymaster/keymaster.b02
 etc/firmware/keymaste.b03:vendor/firmware/keymaster/keymaster.b03
 etc/firmware/keymaste.mdt:vendor/firmware/keymaster/keymaster.mdt
 
-# Lights
-lib/hw/lights.msm8952.so
-
 # Media
 vendor/lib/libI420colorconvert.so
 vendor/lib/libmm-color-convertor.so
