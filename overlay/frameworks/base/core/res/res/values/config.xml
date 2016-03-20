@@ -99,6 +99,12 @@
     <!-- Shutdown if the battery temperature exceeds (this value * 0.1) Celsius. -->
     <integer name="config_shutdownBatteryTemperature">600</integer>
 
+    <!-- Default LED on time for notification LED in milliseconds. -->
+    <integer name="config_defaultNotificationLedOn">500</integer>
+
+    <!-- Default LED off time for notification LED in milliseconds. -->
+    <integer name="config_defaultNotificationLedOff">5000</integer>
+
     <!-- Is the notification LED intrusive? Used to decide if there should be a disable option -->
     <bool name="config_intrusiveNotificationLed">true</bool>
 
@@ -106,14 +112,14 @@
          Used to decide if the user can change the colors -->
     <bool name="config_multiColorNotificationLed">true</bool>
 
-    <!-- Default color for notification LED is green. -->
-    <color name="config_defaultNotificationColor">#ff00ff00</color>
-
     <!-- Is the battery LED intrusive? Used to decide if there should be a disable option -->
     <bool name="config_intrusiveBatteryLed">true</bool>
 
     <!-- Does the battery LED support multiple colors? Used to decide if the user can change the colors -->
     <bool name="config_multiColorBatteryLed">true</bool>
+
+    <!-- Default color for notification LED is white. -->
+    <color name="config_defaultNotificationColor">#ffffffff</color>
 
     <!-- reference volume index for music stream to limit headphone volume and display warning -->
     <integer name="config_safe_media_volume_index">10</integer>
