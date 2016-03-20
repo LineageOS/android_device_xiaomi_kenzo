@@ -164,7 +164,8 @@ PRODUCT_PACKAGES += \
 
 # RIL
 PRODUCT_PACKAGES += \
-    libcnefeatureconfig
+    libcnefeatureconfig \
+    librmnetctl
 
 # Thermal
 PRODUCT_COPY_FILES += \

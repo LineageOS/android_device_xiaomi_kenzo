@@ -462,7 +462,6 @@ bin/radish
 bin/rmt_storage
 lib64/libhtc_rilhook.so
 lib64/libril.so
-lib64/librmnetctl.so
 vendor/lib64/libcneapiclient.so
 vendor/lib64/libconfigdb.so
 vendor/lib64/libhtcril_db.so
