@@ -363,6 +363,9 @@ vendor/lib/librs_adreno.so
 etc/firmware/a420_pfp.fw
 etc/firmware/a420_pm4.fw
 
+# IPA
+bin/ipacm-diag
+
 # Keymaster
 etc/firmware/keymaste.b00:vendor/firmware/keymaster/keymaster.b00
 etc/firmware/keymaste.b01:vendor/firmware/keymaster/keymaster.b01
