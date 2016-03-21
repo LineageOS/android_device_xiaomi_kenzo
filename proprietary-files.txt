@@ -406,9 +406,6 @@ etc/firmware/venus-v1.b04
 etc/firmware/venus-v1.mbn
 etc/firmware/venus-v1.mdt
 
-# NFC
-vendor/firmware/libpn548_fw.so
-
 # Perf
 vendor/bin/perfd
 vendor/lib64/libqti-perfd-client.so
