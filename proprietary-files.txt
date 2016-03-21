@@ -14,27 +14,6 @@ etc/Hdmi_cal.acdb
 etc/Headset_cal.acdb
 etc/Speaker_cal.acdb
 
-# Audio amplifier
-etc/tfa/fm.drc
-etc/tfa/fm.eq
-etc/tfa/fm.preset
-etc/tfa/playback.drc
-etc/tfa/playback.eq
-etc/tfa/playback.preset
-etc/tfa/Rec_Video.drc
-etc/tfa/Rec_Video.eq
-etc/tfa/Rec_Video.preset
-etc/tfa/tfa9895.config
-etc/tfa/tfa9895.patch
-etc/tfa/tfa9895.speaker
-etc/tfa/voice.drc
-etc/tfa/voice.eq
-etc/tfa/voice.preset
-etc/tfa/voiceWB.eq
-etc/tfa/voip.drc
-etc/tfa/voip.eq
-etc/tfa/voip.preset
-
 # Audio libraries
 vendor/lib64/libacdb-fts.so
 vendor/lib64/libacdbloader.so
