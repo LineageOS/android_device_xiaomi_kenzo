@@ -210,10 +210,6 @@
 /sys/devices/soc.0/78b5000.i2c/i2c-1/1-0045/leds/green		blink	0660	input	system
 /sys/devices/soc.0/78b5000.i2c/i2c-1/1-0045/leds/blue		blink	0660	input	system
 
-# vm_bms
-/dev/vm_bms               0660   system     system
-/dev/battery_data         0660   system     system
-
 # wlan
 /dev/wcnss_wlan           0660   system     system
 /dev/wcnss_ctrl           0660   system     system
