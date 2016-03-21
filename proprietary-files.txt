@@ -53,11 +53,10 @@ vendor/lib/libacdbloader.so
 vendor/lib/libacdbrtac.so
 vendor/lib/libadiertac.so
 vendor/lib/libaudcal.so
-vendor/lib/soundfx/libhwdap.so
+vendor/lib/libhwdaphal.so
 vendor/lib/soundfx/libqcbassboost.so
 vendor/lib/soundfx/libqcreverb.so
 vendor/lib/soundfx/libqcvirt.so
-vendor/lib/soundfx/libswdap.so
 
 # Camera
 bin/mm-qcamera-daemon
