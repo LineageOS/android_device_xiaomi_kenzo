@@ -558,22 +558,26 @@ vendor/lib/libqmi.so
 vendor/lib/libsmemlog.so
 
 # Radio
+-priv-app/qcrilmsgtunnel/qcrilmsgtunnel.apk
+-app/shutdownlistener/shutdownlistener.apk
 bin/netmgrd
 bin/qmuxd
 bin/radish
 bin/rmt_storage
-lib64/libhtc_rilhook.so
-lib64/libril.so
+etc/permissions/qcnvitems.xml
+etc/permissions/qcrilhook.xml
+-framework/qcnvitems.jar
+-framework/qcrilhook.jar
 vendor/lib64/libcneapiclient.so
 vendor/lib64/libconfigdb.so
-vendor/lib64/libhtcril_db.so
-vendor/lib64/liblqe.so
 vendor/lib64/libmdmdetect.so
 vendor/lib64/libnetmgr.so
+vendor/lib64/libperipheral_client.so
 vendor/lib64/libril-qc-qmi-1.so
 vendor/lib64/libril-qcril-hook-oem.so
 vendor/lib64/libsystem_health_mon.so
 vendor/lib64/libxml.so
+vendor/lib/libmdmdetect.so
 
 # Sensors
 lib64/hw/sensors.msm8952.so

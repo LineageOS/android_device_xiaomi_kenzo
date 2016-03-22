@@ -56,5 +56,15 @@ ro.use_data_netmgrd=true
 persist.data.netmgrd.qos.enable=true
 persist.radio.multisim.config=dsds
 
+#
+# system props for the cne module
+#
+persist.cne.feature=1
+
+# Data Power Manager (DPM)
+persist.dpm.feature=7
+persist.dpm.nsrm.bkg.evt=16251
+persist.sys.dpmd.nsrm=3
+
 # Wifi
 wifi.interface=wlan0

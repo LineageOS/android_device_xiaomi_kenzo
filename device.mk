@@ -80,6 +80,14 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/audio/audio_policy.conf:system/etc/audio_policy.conf \
     $(LOCAL_PATH)/audio/mixer_paths.xml:system/etc/mixer_paths.xml
 
+# Connectivity Engine support (CNE)
+PRODUCT_PACKAGES += \
+    libcnefeatureconfig
+
+# DataServices
+PRODUCT_PACKAGES += \
+    librmnetctl
+
 # Display
 PRODUCT_PACKAGES += \
     copybit.msm8952 \
@@ -166,11 +174,6 @@ PRODUCT_PACKAGES += \
     init.qcom.usb.rc \
     init.recovery.qcom.rc \
     ueventd.qcom.rc
-
-# RIL
-PRODUCT_PACKAGES += \
-    libcnefeatureconfig \
-    librmnetctl
 
 # Thermal
 PRODUCT_COPY_FILES += \

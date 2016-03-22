@@ -75,6 +75,10 @@ BLUETOOTH_HCI_USE_MCT := true
 BOARD_USES_CYANOGEN_HARDWARE := true
 BOARD_HARDWARE_CLASS += hardware/cyanogen/cmhw
 
+# CNE and DPM
+BOARD_USES_QCNE := true
+TARGET_LDPRELOAD := libNimsWrap.so
+
 # Dex pre-opt to speed up initial boot
 ifneq ($(TARGET_USES_AOSP),true)
   ifeq ($(HOST_OS),linux)
