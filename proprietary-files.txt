@@ -367,34 +367,17 @@ vendor/lib/libmmcamera_s5k3p3_f16s01c.so
 
 # DRM
 bin/qseecomd
+lib/libdrmdecrypt.so
 vendor/lib64/libdrmfs.so
 vendor/lib64/libdrmtime.so
 vendor/lib64/libQSEEComAPI.so
 vendor/lib64/librpmb.so
 vendor/lib64/libssd.so
-vendor/lib/libQSEEComAPI.so
-
-# DRM firmware
-etc/firmware/cmnlib.b00
-etc/firmware/cmnlib.b01
-etc/firmware/cmnlib.b02
-etc/firmware/cmnlib.b03
-etc/firmware/cmnlib.mdt
-etc/firmware/dxhdcp2.b00
-etc/firmware/dxhdcp2.b01
-etc/firmware/dxhdcp2.b02
-etc/firmware/dxhdcp2.b03
-etc/firmware/dxhdcp2.mdt
-etc/firmware/htc_drmprov.b00
-etc/firmware/htc_drmprov.b01
-etc/firmware/htc_drmprov.b02
-etc/firmware/htc_drmprov.b03
-etc/firmware/htc_drmprov.mdt
-etc/firmware/widevine.b00
-etc/firmware/widevine.b01
-etc/firmware/widevine.b02
-etc/firmware/widevine.b03
-etc/firmware/widevine.mdt
+vendor/lib/libwvdrm_L3.so
+vendor/lib/libwvm.so
+vendor/lib/libWVStreamControlAPI_L3.so
+vendor/lib/drm/libdrmwvmplugin.so
+vendor/lib/mediadrm/libwvdrmengine.so
 
 # Fingerprint
 etc/firmware/fpctzappfingerprint.b00
@@ -595,11 +578,3 @@ bin/time_daemon
 -vendor/lib64/libTimeService.so
 -vendor/lib/libtime_genoff.so
 -vendor/lib/libTimeService.so
-
-# Widevine
-lib/libdrmdecrypt.so
-vendor/lib/drm/libdrmwvmplugin.so
-vendor/lib/libwvdrm_L1.so
-vendor/lib/libwvm.so
-vendor/lib/libWVStreamControlAPI_L1.so
-vendor/lib/mediadrm/libwvdrmengine.so
