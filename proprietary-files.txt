@@ -379,20 +379,6 @@ vendor/lib/libWVStreamControlAPI_L3.so
 vendor/lib/drm/libdrmwvmplugin.so
 vendor/lib/mediadrm/libwvdrmengine.so
 
-# Fingerprint
-etc/firmware/fpctzappfingerprint.b00
-etc/firmware/fpctzappfingerprint.b01
-etc/firmware/fpctzappfingerprint.b02
-etc/firmware/fpctzappfingerprint.b03
-etc/firmware/fpctzappfingerprint.mdt
-lib64/hw/fingerprint.msm8952.so
-lib64/lib_fpc_tac_shared.so
-lib64/lib_fp_img_store.so
-lib/hw/fingerprint.msm8952.so
-lib/lib_fpc_tac_shared.so
-lib/lib_fp_img_store.so
-vendor/lib64/hw/gatekeeper.msm8952.so
-
 # GPS
 lib64/hw/gps.default.so
 lib64/libgps.utils.so
@@ -453,13 +439,6 @@ etc/firmware/a420_pm4.fw
 
 # IPA
 bin/ipacm-diag
-
-# Keymaster
-etc/firmware/keymaste.b00:vendor/firmware/keymaster/keymaster.b00
-etc/firmware/keymaste.b01:vendor/firmware/keymaster/keymaster.b01
-etc/firmware/keymaste.b02:vendor/firmware/keymaster/keymaster.b02
-etc/firmware/keymaste.b03:vendor/firmware/keymaster/keymaster.b03
-etc/firmware/keymaste.mdt:vendor/firmware/keymaster/keymaster.mdt
 
 # Media
 vendor/lib/libI420colorconvert.so
