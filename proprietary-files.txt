@@ -58,6 +58,11 @@ vendor/lib/soundfx/libqcbassboost.so
 vendor/lib/soundfx/libqcreverb.so
 vendor/lib/soundfx/libqcvirt.so
 
+# Bluetooth
+bin/btnvtool
+bin/hci_qcomm_init
+vendor/lib64/libbtnv.so
+
 # Camera
 bin/mm-qcamera-daemon
 lib/hw/camera.msm8952.so
@@ -562,6 +567,6 @@ vendor/lib/libthermalclient.so
 -app/TimeService/TimeService.apk
 bin/time_daemon
 -vendor/lib64/libtime_genoff.so
--vendor/lib64/libTimeService.so
 -vendor/lib/libtime_genoff.so
--vendor/lib/libTimeService.so
+vendor/lib64/libTimeService.so
+vendor/lib/libTimeService.so
