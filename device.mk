@@ -171,7 +171,8 @@ PRODUCT_PACKAGES += \
 
 # Qualcomm dependencies
 PRODUCT_PACKAGES += \
-    libtinyxml
+    libtinyxml \
+    libxml2
 
 # Ramdisk
 PRODUCT_PACKAGES += \
