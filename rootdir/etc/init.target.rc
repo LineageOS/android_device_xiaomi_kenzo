@@ -33,8 +33,8 @@ on early-init
     symlink /data/tombstones /tombstones
     mkdir /dsp 0771 media media
 
-on init
-    mkdir /cust 0771 system system
+on post-fs
+    export LD_PRELOAD libNimsWrap.so
 
 on fs
     mount_all fstab.qcom
@@ -48,12 +48,12 @@ on fs
 
     wait /dev/block/bootdevice/by-name/persist
     mount ext4 /dev/block/bootdevice/by-name/persist /persist nosuid nodev barrier=1
-    mkdir /persist/data 0700 system system
-    restorecon_recursive /persist
+    mkdir /persist/data 0700  system system
+    restorecon_recursive   /persist
 
     wait /dev/block/bootdevice/by-name/dsp
     mount ext4 /dev/block/bootdevice/by-name/dsp /dsp nosuid nodev barrier=1
-    restorecon_recursive /dsp
+    restorecon_recursive   /dsp
 
     wait /dev/block/bootdevice/by-name/modem
     mount vfat /dev/block/bootdevice/by-name/modem /firmware ro context=u:object_r:firmware_file:s0,shortname=lower,uid=1000,gid=1000,dmask=227,fmask=337
@@ -61,16 +61,6 @@ on fs
     
     chown system system  /dev/goodix_fp
     chmod 0644 /dev/goodix_fp
-
-on post-fs
-    # We chown/chmod /cust again so because mount is run as root + defaults
-    chown system system /cust
-    chmod 0771 /cust
-    # We restorecon /cust in case the cust partition has been reset.
-    restorecon_recursive /cust
-
-    # create the lost+found directories, so as to enforce our permissions
-    mkdir /cust/lost+found 0770 root root
 
 on post-fs-data
     mkdir /data/tombstones 0771 system system
@@ -134,7 +124,7 @@ service qseecomd /system/bin/qseecomd
 #   user system
 #   group system net_raw
 
-service perfd /system/bin/perfd
+service perfd /system/vendor/bin/perfd
    class main
    user root
    disabled
@@ -146,7 +136,7 @@ service seempd /system/bin/seempd
    socket seempdw dgram 0666 system system
    oneshot
 
-service thermal-engine /system/bin/thermal-engine
+service thermal-engine /system/vendor/bin/thermal-engine
    class main
    user root
    socket thermal-send-client stream 0666 system system
