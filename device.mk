@@ -167,13 +167,13 @@ PRODUCT_PACKAGES += \
     fstab.qcom \
     init.crda.sh \
     init.qcom.bt.sh \
-    init.qcom.coex.sh
+    init.qcom.coex.sh \
+    init.qcom.post_boot.sh
 
 PRODUCT_PACKAGES += \
     init.qcom.rc \
-    init.qcom.power.rc \
     init.qcom.usb.rc \
-    init.recovery.qcom.rc \
+    init.target.rc \
     ueventd.qcom.rc
 
 # Thermal
