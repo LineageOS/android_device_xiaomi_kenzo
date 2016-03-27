@@ -56,6 +56,9 @@ TARGET_KERNEL_CONFIG := cyanogenmod_kenzo_defconfig
 TARGET_KERNEL_CROSS_COMPILE_PREFIX := aarch64-linux-android-
 TARGET_USES_UNCOMPRESSED_KERNEL := true
 
+# ANT+
+BOARD_ANT_WIRELESS_DEVICE := "vfs-prerelease"
+
 # Assert
 TARGET_OTA_ASSERT_DEVICE := kenzo
 
