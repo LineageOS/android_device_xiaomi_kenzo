@@ -177,15 +177,12 @@ PRODUCT_PACKAGES += \
 # Ramdisk
 PRODUCT_PACKAGES += \
     fstab.qcom \
-    init.crda.sh \
     init.qcom.bt.sh \
-    init.qcom.coex.sh \
     init.qcom.post_boot.sh
 
 PRODUCT_PACKAGES += \
     init.qcom.rc \
     init.qcom.usb.rc \
-    init.target.rc \
     ueventd.qcom.rc
 
 # Wifi

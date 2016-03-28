@@ -27,15 +27,14 @@
 
 import init.qcom.usb.rc
 import init.target.rc
-import init.qcom.factory.rc
 
 on early-init
-    mount debugfs debugfs /sys/kernel/debug
-    insmod /sbin/qcrypto_module.ko
-    insmod /sbin/qdrbg_module.ko
-
+    mkdir /firmware 0771 system system
+    mkdir /system 0777 root root
+    symlink /data/tombstones /tombstones
+    mkdir /dsp 0771 media media
+    
 on init
-    start qfintverify
     # Set permissions for persist partition
     mkdir /persist 0771 system system
 
@@ -105,15 +104,12 @@ on boot
 #   ReadMin, ReadInitial, ReadMax, WriteMin, WriteInitial, WriteMax,
     setprop net.tcp.buffersize.wifi    524288,2097152,4194304,262144,524288,1048576
 
-
     setprop ro.telephony.call_ring.multiple false
 
     #Remove SUID bit for iproute2 ip tool
     chmod 0755 /system/bin/ip
 
-
     chmod 0444 /sys/devices/platform/msm_hsusb/gadget/usb_state
-
 
 #   Define TCP buffer sizes for various networks
 #   ReadMin, ReadInitial, ReadMax, WriteMin, WriteInitial, WriteMax,
@@ -184,6 +180,17 @@ on boot
     write /data/misc/radio/db_check_done 0
     chown radio radio /data/misc/radio/db_check_done
     chmod 0660 /data/misc/radio/db_check_done
+
+on fs
+    mount_all fstab.qcom
+    mkdir /persist/data 0700 system system
+    restorecon_recursive /persist
+
+    chown system system  /dev/goodix_fp
+    chmod 0644 /dev/goodix_fp
+
+on post-fs
+    export LD_PRELOAD libNimsWrap.so
 
 # msm specific files that need to be created on /data
 on post-fs-data
@@ -282,10 +289,6 @@ on post-fs-data
     mkdir /data/system/perfd 0770 root system
     chmod 2770 /data/system/perfd
 
-    # NFC local data and nfcee xml storage
-    mkdir /data/nfc 0770 nfc nfc
-    mkdir /data/nfc/param 0770 nfc nfc
-
     # Sensor
     mkdir /persist/sensors 0770 system system
 
@@ -297,11 +300,14 @@ on post-fs-data
     mkdir /data/misc/SelfHost/Running/ 2750 system shell
     mkdir /data/misc/SelfHost/socket/ 2770 system system
 
-service qfintverify /sbin/qfintverify
-    user root
-    class core
-    seclabel u:r:qfips:s0
-    oneshot
+    mkdir /data/tombstones 0771 system system
+    mkdir /tombstones/modem 0771 system system
+    mkdir /tombstones/lpass 0771 system system
+    mkdir /tombstones/wcnss 0771 system system
+    mkdir /tombstones/dsps 0771 system system
+    mkdir /persist/data/sfs 0700 system system
+    mkdir /persist/data/tz 0700 system system
+    mkdir /data/misc/dts 0770 media audio
 
 service qcomsysd /system/bin/qcom-system-daemon
     class main
@@ -317,9 +323,6 @@ service ss_ramdump /system/bin/subsystem_ramdump
     user system
     group system
     disabled
-
-on property:persist.sys.ssr.restart_level=*
-    start ssr_setup
 
 on property:persist.sys.ssr.enable_ramdumps=1
     write /sys/module/subsystem_restart/parameters/enable_ramdumps 1
@@ -342,15 +345,6 @@ on property:persist.radio.atfwd.start=false
 on property:persist.debug.trace=1
     mkdir /data/core 0777 root root
     write /proc/sys/kernel/core_pattern "/data/core/%E.%p.%e"
-
-#wangxun
-service iwprivftm /system/bin/sh /system/etc/iwpriv.agent.sh
-    oneshot
-    disabled
-    
-on property:persist.sys.iwpriv=1
-    start iwprivftm
-#end
 
 on property:init.svc.wpa_supplicant=stopped
     stop dhcpcd
@@ -380,18 +374,7 @@ on property:bluetooth.startbtsnoop=true
 on property:bluetooth.startbtsnoop=false
     stop btsnoop
 
-service qcom-c_core-sh /system/bin/sh /init.qcom.class_core.sh
-    class core
-    user root
-    oneshot
-
-service qcom-c_main-sh /system/bin/sh /init.class_main.sh
-    class main
-    user root
-    oneshot
-
 on property:vold.decrypt=trigger_restart_framework
-    start qcom-c_main-sh
     start config_bluetooth
     start wcnss-service
 
@@ -449,159 +432,11 @@ service hciattach /system/bin/sh /system/etc/init.qcom.bt.sh
     disabled
     oneshot
 
-service blueduttest /system/bin/sh /system/etc/bluedut.sh
-    class late_start
-    user root
-    disabled
-    oneshot
-
-# openwifi service for factory&RF wifi test.
-service openwifi /system/bin/sh /system/etc/wifitest.sh
-    class late_start
-    user root
-    disabled
-    oneshot
-
-service closewifi /system/bin/sh /system/etc/wifitest_close.sh
-    class late_start
-    user root
-    disabled
-    oneshot
-
 on property:bluetooth.hciattach=true
     start hciattach
 
 on property:bluetooth.hciattach=false
     setprop bluetooth.status off
-service write_tp /system/bin/write_tp 
-    class main
-    user root
-    group root
-    oneshot
-    disabled
-on property:sys.debug.write_tp=1
-    start write_tp
-service sensors_test1 /system/bin/sensors_test 5 c c 
-    class main
-    user root
-    group root
-    oneshot
-    disabled
-on property:sys.debug.msensor_test=1
-    start sensors_test1
-service sensors_test2 /system/bin/sensors_test 5 l
-    class main
-    user root
-    group root
-    oneshot
-    disabled
-on property:sys.debug.blackcard_test=1
-    start sensors_test2
-service sensors_test3 /system/bin/sensors_test 5 l c 
-    class main
-    user root
-    group root
-    oneshot
-    disabled
-on property:sys.debug.psensor_test=1
-    start sensors_test3
-service sensors_test4 /system/bin/sensors_test 5 a c 
-    class main
-    user root
-    group root
-    oneshot
-    disabled
-on property:sys.debug.acc_test=1
-    start sensors_test4
-
-service sensors_test5 /system/bin/sensors_test 5 g c 
-    class main
-    user root
-    group root
-    oneshot
-    disabled
-on property:sys.debug.gysensor_test=1
-    start sensors_test5
-service sensors_testgy /system/bin/sensors_test 5 g 
-    class main
-    user root
-    group root
-    oneshot
-    disabled
-on property:sys.debug.gysensor_read=1
-    start sensors_testgy
-service consumerir_test /system/bin/consumerir_test
-    class main
-    user root
-    group root
-    oneshot
-    disabled
-on property:sys.debug.consumerir_test=1
-    start consumerir_test
-service write_tp2 /system/bin/write_tp2 
-    class main
-    user root
-    group root
-    oneshot
-    disabled
-on property:sys.debug.write_tp2=1
-    start write_tp2
-
-service led_on /system/bin/led_on 
-    class main
-    user root
-    group root
-    oneshot
-    disabled
-on property:sys.debug.led_on=1
-    start led_on
-service led_off /system/bin/led_off 
-    class main
-    user root
-    group root
-    oneshot
-    disabled
-on property:sys.debug.led_off=1
-    start led_off
-
-service torch0_on /system/bin/torch0_on 
-    class main
-    user root
-    group root
-    oneshot
-    disabled
-on property:sys.debug.torch0_on=1
-    start torch0_on
-service torch0_off /system/bin/torch0_off 
-    class main
-    user root
-    group root
-    oneshot
-    disabled
-on property:sys.debug.torch0_off=1
-    start torch0_off
-service torch1_on /system/bin/torch1_on 
-    class main
-    user root
-    group root
-    oneshot
-    disabled
-on property:sys.debug.torch1_on=1
-    start torch1_on
-service torch1_off /system/bin/torch1_off 
-    class main
-    user root
-    group root
-    oneshot
-    disabled
-on property:sys.debug.torch1_off=1
-    start torch1_off
-service hciattach_ath3k /system/bin/sh /system/etc/init.ath3k.bt.sh
-     class late_start
-     user bluetooth
-     group system bluetooth net_bt_admin misc
-     disabled
-     oneshot
 
 service bt-dun /system/bin/dun-server /dev/smd7 /dev/rfcomm0
     class late_start
@@ -685,31 +520,6 @@ on property:ro.data.large_tcp_window_size=true
 on property:sys.sysctl.tcp_adv_win_scale=*
     write /proc/sys/net/ipv4/tcp_adv_win_scale ${sys.sysctl.tcp_adv_win_scale}
 
-service btwlancoex /system/bin/sh /system/etc/init.qcom.coex.sh
-    class late_start
-    user bluetooth
-    group bluetooth net_bt_admin inet net_admin net_raw
-    disabled
-    oneshot
-
-service amp_init /system/bin/amploader -i
-    class late_start
-    user root
-    disabled
-    oneshot
-
-service amp_load /system/bin/amploader -l 7000
-    class late_start
-    user root
-    disabled
-    oneshot
-
-service amp_unload /system/bin/amploader -u
-    class late_start
-    user root
-    disabled
-    oneshot
-
 service p2p_supplicant /system/bin/wpa_supplicant \
     -ip2p0 -Dnl80211 -c/data/misc/wifi/p2p_supplicant.conf \
     -I/system/etc/wifi/p2p_supplicant_overlay.conf -N \
@@ -785,12 +595,6 @@ service wifi_ftmd /system/bin/wifi_ftmd
 on property:wifi.ftmd.load=true
     insmod /system/lib/modules/wlan.ko con_mode=5
 
-service cnss_diag /system/bin/cnss_diag --q
-    class main
-    user root
-    group root
-    oneshot
-
 service cnss-daemon /system/bin/cnss-daemon -n -l
     class late_start
 
@@ -829,33 +633,9 @@ service loc_launcher /system/bin/loc_launcher
     class late_start
     group gps inet net_raw qcom_diag net_admin wifi
 
-service fm_dl /system/bin/sh /system/etc/init.qcom.fm.sh
-    class late_start
-    user system
-    group system
-    disabled
-    oneshot
-
 on property:crypto.driver.load=1
      insmod /system/lib/modules/qce.ko
      insmod /system/lib/modules/qcedev.ko
-
-service drmdiag /system/bin/drmdiagapp
-    class late_start
-     user root
-     disabled
-     oneshot
-
-on property:drmdiag.load=1
-    start drmdiag
-
-on property:drmdiag.load=0
-    stop drmdiag
-
-service qcom-sh /system/bin/sh /init.qcom.sh
-    class late_start
-    user root
-    oneshot
 
 service qcom-post-boot /system/bin/sh /system/etc/init.qcom.post_boot.sh
     class late_start
@@ -863,27 +643,8 @@ service qcom-post-boot /system/bin/sh /system/etc/init.qcom.post_boot.sh
     disabled
     oneshot
 
-service wifi-sdio-on /system/bin/sh /system/etc/init.qcom.sdio.sh
-    class late_start
-    group wifi inet
-    disabled
-    oneshot
-
-service wifi-crda /system/bin/sh /system/etc/init.crda.sh
-   class late_start
-   user root
-   disabled
-   oneshot
-
-service config-zram /system/bin/sh /system/etc/init.qcom.zram.sh
-   class late_start
-   user root
-   disabled
-   oneshot
-
 on property:sys.boot_completed=1
     start qcom-post-boot
-    start config-zram
 
 service atfwd /system/bin/ATFWD-daemon
     class late_start
@@ -930,36 +691,6 @@ service ril-daemon3 /system/bin/rild -c 3
     disabled
     group radio cache inet misc audio sdcard_r sdcard_rw diag qcom_diag log
 
-service usb_uicc_enable /system/bin/sh /system/etc/init.qcom.uicc.sh
-    class late_start
-    user root
-    disabled
-    oneshot
-
-service usb_uicc_daemon /system/bin/usb_uicc_client
-    class main
-    user system
-    group system log net_raw
-    oneshot
-
-on property:sys.usb_uicc.enabled=1
-    start usb_uicc_enable
-
-on property:sys.usb_uicc.enabled=0
-    start usb_uicc_enable
-
-service profiler_daemon /system/bin/profiler_daemon
-    class late_start
-    user root
-    group root
-    disabled
-
-service hcidump /system/bin/sh /system/etc/hcidump.sh
-    user bluetooth
-    group bluetooth system net_bt_admin net_admin
-    disabled
-    oneshot
-
 service charger /charger
     class charger
 
@@ -980,6 +711,12 @@ on property:persist.usb.hvdcp.detect=true
 on property:persist.usb.hvdcp.detect=false
     stop hvdcp
 
+#start camera server as daemon
+service qcamerasvr /system/bin/mm-qcamera-daemon
+    class late_start
+    user camera
+    group camera system inet input graphics
+
 service charger_monitor /system/bin/charger_monitor
     user root
     group root
@@ -989,6 +726,75 @@ service qbcharger /charger -m 1
     disabled
     oneshot
 
+service qfp-daemon /system/bin/qfp-daemon
+   class late_start
+   user system
+   group system drmrpc
+
+service qseecomd /system/bin/qseecomd
+   class core
+   user root
+   group root
+
+service perfd /system/vendor/bin/perfd
+   class main
+   user root
+   disabled
+
+service thermal-engine /system/vendor/bin/thermal-engine
+   class main
+   user root
+   socket thermal-send-client stream 0666 system system
+   socket thermal-recv-client stream 0660 system system
+   socket thermal-recv-passive-client stream 0666 system system
+   group root
+
+service time_daemon /system/bin/time_daemon
+   class late_start
+   user root
+   group root
+
+service audiod /system/bin/audiod
+   class late_start
+   user system
+   group system
+
+service wcnss-service /system/bin/wcnss_service
+    class main
+    user system
+    group system wifi radio
+    oneshot
+
+service adsprpcd /system/bin/adsprpcd
+    class main
+    user media
+    group media
+
+service per_mgr /system/bin/pm-service
+    class core
+    user system
+    group system net_raw
+
+service energy-awareness /system/bin/energy-awareness
+    class main
+    user root
+    group system
+    oneshot
+    disabled
+
+service ppd /system/vendor/bin/mm-pp-daemon
+    class late_start
+    disabled
+    user system
+    socket pps stream 0660 system system
+    group system graphics
+
+on property:init.svc.surfaceflinger=stopped
+    stop ppd
+
+on property:init.svc.surfaceflinger=running
+    start ppd
+
 on property:sys.qbcharger.enable=true
     write /sys/power/wake_lock QuickBoot
     start qbcharger
@@ -997,12 +803,60 @@ on property:sys.qbcharger.enable=false
     write /sys/power/wake_unlock QuickBoot
     stop qbcharger
 
-service diag_mdlog_start /system/bin/diag_mdlog
-    class late_start
-    user shell
-    group system qcom_diag sdcard_rw sdcard_r media_rw
-    disabled
-    oneshot
+# Allow usb charging to be disabled peristently
+on property:persist.usb.chgdisabled=1
+    write /sys/class/power_supply/battery/charging_enabled 0
+
+on property:persist.usb.chgdisabled=0
+    write /sys/class/power_supply/battery/charging_enabled 1
+
+on property:persist.sys.display_prefer=0
+    write /sys/class/graphics/fb0/msm_fb_dispparam 0
+
+on property:persist.sys.display_prefer=1
+    write /sys/class/graphics/fb0/msm_fb_dispparam 1
+
+on property:persist.sys.display_prefer=2
+    write /sys/class/graphics/fb0/msm_fb_dispparam 2
+
+on property:persist.sys.display_prefer=3
+    write /sys/class/graphics/fb0/msm_fb_dispparam 3
+
+on property:persist.sys.display_ce=10
+    write /sys/class/graphics/fb0/msm_fb_dispparam 240
+
+on property:persist.sys.display_ce=11
+    write /sys/class/graphics/fb0/msm_fb_dispparam 16
+
+on property:persist.sys.display_eyecare=0
+    write /sys/class/graphics/fb0/msm_fb_eyecare 0
+
+on property:persist.sys.display_eyecare=1
+    write /sys/class/graphics/fb0/msm_fb_eyecare 1
+    
+on property:persist.sys.display_eyecare=2
+    write /sys/class/graphics/fb0/msm_fb_eyecare 2
+
+on property:persist.sys.display_eyecare=3
+    write /sys/class/graphics/fb0/msm_fb_eyecare 3
+
+on property:persist.sys.display_eyecare=4
+    write /sys/class/graphics/fb0/msm_fb_eyecare 4
+
+ on property:persist.sys.display_eyecare=5
+    write /sys/class/graphics/fb0/msm_fb_eyecare 5
+
+ on property:persist.sys.display_eyecare=6
+    write /sys/class/graphics/fb0/msm_fb_eyecare 6
+
+ on property:persist.sys.display_eyecare=7
+    write /sys/class/graphics/fb0/msm_fb_eyecare 7
+
+ on property:persist.sys.display_eyecare=8
+    write /sys/class/graphics/fb0/msm_fb_eyecare 8
+
+on charger
+    start qcom-post-boot
 
 service diag_mdlog_stop /system/bin/diag_mdlog -k
     class late_start
@@ -1041,14 +895,6 @@ service logd_t2 /system/bin/logd_t2
 
 on property:sys.logd_t2.enable=1
     start logd_t2
-
-service rootagent /system/bin/sh /system/etc/init.qcom.rootagent.sh
-    disabled
-    oneshot
-on property:persist.sys.rootagent=1
-    start rootagent
-on property:persist.sys.rootagent=0
-    stop rootagent
 
 service msm_irqbalance /system/bin/msm_irqbalance -f /system/vendor/etc/msm_irqbalance.conf
     class core
@@ -1089,34 +935,6 @@ service fidodaemon /system/vendor/bin/fidodaemon
     user system
     group system
 
-# Coresight early boot service
-service cs-early-boot /system/bin/sh /persist/coresight/qdss.agent.sh early-boot /system/etc/init.qcom.debug.sh
-    class core
-    user root
-    oneshot
-
-# Coresight post boot servive
-service cs-post-boot /system/bin/sh /persist/coresight/qdss.agent.sh
-    user root
-    disabled
-    oneshot
-
-on property:sys.boot_completed=1
-    start cs-post-boot
-
-on property:sys.dbg.coresight.enable=1
-    write /persist/coresight/enable 1
-
-on property:sys.dbg.coresight.enable=0
-    write /persist/coresight/enable 0
-
-# bugreport is triggered by developer options
-service bugreport /system/bin/dumpstate -d -p -B \
-        -o /data/data/com.android.shell/files/bugreports/bugreport
-    class main
-    disabled
-    oneshot
-
 service fpcd /system/bin/fpcd
     socket fpcd stream 0666 system system
     seclabel u:r:fpcd:s0
@@ -1148,6 +966,24 @@ on property:sys.audio_ftm_loopback=1
 on property:sys.audio_ftm_loopback=0
     stop mm_audio_ftm
 #<++++	xuke @ 201151028	Audio loopback test.
+
+service displayfeature /system/bin/displayfeature
+    class late_start
+    user system
+    group system
+
+service mtservice /system/bin/mtd
+    class late_start
+    
+service fpdaemon /system/bin/gxFpDaemon
+    user system
+    group system
+    class late_start
+    disabled
+    
+on property:persist.sys.fp.goodix=1    
+    stop fpcd
+    start fpdaemon
 
 on property:persist.sys.runin=enable
     write /sys/class/power_supply/battery/device/BatteryTestStatus 1
