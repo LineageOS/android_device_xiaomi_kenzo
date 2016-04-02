@@ -21,7 +21,7 @@
 
 #ifndef _BDROID_BUILDCFG_H
 #define _BDROID_BUILDCFG_H
-#define BTM_DEF_LOCAL_NAME   "Redmi Note 3"
+#define BTM_DEF_LOCAL_NAME   "Xiaomi HM Note3"
 // Disables read remote device feature
 #define BTA_SKIP_BLE_READ_REMOTE_FEAT FALSE
 #define MAX_ACL_CONNECTIONS    7
@@ -33,4 +33,3 @@
 #define BTM_LE_SECURE_CONN  TRUE
 #define BT_CLEAN_TURN_ON_DISABLED 1
 #endif
- 
