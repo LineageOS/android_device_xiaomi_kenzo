@@ -120,6 +120,9 @@ OVERRIDE_RS_DRIVER:= libRSDriver_adreno.so
 # Enable real-time face beautification
 TARGET_TS_MAKEUP := true
 
+# Encryption
+TARGET_HW_DISK_ENCRYPTION := true
+
 # Filesystem
 BOARD_FLASH_BLOCK_SIZE := 131072 # (BOARD_KERNEL_PAGESIZE * 64)
 BOARD_BOOTIMAGE_PARTITION_SIZE := 67108864
