@@ -89,9 +89,23 @@
     <!-- If this is true, the screen will come on when you unplug usb/power/whatever. -->
     <bool name="config_unplugTurnsOnScreen">true</bool>
 
+    <!-- If this is true, the screen will fade off. -->
+    <bool name="config_animateScreenLights">false</bool>
+
+    <!-- When true use the linux /dev/input/event subsystem to detect the switch changes
+     on the headphone/microphone jack. When false use the older uevent framework -->
+    <bool name="config_useDevInputEventForAudioJack">true</bool>
+
     <!-- Boolean indicating if restoring network selection should be skipped -->
     <!-- The restoring is handled by modem if it is true -->
     <bool translatable="false" name="skip_restoring_network_selection">true</bool>
+
+    <!-- Make things go fast -->
+    <bool name="config_ui_enableFadingMarquee">false</bool>
+
+    <!-- Configuration to restart radio upon PDP_DEACTIVATE with
+         error cause as Regular deactivation(36). -->
+    <bool name="config_restart_radio_on_pdp_fail_regular_deactivation">false</bool>
 
     <!-- Set to true to add links to Cell Broadcast app from Settings and MMS app. -->
     <bool name="config_cellBroadcastAppLinks">true</bool>
@@ -124,6 +138,11 @@
     <!-- reference volume index for music stream to limit headphone volume and display warning -->
     <integer name="config_safe_media_volume_index">10</integer>
 
+    <!-- Indicate whether closing the lid causes the device to go to sleep and opening
+         it causes the device to wake up.
+         The default is false. -->
+    <bool name="config_lidControlsSleep">true</bool>
+
     <!-- List of regexpressions describing the interface (if any) that represent tetherable
          USB interfaces.  If the device doesn't want to support tething over USB this should
          be empty.  An example would be "usb.*" -->
@@ -138,6 +157,9 @@
     <string-array translatable="false" name="config_tether_wifi_regexs">
         <item>"wlan0"</item>
     </string-array>
+
+    <!-- Boolean indicating if current platform supports BLE peripheral mode -->
+    <bool name="config_bluetooth_le_peripheral_mode_supported">true</bool>
 
     <!-- List of regexpressions describing the interface (if any) that represent tetherable
          bluetooth interfaces.  If the device doesn't want to support tethering over bluetooth this
@@ -192,6 +214,14 @@
         <item>7,1</item>
         <item>9,1</item>
     </string-array>
+
+    <!-- Vibrator pattern for feedback about a long screen/key press -->
+    <integer-array name="config_longPressVibePattern">
+        <item>0</item>
+        <item>1</item>
+        <item>20</item>
+        <item>21</item>
+    </integer-array>
 
     <!-- Whether WiFi display is supported by this device.
          There are many prerequisites for this feature to work correctly.
