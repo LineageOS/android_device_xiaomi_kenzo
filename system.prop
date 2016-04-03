@@ -1,12 +1,16 @@
 # Audio
 audio.dolby.ds2.enabled=true
+audio.deep_buffer.media=true
 audio.offload.buffer.size.kb=64
 audio.offload.gapless.enabled=true
 audio.offload.min.duration.secs=30
 audio.offload.multiple.enabled=false
 audio.offload.pcm.16bit.enable=true
 audio.offload.pcm.24bit.enable=true
-av.offload.enable=true
+audio.offload.video=true
+audio.playback.mch.downsample=true
+audio.pp.asphere.enabled=false
+audio.safx.pbe.enabled=true
 
 persist.audio.fluence.voicecall=true
 persist.audio.fluence.voicerec=true
@@ -47,6 +51,14 @@ persist.hwc.downscale_threshold=1.15
 ro.opengles.version=196609
 ro.sf.lcd_density=480
 
+# Fingerprint
+persist.sys.fp.goodix=0
+persist.qfp=false
+
+# GPS
+persist.gps.qc_nlp_in_use=1
+ro.gps.agps_provider=1
+
 # HWUI properties
 ro.hwui.texture_cache_size=72
 ro.hwui.layer_cache_size=48
@@ -63,6 +75,16 @@ ro.hwui.text_large_cache_height=2048
 # IO Scheduler
 sys.io.scheduler=bfq
 
+# Media
+mm.enable.smoothstreaming=true
+mmp.enable.3g2=true
+media.aac_51_output_enabled=true
+
+# Netmgrd
+ro.use_data_netmgrd=true
+persist.data.netmgrd.qos.enable=true
+persist.data.mode=concurrent
+
 # NITZ
 persist.rild.nitz_plmn=
 persist.rild.nitz_long_ons_0=
@@ -77,17 +99,21 @@ persist.rild.nitz_short_ons_3=
 # Perf
 ro.vendor.extension_library=libqti-perfd-client.so
 
+# Qualcomm
+ro.qualcomm.cabl=0
+
 # Radio
-rild.libpath=/vendor/lib/libril-qc-qmi-1.so
-rild.libargs=-d /dev/smd0
-ril.subscription.types=RUIM
 DEVICE_PROVISIONED=1
-ro.telephony.default_network=9
-telephony.lteOnGsmDevice=1
-persist.radio.rat_on=combine
-ro.use_data_netmgrd=true
-persist.data.netmgrd.qos.enable=true
+persist.radio.apm_sim_not_pwdn=1
 persist.radio.multisim.config=dsds
+persist.radio.rat_on=combine
+rild.libargs=-d /dev/smd0
+rild.libpath=/vendor/lib64/libril-qc-qmi-1.so
+ril.subscription.types=RUIM
+ro.telephony.default_network=9
+
+# Time
+persist.timed.enable=true
 
 # Wifi
 wifi.interface=wlan0
