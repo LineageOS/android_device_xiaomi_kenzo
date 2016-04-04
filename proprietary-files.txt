@@ -557,10 +557,6 @@ vendor/lib/libmdmdetect.so
 # Sensors
 lib64/hw/sensors.msm8952.so
 
-# Stlport
-lib64/libstlport.so
-lib/libstlport.so
-
 # Thermal
 vendor/bin/thermal-engine
 vendor/lib64/libthermalclient.so
