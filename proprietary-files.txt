@@ -370,9 +370,49 @@ vendor/lib/libmmcamera_s5k3p3_omida01.so
 vendor/lib/libmmcamera_s5k3p3_omida01_eeprom.so
 vendor/lib/libmmcamera_s5k3p3_f16s01c.so
 
+# CNE
+-priv-app/CNEService/CNEService.apk
+bin/cnd
+etc/cne/SwimConfig.xml
+etc/cne/andsfCne.xml
+etc/permissions/cneapiclient.xml
+etc/permissions/com.quicinc.cne.xml
+vendor/lib/libNimsWrap.so
+vendor/lib/libcne.so
+vendor/lib/libcneapiclient.so
+vendor/lib/libcneconn.so
+vendor/lib/libcneqmiutils.so
+vendor/lib/libvendorconn.so
+vendor/lib/libwqe.so
+vendor/lib/libxml.so
+vendor/lib64/libNimsWrap.so
+vendor/lib64/libcne.so
+vendor/lib64/libcneapiclient.so
+vendor/lib64/libcneconn.so
+vendor/lib64/libcneqmiutils.so
+vendor/lib64/libvendorconn.so
+vendor/lib64/libwqe.so
+vendor/lib64/libxml.so
+
 # Consumerir
 lib64/hw/consumerir.msm8952.so
 lib/hw/consumerir.msm8952.so
+
+# DPM
+bin/dpmd
+etc/dpm/dpm.conf
+etc/dpm/nsrm/NsrmConfiguration.xml
+etc/permissions/dpmapi.xml
+-framework/com.qti.dpmframework.jar
+-framework/dpmapi.jar
+vendor/lib/libdpmctmgr.so
+vendor/lib/libdpmfdmgr.so
+vendor/lib/libdpmframework.so
+vendor/lib/libdpmnsrm.so
+vendor/lib64/libdpmctmgr.so
+vendor/lib64/libdpmfdmgr.so
+vendor/lib64/libdpmframework.so
+vendor/lib64/libdpmnsrm.so
 
 # DRM
 bin/qseecomd
@@ -544,14 +584,12 @@ etc/permissions/qcnvitems.xml
 etc/permissions/qcrilhook.xml
 -framework/qcnvitems.jar
 -framework/qcrilhook.jar
-vendor/lib64/libcneapiclient.so
 vendor/lib64/libconfigdb.so
 vendor/lib64/libmdmdetect.so
 vendor/lib64/libnetmgr.so
 vendor/lib64/libril-qc-qmi-1.so
 vendor/lib64/libril-qcril-hook-oem.so
 vendor/lib64/libsystem_health_mon.so
-vendor/lib64/libxml.so
 vendor/lib/libmdmdetect.so
 
 # Sensors
