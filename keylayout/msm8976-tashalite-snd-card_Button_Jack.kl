@@ -1,0 +1,5 @@
+# xuke @ 20160104	Import MIUI patch for headset buttons.
+
+key 226    HEADSETHOOK    WAKE
+key 257    MEDIA_PREVIOUS    WAKE
+key 258    MEDIA_NEXT    WAKE
