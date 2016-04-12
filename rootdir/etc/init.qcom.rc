@@ -166,8 +166,6 @@ on fs
     restorecon_recursive /persist
 
 on post-fs
-    # Support legacy paths
-    symlink /sdcard /mnt/sdcard
     symlink /sdcard /storage/sdcard0
 
 # msm specific files that need to be created on /data
