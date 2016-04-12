@@ -396,6 +396,7 @@ vendor/lib64/libwqe.so
 vendor/lib64/libxml.so
 
 # Consumerir
+bin/consumerird
 lib64/hw/consumerir.msm8952.so
 lib/hw/consumerir.msm8952.so
 

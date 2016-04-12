@@ -242,3 +242,6 @@
 
 # Add device block for FRP
 /dev/block/bootdevice/by-name/config    0660   system     system
+
+# For lirc
+/dev/lirc0          0660   system     system
