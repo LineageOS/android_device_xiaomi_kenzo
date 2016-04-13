@@ -18,6 +18,19 @@ LOCAL_PATH := $(call my-dir)
 
 include $(CLEAR_VARS)
 
+LOCAL_SHARED_LIBRARIES := liblog libcutils libgui libbinder libutils libui
+
+LOCAL_SRC_FILES := \
+    xiaomi_camera.c
+
+LOCAL_MODULE := libxiaomi_camera
+LOCAL_MODULE_CLASS := SHARED_LIBRARIES
+LOCAL_32_BIT_ONLY := $(BOARD_QTI_CAMERA_32BIT_ONLY)
+
+include $(BUILD_SHARED_LIBRARY)
+
+include $(CLEAR_VARS)
+
 LOCAL_C_INCLUDES := \
     system/media/camera/include
 

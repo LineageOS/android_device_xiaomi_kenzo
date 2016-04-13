@@ -42,7 +42,7 @@ on init
     symlink /sdcard /mnt/sdcard
     symlink /sdcard /storage/sdcard0
 
-    export LD_SHIM_LIBS "/system/bin/mm-qcamera-daemon|libshim_camera.so"
+    export LD_SHIM_LIBS "/system/bin/mm-qcamera-daemon|libxiaomi_camera.so"
 
 on early-boot
     # set RLIMIT_MEMLOCK to 64MB
