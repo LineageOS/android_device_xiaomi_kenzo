@@ -595,9 +595,14 @@ vendor/lib64/libsystem_health_mon.so
 vendor/lib/libmdmdetect.so
 
 # Sensors
-lib64/hw/sensors.msm8952.so
-lib/hw/sensors.msm8952.so
+bin/sensors.qcom
+vendor/lib64/libsensor1.so
+vendor/lib64/libsensor_reg.so
+vendor/lib64/sensor_calibrate.so
 vendor/lib64/sensors.ssc.so
+vendor/lib/libsensor1.so
+vendor/lib/libsensor_reg.so
+vendor/lib/sensor_calibrate.so
 vendor/lib/sensors.ssc.so
 
 # Thermal
