@@ -161,18 +161,19 @@ include device/qcom/sepolicy/sepolicy.mk
 BOARD_SEPOLICY_DIRS += $(DEVICE_PATH)/sepolicy
 
 # Wifi
-BOARD_WLAN_DEVICE               := qcwcn
-BOARD_HAS_QCOM_WLAN       	:= true
-BOARD_HAS_QCOM_WLAN_SDK   	:= true
-BOARD_HOSTAPD_DRIVER        	:= NL80211
-BOARD_HOSTAPD_PRIVATE_LIB   	:= lib_driver_cmd_$(BOARD_WLAN_DEVICE)
-BOARD_WPA_SUPPLICANT_DRIVER    	:= NL80211
-BOARD_WPA_SUPPLICANT_PRIVATE_LIB:= lib_driver_cmd_$(BOARD_WLAN_DEVICE)
-TARGET_USES_WCNSS_CTRL 		:= true
-TARGET_USES_QCOM_WCNSS_QMI	:= true
-WIFI_DRIVER_FW_PATH_AP    	:= "ap"
-WIFI_DRIVER_FW_PATH_STA   	:= "sta"
-WPA_SUPPLICANT_VERSION    	:= VER_0_8_X
+WPA_SUPPLICANT_VERSION      := VER_0_8_X
+BOARD_HAS_QCOM_WLAN         := true
+BOARD_HAS_QCOM_WLAN_SDK     := true
+BOARD_WLAN_DEVICE           := qcwcn
+BOARD_WPA_SUPPLICANT_DRIVER := NL80211
+BOARD_WPA_SUPPLICANT_PRIVATE_LIB := lib_driver_cmd_$(BOARD_WLAN_DEVICE)
+BOARD_HOSTAPD_DRIVER        := NL80211
+BOARD_HOSTAPD_PRIVATE_LIB   := lib_driver_cmd_$(BOARD_WLAN_DEVICE)
+TARGET_PROVIDES_WCNSS_QMI   := true
+WIFI_DRIVER_FW_PATH_AP      := "ap"
+WIFI_DRIVER_FW_PATH_STA     := "sta"
+WIFI_DRIVER_MODULE_PATH     := "/system/lib/modules/wlan.ko"
+WIFI_DRIVER_MODULE_NAME     := "wlan"
 
 # inherit from the proprietary version
 -include vendor/xiaomi/kenzo/BoardConfigVendor.mk
