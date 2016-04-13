@@ -596,6 +596,9 @@ vendor/lib/libmdmdetect.so
 
 # Sensors
 lib64/hw/sensors.msm8952.so
+lib/hw/sensors.msm8952.so
+vendor/lib64/sensors.ssc.so
+vendor/lib/sensors.ssc.so
 
 # Thermal
 vendor/bin/thermal-engine
