@@ -1,0 +1,2 @@
+# IR Blaster
+/dev/lirc[0-9]*                                 u:object_r:lirc_device:s0
