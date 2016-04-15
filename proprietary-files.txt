@@ -604,6 +604,9 @@ vendor/lib/libsensor_reg.so
 vendor/lib/sensor_calibrate.so
 vendor/lib/sensors.ssc.so
 
+# Sound trigger
+vendor/lib/hw/sound_trigger.primary.msm8952.so
+
 # Thermal
 vendor/bin/thermal-engine
 vendor/lib64/libthermalclient.so
