@@ -28,14 +28,6 @@ voice.playback.conc.disabled=true
 voice.record.conc.disabled=false
 voice.voip.conc.disabled=true
 
-# CNE
-persist.cne.feature=1
-
-# Data Power Manager (DPM)
-persist.dpm.feature=7
-persist.dpm.nsrm.bkg.evt=16251
-persist.sys.dpmd.nsrm=3
-
 # Dex2oat threads for faster app installation
 ro.sys.fw.dex2oat_thread_count=4
 

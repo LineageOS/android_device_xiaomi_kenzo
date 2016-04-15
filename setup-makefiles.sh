@@ -67,11 +67,6 @@ done
 
 # Pick up overlay for features that depend on non-open-source files
 PRODUCT_PACKAGES += \\
-    CNEService \\
-    com.qti.dpmframework \\
-    dpmap
-
-PRODUCT_PACKAGES += \\
     qcrilmsgtunnel \\
     shutdownlistener \\
     TimeService
@@ -130,17 +125,6 @@ LOCAL_PATH := \$(call my-dir)
 ifneq (\$(filter kenzo,\$(TARGET_DEVICE)),)
 
 include \$(CLEAR_VARS)
-LOCAL_MODULE := CNEService
-LOCAL_MODULE_OWNER := $VENDOR
-LOCAL_SRC_FILES := proprietary/priv-app/CNEService/CNEService.apk
-LOCAL_MODULE_TAGS := optional
-LOCAL_MODULE_SUFFIX := \$(COMMON_ANDROID_PACKAGE_SUFFIX)
-LOCAL_MODULE_CLASS := APPS
-LOCAL_PRIVILEGED_MODULE := true
-LOCAL_CERTIFICATE := platform
-include \$(BUILD_PREBUILT)
-
-include \$(CLEAR_VARS)
 LOCAL_MODULE := qcrilmsgtunnel
 LOCAL_MODULE_OWNER := $VENDOR
 LOCAL_SRC_FILES := proprietary/priv-app/qcrilmsgtunnel/qcrilmsgtunnel.apk
@@ -169,26 +153,6 @@ LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE_SUFFIX := \$(COMMON_ANDROID_PACKAGE_SUFFIX)
 LOCAL_MODULE_CLASS := APPS
 LOCAL_CERTIFICATE := platform
-include \$(BUILD_PREBUILT)
-
-include \$(CLEAR_VARS)
-LOCAL_MODULE := com.qti.dpmframework
-LOCAL_MODULE_OWNER := $VENDOR
-LOCAL_SRC_FILES := proprietary/framework/com.qti.dpmframework.jar
-LOCAL_MODULE_TAGS := optional
-LOCAL_MODULE_SUFFIX := \$(COMMON_JAVA_PACKAGE_SUFFIX)
-LOCAL_MODULE_CLASS := JAVA_LIBRARIES
-LOCAL_CERTIFICATE := PRESIGNED
-include \$(BUILD_PREBUILT)
-
-include \$(CLEAR_VARS)
-LOCAL_MODULE := dpmapi
-LOCAL_MODULE_OWNER := $VENDOR
-LOCAL_SRC_FILES := proprietary/framework/dpmapi.jar
-LOCAL_MODULE_TAGS := optional
-LOCAL_MODULE_SUFFIX := \$(COMMON_JAVA_PACKAGE_SUFFIX)
-LOCAL_MODULE_CLASS := JAVA_LIBRARIES
-LOCAL_CERTIFICATE := PRESIGNED
 include \$(BUILD_PREBUILT)
 
 include \$(CLEAR_VARS)

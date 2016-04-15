@@ -97,11 +97,7 @@ PRODUCT_PACKAGES += \
 
 # Connectivity Engine support (CNE)
 PRODUCT_PACKAGES += \
-    CNEService \
-    cneapiclient \
-    com.quicinc.cne \
-    libcnefeatureconfig \
-    services-ext
+    libcnefeatureconfig
 
 # DataServices
 PRODUCT_PACKAGES += \
@@ -114,11 +110,6 @@ PRODUCT_PACKAGES += \
     hwcomposer.msm8952 \
     memtrack.msm8952 \
     liboverlay
-
-# DPM
-PRODUCT_PACKAGES += \
-    com.qti.dpmframework \
-    dpmapi
 
 # GPS
 PRODUCT_COPY_FILES += \

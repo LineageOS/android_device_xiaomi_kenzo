@@ -88,10 +88,6 @@ COMMON_GLOBAL_CFLAGS += -DCAMERA_VENDOR_L_COMPAT
 BOARD_USES_CYANOGEN_HARDWARE := true
 BOARD_HARDWARE_CLASS += hardware/cyanogen/cmhw
 
-# CNE and DPM
-BOARD_USES_QCNE := true
-TARGET_LDPRELOAD := libNimsWrap.so
-
 # Dex pre-opt to speed up initial boot
 ifeq ($(HOST_OS),linux)
   ifneq ($(TARGET_BUILD_VARIANT),eng)

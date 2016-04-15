@@ -191,9 +191,6 @@ on fs
     chown system system  /dev/goodix_fp
     chmod 0644 /dev/goodix_fp
 
-on post-fs
-    export LD_PRELOAD libNimsWrap.so
-
 # msm specific files that need to be created on /data
 on post-fs-data
     # Create directory for TZ Apps
@@ -384,14 +381,6 @@ on property:vold.decrypt=trigger_restart_framework
 on property:persist.env.fastdorm.enabled=true
     setprop persist.radio.data_no_toggle 1
     setprop persist.camera.stats.test 5
-
-service cnd /system/bin/cnd
-    class late_start
-    socket cnd stream 660 root inet
-
-service dpmd /system/bin/dpmd
-    class late_start
-    socket dpmd stream 660 root system
 
 service irsc_util /system/bin/irsc_util "/etc/sec_config"
     class main
