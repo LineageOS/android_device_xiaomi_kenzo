@@ -371,6 +371,11 @@ service hciattach /system/bin/sh /system/etc/init.qcom.bt.sh
     disabled
     oneshot
 
+service modem-sh /system/bin/sh /system/etc/init.modem.sh
+    class late_start
+    user root
+    oneshot
+
 on property:bluetooth.hciattach=true
     start hciattach
 
