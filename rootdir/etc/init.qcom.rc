@@ -188,9 +188,6 @@ on fs
     mkdir /persist/data 0700 system system
     restorecon_recursive /persist
 
-    chown system system  /dev/goodix_fp
-    chmod 0644 /dev/goodix_fp
-
 # msm specific files that need to be created on /data
 on post-fs-data
     # Create directory for TZ Apps
@@ -677,21 +674,6 @@ service fpcd /system/bin/fpcd
     socket fpcd stream 0666 system system
     seclabel u:r:fpcd:s0
     class late_start
-    disabled
-
-on property:persist.sys.fp.goodix=0
-    stop fpdaemon
-	start fpcd
-    
-service fpdaemon /system/bin/gxFpDaemon
-    user system
-    group system
-    class late_start
-    disabled
-    
-on property:persist.sys.fp.goodix=1    
-    stop fpcd
-    start fpdaemon
 
 on property:persist.sys.runin=enable
     write /sys/class/power_supply/battery/device/BatteryTestStatus 1

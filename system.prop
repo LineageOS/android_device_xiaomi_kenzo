@@ -44,7 +44,6 @@ ro.opengles.version=196609
 ro.sf.lcd_density=480
 
 # Fingerprint
-persist.sys.fp.goodix=0
 persist.qfp=false
 
 # GPS
