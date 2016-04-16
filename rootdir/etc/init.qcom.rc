@@ -308,37 +308,11 @@ on post-fs-data
     mkdir /persist/data/tz 0700 system system
     mkdir /data/misc/dts 0770 media audio
 
-service qcomsysd /system/bin/qcom-system-daemon
-    class main
-    user root
-    group root qcom_diag
-
-service ssr_setup /system/bin/ssr_setup
-    oneshot
-    disabled
-
-service ss_ramdump /system/bin/subsystem_ramdump
-    class main
-    user system
-    group system
-    disabled
-
-on property:persist.sys.ssr.enable_ramdumps=1
-    write /sys/module/subsystem_restart/parameters/enable_ramdumps 1
-    mkdir /data/ramdump 770 system system
-    start ss_ramdump
-
-on property:persist.sys.ssr.enable_ramdumps=0
-    write /sys/module/subsystem_restart/parameters/enable_ramdumps 0
-
 on property:sys.boot_completed=1
     write /dev/kmsg "Boot completed "
 
     # CPE fw_name used by sound trigger HAL
     chown media audio /sys/kernel/wcd_cpe0/fw_name
-
-on property:persist.radio.atfwd.start=false
-    stop atfwd
 
 # corefile limit
 on property:persist.debug.trace=1
@@ -357,15 +331,6 @@ on property:bluetooth.sap.status=running
 
 on property:bluetooth.sap.status=stopped
     stop bt-sap
-
-on property:bluetooth.dun.status=running
-    start bt-dun
-
-on property:bluetooth.dun.status=stopped
-    stop bt-dun
-
-on property:ro.bluetooth.ftm_enabled=true
-    start ftmd
 
 on property:bluetooth.startbtsnoop=true
     start btsnoop
@@ -391,27 +356,6 @@ service rmt_storage /system/bin/rmt_storage
     class core
     user root
 
-service rfs_access /system/bin/rfs_access
-   class core
-   user root
-   group system net_raw
-
-service tftp_server /system/bin/tftp_server
-   class core
-   user root
-
-on property:wc_transport.start_hci=true
-    start start_hci_filter
-
-on property:wc_transport.start_hci=false
-    stop start_hci_filter
-
-service start_hci_filter /system/bin/wcnss_filter
-    class late_start
-    user root
-    group bluetooth qcom_diag
-    disabled
-
 service config_bt_addr /system/bin/btnvtool -O
     class core
     user bluetooth
@@ -436,13 +380,6 @@ on property:bluetooth.hciattach=true
 on property:bluetooth.hciattach=false
     setprop bluetooth.status off
 
-service bt-dun /system/bin/dun-server /dev/smd7 /dev/rfcomm0
-    class late_start
-    user bluetooth
-    group bluetooth net_bt_admin inet
-    disabled
-    oneshot
-
 service bt-sap /system/bin/sapd 15
     user bluetooth
     group bluetooth net_bt_admin
@@ -457,54 +394,35 @@ service btsnoop /system/bin/btsnoop
    disabled
    oneshot
 
-service ftmd /system/bin/logwrapper /system/bin/ftmdaemon
-    class late_start
-    user root
-    group bluetooth net_bt_admin misc net_bt_stack qcom_diag
-    disabled
-    oneshot
-
-service port-bridge /system/bin/port-bridge /dev/mhi_pipe_32 /dev/ttyGS0
-    class main
-    user radio system
-    group radio system inet
-    disabled
-
 # QMUX must be in multiple groups to support external process connections
 service qmuxd /system/bin/qmuxd
     class main
     user root
     group radio audio bluetooth gps qcom_diag
-    disabled
 
 service netmgrd /system/bin/netmgrd
     class main
-    disabled
 
 service ipacm-diag /system/bin/ipacm-diag
     class main
     user system
     socket ipacm_log_file dgram 660 system net_admin
     group net_admin qcom_diag
-    disabled
 
 service ipacm /system/bin/ipacm
     class main
     user net_admin
     group net_admin inet
-    disabled
 
 service qti /system/vendor/bin/qti
     class main
     user radio
     group radio net_raw qcom_diag usb net_admin
-    disabled
 
 service sensors /system/bin/sensors.qcom
     class late_start
     user root
     group root
-    disabled
 
 on property:ro.use_data_netmgrd=false
     # netmgr not supported on specific target
@@ -568,34 +486,6 @@ service iprenew_p2p /system/bin/dhcpcd -n
     disabled
     oneshot
 
-service ptt_socket_app /system/bin/ptt_socket_app -d
-    class main
-    user root
-    group root
-#++++>
-    disabled
-#<++++	xuke @ 201150709	Do not start it, needed by android mode WiFi FFBM test.
-    oneshot
-
-service ptt_ffbm /system/bin/ptt_socket_app -f -d
-    user root
-    group root
-    disabled
-    oneshot
-
-service wifi_ftmd /system/bin/wifi_ftmd
-    user system
-    group system inet net_admin
-    socket wififtmd_server dgram 0660 system system
-    disabled
-    oneshot
-
-on property:wifi.ftmd.load=true
-    insmod /system/lib/modules/wlan.ko con_mode=5
-
-service cnss-daemon /system/bin/cnss-daemon -n -l
-    class late_start
-
 service dhcpcd_bt-pan /system/bin/dhcpcd -BKLG
     class late_start
     disabled
@@ -626,11 +516,6 @@ service dhcpcd_bnep4 /system/bin/dhcpcd -BKLG
     disabled
     oneshot
 
-service loc_launcher /system/bin/loc_launcher
-    #loc_launcher will start as root and set its uid to gps
-    class late_start
-    group gps inet net_raw qcom_diag net_admin wifi
-
 on property:crypto.driver.load=1
      insmod /system/lib/modules/qce.ko
      insmod /system/lib/modules/qcedev.ko
@@ -638,16 +523,7 @@ on property:crypto.driver.load=1
 service qcom-post-boot /system/bin/sh /system/etc/init.qcom.post_boot.sh
     class late_start
     user root
-    disabled
     oneshot
-
-on property:sys.boot_completed=1
-    start qcom-post-boot
-
-service atfwd /system/bin/ATFWD-daemon
-    class late_start
-    user system
-    group system radio
 
 service hostapd /system/bin/hostapd -dd /data/hostapd/hostapd.conf
     class late_start
@@ -656,78 +532,25 @@ service hostapd /system/bin/hostapd -dd /data/hostapd/hostapd.conf
     oneshot
     disabled
 
-service ims_regmanager /system/bin/exe-ims-regmanagerprocessnative
-    class late_start
-    group net_bt_admin inet radio wifi
-    disabled
-
-on property:persist.ims.regmanager.mode=1
-    start ims_regmanager
-
 on property:ro.data.large_tcp_window_size=true
     # Adjust socket buffer to enlarge TCP receive window for high bandwidth (e.g. DO-RevB)
     write /proc/sys/net/ipv4/tcp_adv_win_scale  2
-
-service battery_monitor /system/bin/battery_monitor
-    user system
-    group system
-    disabled
 
 service ril-daemon2 /system/bin/rild -c 2
     class main
     socket rild2 stream 660 root radio
     socket rild-debug2 stream 660 radio system
     user root
-    disabled
-    group radio cache inet misc audio sdcard_r sdcard_rw diag qcom_diag log
-
-service ril-daemon3 /system/bin/rild -c 3
-    class main
-    socket rild3 stream 660 root radio
-    socket rild-debug3 stream 660 radio system
-    user root
-    disabled
     group radio cache inet misc audio sdcard_r sdcard_rw diag qcom_diag log
 
 service charger /charger
     class charger
-
-service ssr_diag /system/bin/ssr_diag
-    class late_start
-    user system
-    group system
-    disabled
-
-service hvdcp /system/bin/hvdcp
-    class core
-    user root
-    disabled
-
-on property:persist.usb.hvdcp.detect=true
-    start hvdcp
-
-on property:persist.usb.hvdcp.detect=false
-    stop hvdcp
 
 #start camera server as daemon
 service qcamerasvr /system/bin/mm-qcamera-daemon
     class late_start
     user camera
     group camera system inet input graphics
-
-service charger_monitor /system/bin/charger_monitor
-    user root
-    group root
-    disabled
-
-service qbcharger /charger -m 1
-    disabled
-    oneshot
-
-service qfp-daemon /system/bin/qfp-daemon
-   class late_start
-   user system
-   group system drmrpc
 
 service qseecomd /system/bin/qseecomd
    class core
@@ -768,18 +591,6 @@ service adsprpcd /system/bin/adsprpcd
     user media
     group media
 
-service per_mgr /system/bin/pm-service
-    class core
-    user system
-    group system net_raw
-
-service energy-awareness /system/bin/energy-awareness
-    class main
-    user root
-    group system
-    oneshot
-    disabled
-
 service ppd /system/vendor/bin/mm-pp-daemon
     class late_start
     disabled
@@ -792,14 +603,6 @@ on property:init.svc.surfaceflinger=stopped
 
 on property:init.svc.surfaceflinger=running
     start ppd
-
-on property:sys.qbcharger.enable=true
-    write /sys/power/wake_lock QuickBoot
-    start qbcharger
-
-on property:sys.qbcharger.enable=false
-    write /sys/power/wake_unlock QuickBoot
-    stop qbcharger
 
 # Allow usb charging to be disabled peristently
 on property:persist.usb.chgdisabled=1
@@ -856,13 +659,6 @@ on property:persist.sys.display_eyecare=4
 on charger
     start qcom-post-boot
 
-service diag_mdlog_stop /system/bin/diag_mdlog -k
-    class late_start
-    user shell
-    group system qcom_diag sdcard_rw sdcard_r media_rw
-    disabled
-    oneshot
-
 service qlogd /system/xbin/qlogd
     socket qlogd stream 0662 system system
     class main
@@ -872,60 +668,10 @@ on property:persist.sys.qlogd=1
 on property:persist.sys.qlogd=0
     stop qlogd
     
-# add for logd_t
-service logd_t /system/bin/logd_t
-    class main
-    user root
-    disabled
-    oneshot
-
-on property:persist.service.logd.enable=1
-    start logd_t
-on property:persist.service.logd.enable=0
-    stop logd_t
-
-# add for logd_t
-service logd_t2 /system/bin/logd_t2
-    class main
-    user root
-    disabled
-    oneshot
-
-on property:sys.logd_t2.enable=1
-    start logd_t2
-
 service msm_irqbalance /system/bin/msm_irqbalance -f /system/vendor/etc/msm_irqbalance.conf
     class core
     user root
     group root
-    disabled
-
-service wfdservice /system/bin/wfdservice
-    class main
-    user system
-    group graphics audio camera inet net_bt net_bt_admin net_bt_stack drmrpc bluetooth media_rw media
-# wangfajie @ 20151207 Remove these lines for that XiaoMi box is very hard to be connected.
-#    disabled
-#    oneshot
-
-#on property:sys.wfdservice=enable
-#    start wfdservice
-
-#on property:sys.wfdservice=disable
-#    stop wfdservice
-
-service RIDL /system/vendor/bin/RIDLClient.exe
-    class late_start
-    oneshot
-    user root
-    group root inet log sdcard_r sdcard_rw qcom_diag radio net_raw
-    # removed for security team - misc bluetooth gps wifi diag media_rw
-    # limited to 12 groups.  Unused: audio usb net_bt_admin net_bt_stac net_admin
-
-service fidodaemon /system/vendor/bin/fidodaemon
-    class late_start
-    user system
-    group system
 
 service fpcd /system/bin/fpcd
     socket fpcd stream 0666 system system
@@ -936,36 +682,6 @@ service fpcd /system/bin/fpcd
 on property:persist.sys.fp.goodix=0
     stop fpdaemon
 	start fpcd
-
-#++++>
-on property:sys.ptt_socket_app=1
-    start ptt_ffbm
-    
-on property:sys.ftmd=1
-    start ftmd
-#<++++	xuke @ 201150709	Added for WiFi & BT FFBM test.
-
-#++++>
-service mm_audio_ftm /system/bin/mm-audio-ftm
-    user root
-    group root
-    disabled
-    oneshot
-
-on property:sys.audio_ftm_loopback=1
-    start mm_audio_ftm
-
-on property:sys.audio_ftm_loopback=0
-    stop mm_audio_ftm
-#<++++	xuke @ 201151028	Audio loopback test.
-
-service displayfeature /system/bin/displayfeature
-    class late_start
-    user system
-    group system
-
-service mtservice /system/bin/mtd
-    class late_start
     
 service fpdaemon /system/bin/gxFpDaemon
     user system
