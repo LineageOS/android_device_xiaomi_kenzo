@@ -102,7 +102,7 @@ persist.radio.rat_on=combine
 rild.libargs=-d /dev/smd0
 rild.libpath=/vendor/lib64/libril-qc-qmi-1.so
 ril.subscription.types=RUIM
-ro.telephony.default_network=9
+ro.telephony.default_network=22
 
 # Time
 persist.timed.enable=true
