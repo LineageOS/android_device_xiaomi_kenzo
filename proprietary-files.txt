@@ -43,6 +43,8 @@ vendor/lib/libfastcvadsp_stub.so
 vendor/lib/libfastcvopt.so
 
 # Audio libraries
+lib/soundfx/libdirac.so
+lib/libDiracAPI_SHARED.so
 vendor/lib64/libacdb-fts.so
 vendor/lib64/libacdbloader.so
 vendor/lib64/libacdbrtac.so
@@ -415,6 +417,7 @@ vendor/lib64/egl/libq3dtools_adreno.so
 vendor/lib64/egl/libq3dtools_esx.so
 vendor/lib64/egl/libQTapGLES.so
 vendor/lib64/libadreno_utils.so
+vendor/lib64/libc2d30_bltlib.so
 vendor/lib64/libc2d30-a5xx.so
 vendor/lib64/libC2D2.so
 vendor/lib64/libCB.so
@@ -434,6 +437,7 @@ vendor/lib/egl/libq3dtools_adreno.so
 vendor/lib/egl/libq3dtools_esx.so
 vendor/lib/egl/libQTapGLES.so
 vendor/lib/libadreno_utils.so
+vendor/lib/libc2d30_bltlib.so
 vendor/lib/libc2d30-a5xx.so
 vendor/lib/libC2D2.so
 vendor/lib/libCB.so
@@ -493,9 +497,11 @@ vendor/lib/libperipheral_client.so
 # Postprocessing
 vendor/bin/mm-pp-daemon
 vendor/lib64/libdisp-aba.so
+vendor/lib64/libmm-als.so
 vendor/lib64/libmm-dspp-utils.so
 vendor/lib64/libmm-qdcm-diag.so
 vendor/lib64/libmm-qdcm.so
+vendor/lib/libmm-als.so
 
 # QMI
 bin/irsc_util
@@ -569,6 +575,7 @@ vendor/lib/sensors.ssc.so
 
 # Sound trigger
 vendor/lib/hw/sound_trigger.primary.msm8952.so
+vendor/lib/libsmwrapper.so
 
 # Thermal
 vendor/bin/thermal-engine
