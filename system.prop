@@ -7,6 +7,7 @@ audio.offload.min.duration.secs=30
 audio.offload.multiple.enabled=false
 audio.offload.pcm.16bit.enable=true
 audio.offload.pcm.24bit.enable=true
+audio.offload.track.enable=false
 audio.offload.video=true
 audio.playback.mch.downsample=true
 audio.pp.asphere.enabled=false
