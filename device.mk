@@ -92,11 +92,6 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/audio/audio_policy.conf:system/etc/audio_policy.conf \
     $(LOCAL_PATH)/audio/mixer_paths.xml:system/etc/mixer_paths_wcd9326.xml
 
-# Camera
-PRODUCT_PACKAGES += \
-    camera.msm8952 \
-    libxiaomi_camera
-
 # Charger
 PRODUCT_PACKAGES += \
     charger_res_images
@@ -221,10 +216,6 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/sound_trigger_mixer_paths_wcd9330.xml:system/etc/sound_trigger_mixer_paths_wcd9330.xml \
     $(LOCAL_PATH)/configs/sound_trigger_mixer_paths_wcd9335.xml:system/etc/sound_trigger_mixer_paths_wcd9335.xml \
     $(LOCAL_PATH)/configs/sound_trigger_platform_info.xml:system/etc/sound_trigger_platform_info.xml
-
-# Stlport
-PRODUCT_PACKAGES += \
-    libstlport
 
 # WCNSS
 PRODUCT_COPY_FILES += \
