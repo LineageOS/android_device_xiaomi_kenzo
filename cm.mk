@@ -38,6 +38,6 @@ PRODUCT_GMS_CLIENTID_BASE := android-xiaomi
 # Use the latest approved GMS identifiers unless running a signed build
 ifneq ($(SIGN_BUILD),true)
 PRODUCT_BUILD_PROP_OVERRIDES += \
-    BUILD_FINGERPRINT=Xiaomi/kenzo/kenzo:5.1.1/LMY47V/V7.1.18.0.LHOCNCL:user/release-keys \
-    PRIVATE_BUILD_DESC="kenzo-user 5.1.1 LMY47V V7.1.18.0.LHOCNCL release-keys"
+    BUILD_FINGERPRINT=Xiaomi/kenzo/kenzo:6.0.1/MMB29M/6.4.20:user/release-keys \
+    PRIVATE_BUILD_DESC="kenzo-user 6.0.1 MMB29M 6.4.20 release-keys"
 endif
