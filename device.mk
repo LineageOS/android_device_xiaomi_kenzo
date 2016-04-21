@@ -68,10 +68,6 @@ PRODUCT_PACKAGES += \
     com.dsi.ant.antradio_library \
     libantradio
 
-# Assertive Display
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/calib.cfg:system/etc/calib.cfg
-
 # Audio
 PRODUCT_PACKAGES += \
     audiod \
@@ -117,7 +113,6 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/flp.conf:system/etc/flp.conf \
     $(LOCAL_PATH)/configs/gps.conf:system/etc/gps.conf \
     $(LOCAL_PATH)/configs/izat.conf:system/etc/izat.conf \
-    $(LOCAL_PATH)/configs/quipc.conf:system/etc/quipc.conf \
     $(LOCAL_PATH)/configs/sap.conf:system/etc/sap.conf
 
 # IPACM
@@ -154,7 +149,10 @@ PRODUCT_PACKAGES += \
 # Media
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/media_codecs.xml:system/etc/media_codecs.xml \
-    $(LOCAL_PATH)/configs/media_profiles.xml:system/etc/media_profiles_8956.xml
+    $(LOCAL_PATH)/configs/media_codecs_8956.xml:system/etc/media_codecs_8956.xml \
+    $(LOCAL_PATH)/configs/media_codecs_8956_v1.xml:system/etc/media_codecs_8956_v1.xml \
+    $(LOCAL_PATH)/configs/media_profiles.xml:system/etc/media_profiles.xml \
+    $(LOCAL_PATH)/configs/media_profiles_8956.xml:system/etc/media_profiles_8956.xml
 
 PRODUCT_COPY_FILES += \
     frameworks/av/media/libstagefright/data/media_codecs_google_audio.xml:system/etc/media_codecs_google_audio.xml \

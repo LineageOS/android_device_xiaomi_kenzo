@@ -94,10 +94,9 @@ persist.rild.nitz_short_ons_3=
 ro.vendor.extension_library=libqti-perfd-client.so
 
 # Qualcomm
-ro.qualcomm.cabl=0
+ro.qualcomm.cabl=2
 ro.qcom.ad=1
-ro.qcom.ad.calib.data=/system/etc/calib.cfg
-ro.qcom.ad.sensortype=2
+ro.qcom.ad.calib.data=/data/misc/display/ad_calib.cfg
 
 # Radio
 DEVICE_PROVISIONED=1

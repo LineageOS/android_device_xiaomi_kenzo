@@ -80,7 +80,7 @@
     <ctl name="COMP2 Switch" value="1" />
     <ctl name="COMP7 Switch" value="1" />
     <ctl name="COMP8 Switch" value="1" />
-    <ctl name="RX HPH Mode" value="CLS_H_LP" />
+    <ctl name="RX HPH Mode" value="CLS_H_HIFI" />
     <ctl name="SLIMBUS_3_RX Port Mixer MI2S_TX" value="0" />
     <ctl name="HDMI_RX Port Mixer MI2S_TX" value="0" />
     <ctl name="SLIMBUS_0_RX Port Mixer SLIM_0_TX" value="0" />
@@ -268,7 +268,7 @@
     <ctl name="SLIM_0_RX Channels" value="One" />
     <ctl name="SLIM_0_TX Channels" value="One" />
     <ctl name="SLIM_1_TX Channels" value="One" />
-    <ctl name="SLIM RX0 MUX" value="0" />
+    <ctl name="SLIM RX0 MUX" value="AIF_MIX1_PB" />
     <ctl name="SLIM RX3 MUX" value="ZERO" />
     <ctl name="SLIM RX4 MUX" value="ZERO" />
     <ctl name="EAR PA Gain" value="G_6_DB" />
@@ -296,6 +296,7 @@
     <ctl name="AUDIO_REF_EC_UL1 MUX" value="None" />
     <!-- usb headset -->
     <ctl name="AFE_PCM_RX Audio Mixer MultiMedia1" value="0" />
+    <ctl name="AFE_PCM_RX Audio Mixer MultiMedia3" value="0" />
     <ctl name="AFE_PCM_RX Audio Mixer MultiMedia4" value="0" />
     <ctl name="AFE_PCM_RX Audio Mixer MultiMedia7" value="0" />
     <ctl name="AFE_PCM_RX Audio Mixer MultiMedia10" value="0" />
@@ -429,6 +430,7 @@
 
     <!-- Audio BTSCO -->
     <ctl name="INTERNAL_BT_SCO_RX Audio Mixer MultiMedia1" value="0" />
+    <ctl name="INTERNAL_BT_SCO_RX Audio Mixer MultiMedia3" value="0" />
     <ctl name="INTERNAL_BT_SCO_RX Audio Mixer MultiMedia4" value="0" />
     <ctl name="INTERNAL_BT_SCO_RX Audio Mixer MultiMedia5" value="0" />
     <ctl name="INTERNAL_BT_SCO_RX Audio Mixer MultiMedia6" value="0" />
@@ -640,6 +642,41 @@
 
     <path name="multi-channel-playback afe-proxy">
         <ctl name="AFE_PCM_RX Audio Mixer MultiMedia2" value="1" />
+    </path>
+
+    <path name="audio-ull-playback">
+        <ctl name="SLIMBUS_0_RX Audio Mixer MultiMedia3" value="1" />
+    </path>
+
+    <path name="audio-ull-playback headphones">
+        <path name="audio-ull-playback" />
+    </path>
+
+    <path name="audio-ull-playback speaker-protected">
+        <path name="audio-ull-playback" />
+    </path>
+
+    <path name="audio-ull-playback bt-sco">
+        <ctl name="INTERNAL_BT_SCO_RX Audio Mixer MultiMedia3" value="1" />
+    </path>
+
+    <path name="audio-ull-playback bt-sco-wb">
+        <ctl name="Internal BTSCO SampleRate" value="BTSCO_RATE_16KHZ" />
+        <path name="audio-ull-playback bt-sco" />
+    </path>
+
+    <path name="audio-ull-playback afe-proxy">
+        <ctl name="AFE_PCM_RX Audio Mixer MultiMedia3" value="1" />
+    </path>
+
+
+    <path name="audio-ull-playback usb-headphones">
+        <path name="audio-ull-playback afe-proxy" />
+    </path>
+
+    <path name="audio-ull-playback speaker-and-usb-headphones">
+        <path name="audio-ull-playback usb-headphones" />
+        <path name="audio-ull-playback" />
     </path>
 
     <path name="compress-offload-playback">
@@ -1697,7 +1734,7 @@
 
     <path name="sidetone-handset">
         <path name="sidetone-iir" />
-        <ctl name="IIR0 INP0 Volume" value="54" />
+        <ctl name="IIR0 INP0 Volume" value="0" />
         <ctl name="RX INT0 MIX2 INP" value="SRC0" />
     </path>
 
@@ -1826,7 +1863,7 @@
     </path>
 
     <path name="voice-speaker">
-    	<!-- xuke @ 20150911 Change wsa to normal.
+        <!-- xuke @ 20150911 Change wsa to normal.
         <path name="wsa-speaker-mono" />
         -->
         <path name="speaker" />
@@ -1872,7 +1909,7 @@
     </path>
 
     <path name="speaker-and-usb-headphones">
-    	<!-- xuke @ 20150911 Change wsa to normal.
+        <!-- xuke @ 20150911 Change wsa to normal.
         <path name="wsa-speaker" />
         -->
         <path name="speaker" />
@@ -1880,7 +1917,7 @@
     </path>
 
     <path name="speaker-and-hdmi">
-    	<!-- xuke @ 20150911 Change wsa to normal.
+        <!-- xuke @ 20150911 Change wsa to normal.
         <path name="wsa-speaker" />
         -->
         <path name="speaker" />
@@ -1950,7 +1987,7 @@
         <ctl name="IIR0 INP0 MUX" value="DEC7" />
     </path>
 
-    <!-- xuke @ 20150911 To support fluence mode by single MIC.	Begin -->
+    <!-- xuke @ 20150911 To support fluence mode by single MIC. Begin -->
     <path name="speaker-dmic-mono">
         <path name="handset-secondary-mic" />
     </path>
@@ -1989,7 +2026,7 @@
         <path name="dmic-endfire" />
     </path>
 
-    <!-- xuke @ 20150911 To support fluence mode by single MIC.	Begin -->
+    <!-- xuke @ 20150911 To support fluence mode by single MIC. Begin -->
     <path name="voice-speaker-dmic-mono">
         <path name="speaker-dmic-mono" />
     </path>
@@ -2091,6 +2128,18 @@
     <!-- Added for ADSP testfwk -->
     <path name="ADSP testfwk">
         <ctl name="SLIMBUS_DL_HL Switch" value="1" />
+    </path>
+
+    <path name="line">
+          <path name="headphones" />
+    </path>
+
+    <path name="voice-line">
+          <path name="voice-headphones" />
+    </path>
+
+    <path name="speaker-and-line">
+          <path name="speaker-and-headphones" />
     </path>
 
 </mixer>
