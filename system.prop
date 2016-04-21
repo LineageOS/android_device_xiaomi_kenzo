@@ -118,6 +118,3 @@ telephony.lteOnCdmaDevice=1
 
 # Time
 persist.timed.enable=true
-
-# Wifi
-wifi.interface=wlan0
