@@ -362,7 +362,7 @@ service config_bluetooth /system/bin/sh /system/etc/init.qcom.bt.sh "onboot"
     user root
     oneshot
 
-service modem-sh /system/bin/sh /system/etc/init.modem.sh
+service qcom-sh /system/bin/sh /system/etc/init.qcom.sh
     class late_start
     user root
     oneshot
@@ -423,6 +423,7 @@ service sensors /system/bin/sensors.qcom
     class late_start
     user root
     group root
+    disabled
 
 on property:ro.use_data_netmgrd=false
     # netmgr not supported on specific target
@@ -670,10 +671,11 @@ on property:persist.sys.qlogd=1
 on property:persist.sys.qlogd=0
     stop qlogd
     
-service msm_irqbalance /system/bin/msm_irqbalance -f /system/vendor/etc/msm_irqbalance.conf
+service msm_irqbal_lb /system/bin/msm_irqbalance -f /system/vendor/etc/msm_irqbalance_little_big.conf
     class core
     user root
     group root
+    disabled
 
 service fpcd /system/bin/fpcd
     socket fpcd stream 0666 system system
