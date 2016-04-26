@@ -33,6 +33,7 @@
 /dev/kgsl-3d0             0666   system     system
 /dev/kgsl-2d0             0666   root       root
 /dev/kgsl-2d1             0666   root       root
+/dev/sensors              0666   root       root
 /dev/ion                  0664   system     system
 /dev/rtc0                 0660   system     system
 /dev/smd0                 0660   system     system
