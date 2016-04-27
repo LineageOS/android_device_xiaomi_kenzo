@@ -1,0 +1,1 @@
+allow shell sensors_device:chr_file getattr;
