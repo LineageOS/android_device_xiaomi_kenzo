@@ -29,6 +29,9 @@ import init.qcom.usb.rc
 import init.target.rc
 
 on early-init
+    # Turn off backlight on blank
+    write /sys/class/leds/lcd-backlight/trigger "backlight"
+
     mkdir /firmware 0771 system system
     mkdir /system 0777 root root
     symlink /data/tombstones /tombstones
