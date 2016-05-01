@@ -374,7 +374,7 @@ service loc_launcher /system/bin/loc_launcher
     class late_start
     group gps inet net_raw qcom_diag net_admin wifi
 
-service qcom-sh /system/bin/sh /system/etc/init.qcom.sh
+service qcom-sh /system/bin/sh /init.qcom.sh
     class late_start
     user root
     oneshot
