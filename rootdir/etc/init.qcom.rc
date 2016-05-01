@@ -674,6 +674,11 @@ on property:persist.sys.display_eyecare=4
 on charger
     start qcom-post-boot
 
+service per_mgr /system/bin/pm-service
+    class core
+    user system
+    group system net_raw
+
 service qlogd /system/xbin/qlogd
     socket qlogd stream 0662 system system
     class main
