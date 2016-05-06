@@ -116,9 +116,6 @@ MAX_EGL_CACHE_SIZE := 2048*1024
 
 OVERRIDE_RS_DRIVER:= libRSDriver_adreno.so
 
-# Enable real-time face beautification
-TARGET_TS_MAKEUP := true
-
 # Encryption
 TARGET_HW_DISK_ENCRYPTION := true
 
