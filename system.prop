@@ -114,7 +114,7 @@ persist.sys.ssr.restart_level=modem
 rild.libargs=-d /dev/smd0
 rild.libpath=/vendor/lib64/libril-qc-qmi-1.so
 ril.subscription.types=RUIM
-ro.telephony.default_network=20
+ro.telephony.default_network=9,9
 telephony.lteOnCdmaDevice=1
 
 # Time
