@@ -342,7 +342,6 @@ on property:bluetooth.startbtsnoop=false
     stop btsnoop
 
 on property:vold.decrypt=trigger_restart_framework
-    start config_bt_addr
     start config_bluetooth
     start wcnss-service
 
@@ -357,12 +356,6 @@ service irsc_util /system/bin/irsc_util "/etc/sec_config"
 service rmt_storage /system/bin/rmt_storage
     class core
     user root
-
-service config_bt_addr /system/bin/btnvtool -O
-    class core
-    user bluetooth
-    group bluetooth radio
-    oneshot
 
 service config_bluetooth /system/bin/sh /system/etc/init.qcom.bt.sh "onboot"
     class core
