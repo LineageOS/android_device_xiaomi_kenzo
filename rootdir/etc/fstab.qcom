@@ -6,9 +6,10 @@
 /dev/block/bootdevice/by-name/system                /system      ext4    ro,barrier=1                                                                   wait
 /dev/block/bootdevice/by-name/userdata              /data        ext4    rw,nosuid,nodev,noatime,nodiratime,noauto_da_alloc,nobarrier                   wait,check,formattable,encryptable=footer,length=-16384
 /dev/block/bootdevice/by-name/cache                 /cache       ext4    rw,nosuid,nodev,noatime,nodiratime,barrier=1,data=ordered                      wait,check,formattable
-/dev/block/bootdevice/by-name/misc                  /misc        emmc    defaults                                                                       defaults
 /dev/block/bootdevice/by-name/modem                 /firmware    vfat    ro,shortname=lower,dmask=222,fmask=333,context=u:object_r:firmware_file:s0     wait
-/dev/block/bootdevice/by-name/persist               /persist     ext4    ro,nosuid,nodev,barrier=1                                                      wait
+/dev/block/bootdevice/by-name/persist               /persist     ext4    rw,nosuid,nodev,barrier=1                                                      wait
+/dev/block/bootdevice/by-name/config                /frp         emmc    defaults                                                                       defaults
+
 /dev/block/bootdevice/by-name/boot                  /boot        emmc    defaults                                                                       recoveryonly
 /dev/block/bootdevice/by-name/recovery              /recovery    emmc    defaults                                                                       recoveryonly
 
