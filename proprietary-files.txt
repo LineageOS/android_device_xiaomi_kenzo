@@ -403,6 +403,12 @@ vendor/lib64/libQSEEComAPI.so
 vendor/lib64/librpmb.so
 vendor/lib64/libssd.so
 
+# Firmwares
+etc/firmware/A4_15_2.2_AA.fw
+etc/firmware/A4_15_2.2_AA.raw
+etc/firmware/DE.o.msm8952
+etc/firmware/DE.o.msm8976
+
 # Gatekeeper
 vendor/lib64/hw/gatekeeper.msm8952.so
 
