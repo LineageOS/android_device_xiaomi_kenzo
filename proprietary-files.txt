@@ -456,6 +456,17 @@ etc/firmware/A4_15_2.2_AA.raw
 etc/firmware/DE.o.msm8952
 etc/firmware/DE.o.msm8976
 
+# Fingerprint sensor and firmware
+lib64/hw/fingerprint.msm8952.so
+lib64/lib_fpc_tac_shared.so
+lib/hw/fingerprint.msm8952.so
+lib/lib_fpc_tac_shared.so
+etc/firmware/fpctzapp.b00
+etc/firmware/fpctzapp.b01
+etc/firmware/fpctzapp.b02
+etc/firmware/fpctzapp.b03
+etc/firmware/fpctzapp.mdt
+
 # Gatekeeper
 vendor/lib64/hw/gatekeeper.msm8952.so
 
