@@ -554,6 +554,11 @@ service charger /charger
     group system graphics
     seclabel u:r:healthd:s0
 
+service hvdcp_opti /system/bin/hvdcp_opti
+    class main
+    user root
+    group root
+
 #start camera server as daemon
 service qcamerasvr /system/bin/mm-qcamera-daemon
     class late_start
@@ -666,6 +671,7 @@ on property:persist.sys.display_eyecare=4
 
 on charger
     start qcom-post-boot
+    start hvdcp_opti
 
 service per_mgr /system/bin/pm-service
     class core

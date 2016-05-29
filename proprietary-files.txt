@@ -390,6 +390,9 @@ vendor/lib/libmmcamera_s5k3p3_omida01.so
 vendor/lib/libmmcamera_s5k3p3_omida01_eeprom.so
 vendor/lib/libmmcamera_s5k3p3_f16s01c.so
 
+# Charger
+bin/hvdcp_opti
+
 # Consumerir
 bin/consumerird
 lib64/hw/consumerir.msm8952.so
