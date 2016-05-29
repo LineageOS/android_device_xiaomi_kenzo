@@ -282,9 +282,12 @@ on post-fs-data
     mkdir /data/misc/SelfHost/Running/ 2750 system shell
     mkdir /data/misc/SelfHost/socket/ 2770 system system
 
-    #Create FM dir for patchdownloader
+    # Create FM dir for patchdownloader
     mkdir /data/misc/fm 0770 system system
     chmod 0770 /data/misc/fm
+
+    # Fingerprint
+    mkdir /data/fpc 0700 system system
 
     mkdir /data/tombstones 0771 system system
     mkdir /tombstones/modem 0771 system system
@@ -719,10 +722,10 @@ on property:sys.ims.DATA_DAEMON_STATUS=1
     start ims_rtp_daemon
     start imscmservice
 
-service fpcd /system/bin/fpcd
-    socket fpcd stream 0666 system system
-    seclabel u:r:fpcd:s0
+service fingerprintd /system/bin/fingerprintd
     class late_start
+    socket fpce stream 0666 system system
+    user system
 
 on property:persist.sys.runin=enable
     write /sys/class/power_supply/battery/device/BatteryTestStatus 1
