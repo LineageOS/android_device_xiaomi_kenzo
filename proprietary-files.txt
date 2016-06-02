@@ -635,8 +635,6 @@ vendor/qcril.db
 
 # Sensors
 bin/sensors.qcom
-lib64/hw/sensors.msm8952.so
-lib/hw/sensors.msm8952.so
 vendor/lib64/hw/activity_recognition.msm8952.so
 vendor/lib64/libsensor1.so
 vendor/lib64/libsensor_reg.so
