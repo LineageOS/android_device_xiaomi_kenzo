@@ -36,7 +36,7 @@ on early-init
     mkdir /system 0777 root root
     symlink /data/tombstones /tombstones
     mkdir /dsp 0771 media media
-    
+
 on init
     # Set permissions for persist partition
     mkdir /persist 0771 system system
@@ -209,6 +209,8 @@ on post-fs-data
     # Create the directories used by CnE subsystem
     mkdir /data/connectivity 0771 system system
     chown system system /data/connectivity
+    mkdir /data/connectivity/wqeclient 0771 system system
+    chown system system /data/connectivity/wqeclient
 
     # Create the directories used by DPM subsystem
     mkdir /data/dpm 0771 system system
@@ -347,6 +349,14 @@ on property:vold.decrypt=trigger_restart_framework
 
 on property:persist.env.fastdorm.enabled=true
     setprop persist.radio.data_no_toggle 1
+
+service cnd /system/bin/cnd
+    class late_start
+    socket cnd stream 660 root inet
+
+service dpmd /system/bin/dpmd
+    class late_start
+    socket dpmd stream 660 root system
 
 service irsc_util /system/bin/irsc_util "/etc/sec_config"
     class main

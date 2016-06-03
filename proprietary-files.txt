@@ -393,6 +393,52 @@ vendor/lib/libmmcamera_s5k3p3_f16s01c.so
 # Charger
 bin/hvdcp_opti
 
+# CNE/DPM
+bin/cnd
+bin/dpmd
+etc/cne/andsfCne.xml
+etc/cne/SwimConfig.xml
+etc/dpm/dpm.conf
+etc/dpm/nsrm/NsrmConfiguration.xml
+etc/permissions/cneapiclient.xml
+etc/permissions/com.qti.dpmframework.xml
+etc/permissions/com.quicinc.cne.xml
+etc/permissions/ConnectivityExt.xml
+etc/permissions/dpmapi.xml
+framework/cneapiclient.jar
+framework/com.qti.dpmframework.jar
+framework/com.quicinc.cne.jar
+framework/ConnectivityExt.jar
+framework/dpmapi.jar
+-priv-app/CNEService/CNEService.apk
+-priv-app/dpmserviceapp/dpmserviceapp.apk
+vendor/lib64/libcne.so
+vendor/lib64/libcneapiclient.so
+vendor/lib64/libcneconn.so
+vendor/lib64/libcneqmiutils.so
+vendor/lib64/libdpmctmgr.so
+vendor/lib64/libdpmfdmgr.so
+vendor/lib64/libdpmframework.so
+vendor/lib64/libdpmnsrm.so
+vendor/lib64/libdpmtcm.so
+vendor/lib64/libNimsWrap.so
+vendor/lib64/libvendorconn.so
+vendor/lib64/libwms.so
+vendor/lib64/libwqe.so
+vendor/lib/libcne.so
+vendor/lib/libcneapiclient.so
+vendor/lib/libcneconn.so
+vendor/lib/libcneqmiutils.so
+vendor/lib/libdpmctmgr.so
+vendor/lib/libdpmfdmgr.so
+vendor/lib/libdpmframework.so
+vendor/lib/libdpmnsrm.so
+vendor/lib/libdpmtcm.so
+vendor/lib/libNimsWrap.so
+vendor/lib/libvendorconn.so
+vendor/lib/libwms.so
+vendor/lib/libwqe.so
+
 # Consumerir
 bin/consumerird
 lib64/hw/consumerir.msm8952.so
@@ -416,11 +462,15 @@ etc/firmware/DE.o.msm8976
 vendor/lib64/hw/gatekeeper.msm8952.so
 
 # GPS
+bin/garden_app
+bin/gpsone_daemon
 bin/loc_launcher
 bin/lowi-server
 bin/xtwifi-client
 bin/xtwifi-inet-agent
+etc/permissions/com.qti.location.sdk.xml
 etc/permissions/com.qualcomm.location.xml
+framework/com.qti.location.sdk.jar
 -lib64/libloc_api_v02.so
 -lib64/libloc_ds_api.so
 -lib/libloc_api_v02.so
@@ -622,7 +672,6 @@ etc/permissions/qcnvitems.xml
 etc/permissions/qcrilhook.xml
 -framework/qcnvitems.jar
 -framework/qcrilhook.jar
-vendor/lib64/libcneapiclient.so
 vendor/lib64/libconfigdb.so
 vendor/lib64/libmdmdetect.so
 vendor/lib64/libnetmgr.so
@@ -631,6 +680,7 @@ vendor/lib64/libril-qcril-hook-oem.so
 vendor/lib64/libsystem_health_mon.so
 vendor/lib64/libxml.so
 vendor/lib/libmdmdetect.so
+vendor/lib/libxml.so
 vendor/qcril.db
 
 # Sensors
