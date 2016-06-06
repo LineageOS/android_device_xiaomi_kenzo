@@ -590,6 +590,13 @@ etc/firmware/venus-v1.b04
 etc/firmware/venus-v1.mbn
 etc/firmware/venus-v1.mdt
 
+# Network
+-priv-app/QtiTetherService/QtiTetherService.apk
+vendor/lib64/libconnctrl.so
+vendor/lib64/libQtiTether.so
+vendor/lib/libconnctrl.so
+vendor/lib/libQtiTether.so
+
 # Perf
 bin/msm_irqbalance
 vendor/bin/perfd
