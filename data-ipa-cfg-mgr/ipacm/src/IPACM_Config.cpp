@@ -150,7 +150,7 @@ int IPACM_Config::Init(void)
 	{
 		IPACMERR("Unable to allocate iface_table memory.\n");
 		ret = IPACM_FAILURE;
-		goto fail;;
+		goto fail;
 	}
 
 	for (i = 0; i < cfg->iface_config.num_iface_entries; i++)

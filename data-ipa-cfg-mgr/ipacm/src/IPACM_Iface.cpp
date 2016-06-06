@@ -744,6 +744,10 @@ int IPACM_Iface::init_fl_rule(ipa_ip_type iptype)
 		flt_rule_entry.flt_rule_hdl = -1;
 		flt_rule_entry.status = -1;
 		flt_rule_entry.rule.action = IPA_PASS_TO_EXCEPTION;
+#ifdef FEATURE_IPA_V3
+		flt_rule_entry.at_rear = false;
+		flt_rule_entry.rule.hashable = IPA_RULE_NON_HASHABLE;
+#endif
 		IPACMDBG_H("rx property attrib mask:0x%x\n", rx_prop->rx[0].attrib.attrib_mask);
 		memcpy(&flt_rule_entry.rule.attrib,
 					 &rx_prop->rx[0].attrib,
@@ -815,7 +819,6 @@ int IPACM_Iface::init_fl_rule(ipa_ip_type iptype)
 		flt_rule_entry.flt_rule_hdl = -1;
 		flt_rule_entry.status = -1;
 		flt_rule_entry.rule.action = IPA_PASS_TO_EXCEPTION;
-
 		/* Configuring Multicast Filtering Rule */
 		memcpy(&flt_rule_entry.rule.attrib,
 					 &rx_prop->rx[0].attrib,
@@ -865,7 +868,6 @@ int IPACM_Iface::init_fl_rule(ipa_ip_type iptype)
 		flt_rule_entry.rule.to_uc = 0;
 		flt_rule_entry.rule.action = IPA_PASS_TO_EXCEPTION;
 		flt_rule_entry.rule.eq_attrib_type = 1;
-
 		flt_rule_entry.rule.eq_attrib.rule_eq_bitmap = 0;
 
 		if(rx_prop->rx[0].attrib.attrib_mask & IPA_FLT_META_DATA)

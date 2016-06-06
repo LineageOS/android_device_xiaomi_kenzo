@@ -261,13 +261,27 @@ bool IPACM_Filtering::AddWanDLFilteringRule(struct ipa_ioc_add_flt_rule const *r
 
 		if (num_rules > 0)
 		{
+#ifndef FEATURE_IPA_V3
 			qmi_rule_msg.filter_spec_list_valid = true;
+#else /* defined (FEATURE_IPA_V3) */
+			qmi_rule_msg.filter_spec_ex_list_valid = true;
+#endif
 		}
 		else
 		{
+#ifndef FEATURE_IPA_V3
 			qmi_rule_msg.filter_spec_list_valid = false;
+#else /* defined (FEATURE_IPA_V3) */
+			qmi_rule_msg.filter_spec_ex_list_valid = false;
+#endif
 		}
+
+#ifndef FEATURE_IPA_V3
 		qmi_rule_msg.filter_spec_list_len = num_rules;
+#else /* defined (FEATURE_IPA_V3) */
+		qmi_rule_msg.filter_spec_ex_list_len = num_rules;
+#endif
+
 		qmi_rule_msg.source_pipe_index_valid = 0;
 
 		IPACMDBG_H("Get %d WAN DL filtering rules in total.\n", num_rules);
@@ -278,18 +292,32 @@ bool IPACM_Filtering::AddWanDLFilteringRule(struct ipa_ioc_add_flt_rule const *r
 			{
 				if (pos < QMI_IPA_MAX_FILTERS_V01)
 				{
-				qmi_rule_msg.filter_spec_list[pos].filter_spec_identifier = pos;
-				qmi_rule_msg.filter_spec_list[pos].ip_type = QMI_IPA_IP_TYPE_V4_V01;
-				qmi_rule_msg.filter_spec_list[pos].filter_action = GetQmiFilterAction(rule_table_v4->rules[cnt].rule.action);
-				qmi_rule_msg.filter_spec_list[pos].is_routing_table_index_valid = 1;
-				qmi_rule_msg.filter_spec_list[pos].route_table_index = rule_table_v4->rules[cnt].rule.rt_tbl_idx;
-				qmi_rule_msg.filter_spec_list[pos].is_mux_id_valid = 1;
-				qmi_rule_msg.filter_spec_list[pos].mux_id = mux_id;
-
-				memcpy(&qmi_rule_msg.filter_spec_list[pos].filter_rule, &rule_table_v4->rules[cnt].rule.eq_attrib, 
-					sizeof(struct ipa_filter_rule_type_v01));
-				pos++;
-			}
+#ifndef FEATURE_IPA_V3
+					qmi_rule_msg.filter_spec_list[pos].filter_spec_identifier = pos;
+					qmi_rule_msg.filter_spec_list[pos].ip_type = QMI_IPA_IP_TYPE_V4_V01;
+					qmi_rule_msg.filter_spec_list[pos].filter_action = GetQmiFilterAction(rule_table_v4->rules[cnt].rule.action);
+					qmi_rule_msg.filter_spec_list[pos].is_routing_table_index_valid = 1;
+					qmi_rule_msg.filter_spec_list[pos].route_table_index = rule_table_v4->rules[cnt].rule.rt_tbl_idx;
+					qmi_rule_msg.filter_spec_list[pos].is_mux_id_valid = 1;
+					qmi_rule_msg.filter_spec_list[pos].mux_id = mux_id;
+					memcpy(&qmi_rule_msg.filter_spec_list[pos].filter_rule,
+						&rule_table_v4->rules[cnt].rule.eq_attrib,
+						sizeof(struct ipa_filter_rule_type_v01));
+#else /* defined (FEATURE_IPA_V3) */
+					qmi_rule_msg.filter_spec_ex_list[pos].ip_type = QMI_IPA_IP_TYPE_V4_V01;
+					qmi_rule_msg.filter_spec_ex_list[pos].filter_action = GetQmiFilterAction(rule_table_v4->rules[cnt].rule.action);
+					qmi_rule_msg.filter_spec_ex_list[pos].is_routing_table_index_valid = 1;
+					qmi_rule_msg.filter_spec_ex_list[pos].route_table_index = rule_table_v4->rules[cnt].rule.rt_tbl_idx;
+					qmi_rule_msg.filter_spec_ex_list[pos].is_mux_id_valid = 1;
+					qmi_rule_msg.filter_spec_ex_list[pos].mux_id = mux_id;
+					qmi_rule_msg.filter_spec_ex_list[pos].rule_id = rule_table_v4->rules[cnt].rule.rule_id;
+					qmi_rule_msg.filter_spec_ex_list[pos].is_rule_hashable = rule_table_v4->rules[cnt].rule.hashable;
+					memcpy(&qmi_rule_msg.filter_spec_ex_list[pos].filter_rule,
+						&rule_table_v4->rules[cnt].rule.eq_attrib,
+						sizeof(struct ipa_filter_rule_type_v01));
+#endif
+					pos++;
+				}
 				else
 				{
 					IPACMERR(" QMI only support max %d rules, current (%d)\n ",QMI_IPA_MAX_FILTERS_V01, pos);
@@ -303,18 +331,32 @@ bool IPACM_Filtering::AddWanDLFilteringRule(struct ipa_ioc_add_flt_rule const *r
 			{
 				if (pos < QMI_IPA_MAX_FILTERS_V01)
 				{
-				qmi_rule_msg.filter_spec_list[pos].filter_spec_identifier = pos;
-				qmi_rule_msg.filter_spec_list[pos].ip_type = QMI_IPA_IP_TYPE_V6_V01;
-				qmi_rule_msg.filter_spec_list[pos].filter_action = GetQmiFilterAction(rule_table_v6->rules[cnt].rule.action);
-				qmi_rule_msg.filter_spec_list[pos].is_routing_table_index_valid = 1;
-				qmi_rule_msg.filter_spec_list[pos].route_table_index = rule_table_v6->rules[cnt].rule.rt_tbl_idx;
-				qmi_rule_msg.filter_spec_list[pos].is_mux_id_valid = 1;
-				qmi_rule_msg.filter_spec_list[pos].mux_id = mux_id;
-
-				memcpy(&qmi_rule_msg.filter_spec_list[pos].filter_rule, &rule_table_v6->rules[cnt].rule.eq_attrib, 
-					sizeof(struct ipa_filter_rule_type_v01));
-				pos++;
-			}
+#ifndef FEATURE_IPA_V3
+					qmi_rule_msg.filter_spec_list[pos].filter_spec_identifier = pos;
+					qmi_rule_msg.filter_spec_list[pos].ip_type = QMI_IPA_IP_TYPE_V6_V01;
+					qmi_rule_msg.filter_spec_list[pos].filter_action = GetQmiFilterAction(rule_table_v6->rules[cnt].rule.action);
+					qmi_rule_msg.filter_spec_list[pos].is_routing_table_index_valid = 1;
+					qmi_rule_msg.filter_spec_list[pos].route_table_index = rule_table_v6->rules[cnt].rule.rt_tbl_idx;
+					qmi_rule_msg.filter_spec_list[pos].is_mux_id_valid = 1;
+					qmi_rule_msg.filter_spec_list[pos].mux_id = mux_id;
+					memcpy(&qmi_rule_msg.filter_spec_list[pos].filter_rule,
+						&rule_table_v6->rules[cnt].rule.eq_attrib,
+						sizeof(struct ipa_filter_rule_type_v01));
+#else /* defined (FEATURE_IPA_V3) */
+					qmi_rule_msg.filter_spec_ex_list[pos].ip_type = QMI_IPA_IP_TYPE_V6_V01;
+					qmi_rule_msg.filter_spec_ex_list[pos].filter_action = GetQmiFilterAction(rule_table_v6->rules[cnt].rule.action);
+					qmi_rule_msg.filter_spec_ex_list[pos].is_routing_table_index_valid = 1;
+					qmi_rule_msg.filter_spec_ex_list[pos].route_table_index = rule_table_v6->rules[cnt].rule.rt_tbl_idx;
+					qmi_rule_msg.filter_spec_ex_list[pos].is_mux_id_valid = 1;
+					qmi_rule_msg.filter_spec_ex_list[pos].mux_id = mux_id;
+					qmi_rule_msg.filter_spec_ex_list[pos].rule_id = rule_table_v6->rules[cnt].rule.rule_id;
+					qmi_rule_msg.filter_spec_ex_list[pos].is_rule_hashable = rule_table_v6->rules[cnt].rule.hashable;
+					memcpy(&qmi_rule_msg.filter_spec_ex_list[pos].filter_rule,
+						&rule_table_v6->rules[cnt].rule.eq_attrib,
+						sizeof(struct ipa_filter_rule_type_v01));
+#endif
+					pos++;
+				}
 				else
 				{
 					IPACMERR(" QMI only support max %d rules, current (%d)\n ",QMI_IPA_MAX_FILTERS_V01, pos);

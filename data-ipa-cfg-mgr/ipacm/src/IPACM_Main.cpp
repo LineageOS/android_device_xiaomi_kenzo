@@ -570,7 +570,7 @@ void* ipa_driver_msg_notifier(void *param)
 			evt_data.event = IPA_LINK_DOWN_EVENT;
 			evt_data.evt_data = data_fid;
 			break;
-        /* Add for 8994 Android case */
+		/* Add for 8994 Android case */
 		case WAN_UPSTREAM_ROUTE_ADD:
 			memcpy(&event_wan, buffer + sizeof(struct ipa_msg_meta), sizeof(struct ipa_wan_msg));
 			IPACMDBG_H("Received WAN_UPSTREAM_ROUTE_ADD name: %s, tethered name: %s\n", event_wan.upstream_ifname, event_wan.tethered_ifname);
@@ -581,8 +581,10 @@ void* ipa_driver_msg_notifier(void *param)
 				return NULL;
 			}
 			ipa_get_if_index(event_wan.upstream_ifname, &(data_iptype->if_index));
+			ipa_get_if_index(event_wan.tethered_ifname, &(data_iptype->if_index_tether));
 			data_iptype->iptype = event_wan.ip;
-			IPACMDBG_H("Received WAN_UPSTREAM_ROUTE_ADD: fid(%d) ip-type(%d)\n", data_iptype->if_index, data_iptype->iptype);
+			IPACMDBG_H("Received WAN_UPSTREAM_ROUTE_ADD: fid(%d) tether_fid(%d) ip-type(%d)\n", data_iptype->if_index,
+					data_iptype->if_index_tether, data_iptype->iptype);
 			evt_data.event = IPA_WAN_UPSTREAM_ROUTE_ADD_EVENT;
 			evt_data.evt_data = data_iptype;
 			break;
@@ -596,14 +598,15 @@ void* ipa_driver_msg_notifier(void *param)
 				return NULL;
 			}
 			ipa_get_if_index(event_wan.upstream_ifname, &(data_iptype->if_index));
+			ipa_get_if_index(event_wan.tethered_ifname, &(data_iptype->if_index_tether));
 			data_iptype->iptype = event_wan.ip;
 			IPACMDBG_H("Received WAN_UPSTREAM_ROUTE_DEL: fid(%d) ip-type(%d)\n", data_iptype->if_index, data_iptype->iptype);
 			evt_data.event = IPA_WAN_UPSTREAM_ROUTE_DEL_EVENT;
 			evt_data.evt_data = data_iptype;
 			break;
-        /* End of adding for 8994 Android case */
+		/* End of adding for 8994 Android case */
 
-        /* Add for embms case */
+		/* Add for embms case */
 		case WAN_EMBMS_CONNECT:
 			memcpy(&event_wan, buffer + sizeof(struct ipa_msg_meta), sizeof(struct ipa_wan_msg));
 			IPACMDBG("Received WAN_EMBMS_CONNECT name: %s\n",event_wan.upstream_ifname);

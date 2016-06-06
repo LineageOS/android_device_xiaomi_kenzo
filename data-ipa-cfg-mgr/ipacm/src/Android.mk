@@ -24,6 +24,11 @@ LOCAL_CFLAGS += -DFEATURE_IPA_ANDROID
 ifneq (,$(filter userdebug eng, $(TARGET_BUILD_VARIANT)))
 LOCAL_CFLAGS += -DDEBUG
 endif
+
+ifeq ($(TARGET_BOARD_PLATFORM),msm8998)
+LOCAL_CFLAGS += -DFEATURE_IPA_V3
+endif
+
 filetoadd = bionic/libc/kernel/arch-arm/asm/posix_types.h
 LOCAL_CFLAGS += $(shell if [ -a $(filetoadd) ] ; then echo -include $(filetoadd) ; fi ;)
 filetoadd = bionic/libc/kernel/arch-arm/asm/byteorder.h
@@ -50,6 +55,7 @@ LOCAL_SRC_FILES := IPACM_Main.cpp \
                 IPACM_Log.cpp
 
 LOCAL_MODULE := ipacm
+LOCAL_CLANG := false
 LOCAL_MODULE_TAGS := optional
 
 LOCAL_SHARED_LIBRARIES := libipanat

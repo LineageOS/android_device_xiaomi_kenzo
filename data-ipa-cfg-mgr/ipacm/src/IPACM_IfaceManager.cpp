@@ -214,10 +214,17 @@ int IPACM_IfaceManager::create_iface_instance(ipacm_ifacemgr_data *param)
 				IPACM_EvtDispatcher::registr(IPA_NEIGH_CLIENT_IP_ADDR_DEL_EVENT, lan);
 				IPACM_EvtDispatcher::registr(IPA_SW_ROUTING_ENABLE, lan);
 				IPACM_EvtDispatcher::registr(IPA_SW_ROUTING_DISABLE, lan);
+#ifdef FEATURE_IPA_ANDROID
+				IPACM_EvtDispatcher::registr(IPA_HANDLE_WAN_UP_TETHER, lan);
+				IPACM_EvtDispatcher::registr(IPA_HANDLE_WAN_UP_V6_TETHER, lan);
+				IPACM_EvtDispatcher::registr(IPA_HANDLE_WAN_DOWN_TETHER, lan);
+				IPACM_EvtDispatcher::registr(IPA_HANDLE_WAN_DOWN_V6_TETHER, lan);
+#else
 				IPACM_EvtDispatcher::registr(IPA_HANDLE_WAN_UP, lan);
 				IPACM_EvtDispatcher::registr(IPA_HANDLE_WAN_UP_V6, lan);
 				IPACM_EvtDispatcher::registr(IPA_HANDLE_WAN_DOWN, lan);
 				IPACM_EvtDispatcher::registr(IPA_HANDLE_WAN_DOWN_V6, lan);
+#endif
 				IPACM_EvtDispatcher::registr(IPA_CFG_CHANGE_EVENT, lan); 				// register for IPA_CFG_CHANGE event
 				IPACM_EvtDispatcher::registr(IPA_PRIVATE_SUBNET_CHANGE_EVENT, lan); 	// register for IPA_PRIVATE_SUBNET_CHANGE_EVENT event
 #ifdef FEATURE_ETH_BRIDGE_LE
@@ -326,10 +333,17 @@ int IPACM_IfaceManager::create_iface_instance(ipacm_ifacemgr_data *param)
 				IPACM_EvtDispatcher::registr(IPA_NEIGH_CLIENT_IP_ADDR_ADD_EVENT, wl);
 				IPACM_EvtDispatcher::registr(IPA_SW_ROUTING_ENABLE, wl);
 				IPACM_EvtDispatcher::registr(IPA_SW_ROUTING_DISABLE, wl);
+#ifdef FEATURE_IPA_ANDROID
+				IPACM_EvtDispatcher::registr(IPA_HANDLE_WAN_UP_TETHER, wl);
+				IPACM_EvtDispatcher::registr(IPA_HANDLE_WAN_UP_V6_TETHER, wl);
+				IPACM_EvtDispatcher::registr(IPA_HANDLE_WAN_DOWN_TETHER, wl);
+				IPACM_EvtDispatcher::registr(IPA_HANDLE_WAN_DOWN_V6_TETHER, wl);
+#else
 				IPACM_EvtDispatcher::registr(IPA_HANDLE_WAN_UP, wl);
 				IPACM_EvtDispatcher::registr(IPA_HANDLE_WAN_UP_V6, wl);
 				IPACM_EvtDispatcher::registr(IPA_HANDLE_WAN_DOWN, wl);
 				IPACM_EvtDispatcher::registr(IPA_HANDLE_WAN_DOWN_V6, wl);
+#endif
 				IPACM_EvtDispatcher::registr(IPA_PRIVATE_SUBNET_CHANGE_EVENT, wl); 	// register for IPA_PRIVATE_SUBNET_CHANGE_EVENT event
 #ifdef FEATURE_ETH_BRIDGE_LE
 				IPACM_EvtDispatcher::registr(IPA_ETH_BRIDGE_LAN_CLIENT_ADD_EVENT, wl);
@@ -371,6 +385,7 @@ int IPACM_IfaceManager::create_iface_instance(ipacm_ifacemgr_data *param)
 					IPACM_EvtDispatcher::registr(IPA_ADDR_ADD_EVENT, w);
 #ifdef FEATURE_IPA_ANDROID
 					IPACM_EvtDispatcher::registr(IPA_WAN_UPSTREAM_ROUTE_ADD_EVENT, w);
+					IPACM_EvtDispatcher::registr(IPA_WAN_UPSTREAM_ROUTE_DEL_EVENT, w);
 					if(is_sta_mode == Q6_WAN)
 					{
 						IPACM_EvtDispatcher::registr(IPA_NETWORK_STATS_UPDATE_EVENT, w);

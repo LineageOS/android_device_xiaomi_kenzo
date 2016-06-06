@@ -189,6 +189,14 @@ IPACM_Wlan::IPACM_Wlan(int iface_index) : IPACM_Lan(iface_index)
 		}
 	}
 #endif
+
+#ifdef FEATURE_IPA_ANDROID
+	/* set the IPA-client pipe enum */
+	if(IPACM_Iface::ipacmcfg->iface_table[ipa_if_num].if_cat == WLAN_IF)
+	{
+		handle_tethering_client(false, IPACM_CLIENT_WLAN);
+	}
+#endif
 	return;
 }
 
@@ -212,6 +220,7 @@ void IPACM_Wlan::event_callback(ipa_cm_event_id event, void *param)
 	int wlan_index;
 	ipacm_ext_prop* ext_prop;
 	ipacm_event_iface_up* data_wan;
+	ipacm_event_iface_up_tehter* data_wan_tether;
 
 	switch (event)
 	{
@@ -342,7 +351,7 @@ void IPACM_Wlan::event_callback(ipa_cm_event_id event, void *param)
 					}
 #endif
 
-					if (IPACM_Wan::isWanUP())
+					if (IPACM_Wan::isWanUP(ipa_if_num))
 					{
 						if(data->iptype == IPA_IP_v4 || data->iptype == IPA_IP_MAX)
 						{
@@ -359,7 +368,7 @@ void IPACM_Wlan::event_callback(ipa_cm_event_id event, void *param)
 						}
 					}
 
-					if(IPACM_Wan::isWanUP_V6())
+					if(IPACM_Wan::isWanUP_V6(ipa_if_num))
 					{
 						if((data->iptype == IPA_IP_v6 || data->iptype == IPA_IP_MAX) && num_dft_rt_v6 == 1)
 						{
@@ -391,6 +400,130 @@ void IPACM_Wlan::event_callback(ipa_cm_event_id event, void *param)
 			}
 		}
 		break;
+#ifdef FEATURE_IPA_ANDROID
+	case IPA_HANDLE_WAN_UP_TETHER:
+		IPACMDBG_H("Received IPA_HANDLE_WAN_UP_TETHER event\n");
+
+		data_wan_tether = (ipacm_event_iface_up_tehter*)param;
+		if(data_wan_tether == NULL)
+		{
+			IPACMERR("No event data is found.\n");
+			return;
+		}
+		IPACMDBG_H("Backhaul is sta mode?%d, if_index_tether:%d tether_if_name:%s\n", data_wan_tether->is_sta,
+					data_wan_tether->if_index_tether,
+					IPACM_Iface::ipacmcfg->iface_table[data_wan_tether->if_index_tether].iface_name);
+		if (data_wan_tether->if_index_tether == ipa_if_num)
+		{
+			if(ip_type == IPA_IP_v4 || ip_type == IPA_IP_MAX)
+			{
+				if(data_wan_tether->is_sta == false)
+				{
+					ext_prop = IPACM_Iface::ipacmcfg->GetExtProp(IPA_IP_v4);
+					IPACM_Lan::handle_wan_up_ex(ext_prop, IPA_IP_v4, 0);
+				}
+				else
+				{
+					IPACM_Lan::handle_wan_up(IPA_IP_v4);
+				}
+			}
+		}
+		break;
+
+	case IPA_HANDLE_WAN_UP_V6_TETHER:
+		IPACMDBG_H("Received IPA_HANDLE_WAN_UP_V6_TETHER event\n");
+
+		data_wan_tether = (ipacm_event_iface_up_tehter*)param;
+		if(data_wan_tether == NULL)
+		{
+			IPACMERR("No event data is found.\n");
+			return;
+		}
+		IPACMDBG_H("Backhaul is sta mode?%d, if_index_tether:%d tether_if_name:%s\n", data_wan_tether->is_sta,
+					data_wan_tether->if_index_tether,
+					IPACM_Iface::ipacmcfg->iface_table[data_wan_tether->if_index_tether].iface_name);
+		if (data_wan_tether->if_index_tether == ipa_if_num)
+		{
+			if(ip_type == IPA_IP_v6 || ip_type == IPA_IP_MAX)
+			{
+				if(wlan_ap_index == 0) //install ipv6 prefix rule only once
+				{
+					install_ipv6_prefix_flt_rule(data_wan_tether->ipv6_prefix);
+				}
+				if(data_wan_tether->is_sta == false)
+				{
+					ext_prop = IPACM_Iface::ipacmcfg->GetExtProp(IPA_IP_v6);
+					IPACM_Lan::handle_wan_up_ex(ext_prop, IPA_IP_v6, 0);
+				}
+				else
+				{
+					IPACM_Lan::handle_wan_up(IPA_IP_v6);
+				}
+			}
+		}
+		break;
+
+	case IPA_HANDLE_WAN_DOWN_TETHER:
+		IPACMDBG_H("Received IPA_HANDLE_WAN_DOWN_TETHER event\n");
+		data_wan_tether = (ipacm_event_iface_up_tehter*)param;
+		if(data_wan_tether == NULL)
+		{
+			IPACMERR("No event data is found.\n");
+			return;
+		}
+		IPACMDBG_H("Backhaul is sta mode?%d, if_index_tether:%d tether_if_name:%s\n", data_wan_tether->is_sta,
+					data_wan_tether->if_index_tether,
+					IPACM_Iface::ipacmcfg->iface_table[data_wan_tether->if_index_tether].iface_name);
+		if (data_wan_tether->if_index_tether == ipa_if_num)
+		{
+			if(data_wan_tether->is_sta == false && wlan_ap_index > 0)
+			{
+				IPACMDBG_H("This is not the first AP instance and not STA mode, ignore WAN_DOWN event.\n");
+				return;
+			}
+			if (rx_prop != NULL)
+			{
+				if(ip_type == IPA_IP_v4 || ip_type == IPA_IP_MAX)
+				{
+					handle_wan_down(data_wan_tether->is_sta);
+				}
+			}
+		}
+		break;
+
+	case IPA_HANDLE_WAN_DOWN_V6_TETHER:
+		IPACMDBG_H("Received IPA_HANDLE_WAN_DOWN_V6_TETHER event\n");
+		data_wan_tether = (ipacm_event_iface_up_tehter*)param;
+		if(data_wan_tether == NULL)
+		{
+			IPACMERR("No event data is found.\n");
+			return;
+		}
+		IPACMDBG_H("Backhaul is sta mode?%d, if_index_tether:%d tether_if_name:%s\n", data_wan_tether->is_sta,
+					data_wan_tether->if_index_tether,
+					IPACM_Iface::ipacmcfg->iface_table[data_wan_tether->if_index_tether].iface_name);
+		if (data_wan_tether->if_index_tether == ipa_if_num)
+		{
+			/* clean up v6 RT rules*/
+			IPACMDBG_H("Received IPA_WAN_V6_DOWN in WLAN-instance and need clean up client IPv6 address \n");
+			/* reset wifi-client ipv6 rt-rules */
+			handle_wlan_client_reset_rt(IPA_IP_v6);
+
+			if(data_wan_tether->is_sta == false && wlan_ap_index > 0)
+			{
+				IPACMDBG_H("This is not the first AP instance and not STA mode, ignore WAN_DOWN event.\n");
+				return;
+			}
+			if (rx_prop != NULL)
+			{
+				if(ip_type == IPA_IP_v6 || ip_type == IPA_IP_MAX)
+				{
+					handle_wan_down_v6(data_wan_tether->is_sta);
+				}
+			}
+		}
+		break;
+#else
 	case IPA_HANDLE_WAN_UP:
 		IPACMDBG_H("Received IPA_HANDLE_WAN_UP event\n");
 
@@ -492,6 +625,7 @@ void IPACM_Wlan::event_callback(ipa_cm_event_id event, void *param)
 			}
 		}
 		break;
+#endif
 
 	case IPA_WLAN_CLIENT_ADD_EVENT_EX:
 		{
@@ -872,7 +1006,7 @@ void IPACM_Wlan::event_callback(ipa_cm_event_id event, void *param)
 	case IPA_TETHERING_STATS_UPDATE_EVENT:
 	{
 		IPACMDBG_H("Received IPA_TETHERING_STATS_UPDATE_EVENT event.\n");
-		if (IPACM_Wan::isWanUP() || IPACM_Wan::isWanUP_V6())
+		if (IPACM_Wan::isWanUP(ipa_if_num) || IPACM_Wan::isWanUP_V6(ipa_if_num))
 		{
 			if(IPACM_Wan::backhaul_is_sta_mode == false) /* LTE */
 			{
@@ -1427,17 +1561,25 @@ int IPACM_Wlan::handle_uplink_filter_rule(ipacm_ext_prop *prop, ipa_ip_type ipty
 	memset(&flt_index, 0, sizeof(flt_index));
 	flt_index.source_pipe_index = ioctl(fd, IPA_IOC_QUERY_EP_MAPPING, rx_prop->rx[0].src_pipe);
 	flt_index.install_status = IPA_QMI_RESULT_SUCCESS_V01;
+#ifndef FEATURE_IPA_V3
 	flt_index.filter_index_list_len = prop->num_ext_props;
+#else  /* defined (FEATURE_IPA_V3) */
+	flt_index.rule_id_valid = 1;
+	flt_index.rule_id_len = prop->num_ext_props;
+#endif
 	flt_index.embedded_pipe_index_valid = 1;
 	flt_index.embedded_pipe_index = ioctl(fd, IPA_IOC_QUERY_EP_MAPPING, IPA_CLIENT_APPS_LAN_WAN_PROD);
 	flt_index.retain_header_valid = 1;
 	flt_index.retain_header = 0;
 	flt_index.embedded_call_mux_id_valid = 1;
 	flt_index.embedded_call_mux_id = IPACM_Iface::ipacmcfg->GetQmapId();
-
-	IPACMDBG_H("flt_index: src pipe: %d, num of rules: %d, ebd pipe: %d, mux id: %d\n", flt_index.source_pipe_index,
-				flt_index.filter_index_list_len, flt_index.embedded_pipe_index, flt_index.embedded_call_mux_id);
-
+#ifndef FEATURE_IPA_V3
+	IPACMDBG_H("flt_index: src pipe: %d, num of rules: %d, ebd pipe: %d, mux id: %d\n",
+		flt_index.source_pipe_index, flt_index.filter_index_list_len, flt_index.embedded_pipe_index, flt_index.embedded_call_mux_id);
+#else /* defined (FEATURE_IPA_V3) */
+	IPACMDBG_H("flt_index: src pipe: %d, num of rules: %d, ebd pipe: %d, mux id: %d\n",
+		flt_index.source_pipe_index, flt_index.rule_id_len, flt_index.embedded_pipe_index, flt_index.embedded_call_mux_id);
+#endif
 	len = sizeof(struct ipa_ioc_add_flt_rule) + prop->num_ext_props * sizeof(struct ipa_flt_rule_add);
 	pFilteringTable = (struct ipa_ioc_add_flt_rule*)malloc(len);
 	if (pFilteringTable == NULL)
@@ -1456,6 +1598,10 @@ int IPACM_Wlan::handle_uplink_filter_rule(ipacm_ext_prop *prop, ipa_ip_type ipty
 
 	memset(&flt_rule_entry, 0, sizeof(struct ipa_flt_rule_add)); // Zero All Fields
 	flt_rule_entry.at_rear = 1;
+#ifdef FEATURE_IPA_V3
+	if (flt_rule_entry.rule.eq_attrib.ipv4_frag_eq_present)
+		flt_rule_entry.at_rear = 0;
+#endif
 	flt_rule_entry.flt_rule_hdl = -1;
 	flt_rule_entry.status = -1;
 
@@ -1507,14 +1653,20 @@ int IPACM_Wlan::handle_uplink_filter_rule(ipacm_ext_prop *prop, ipa_ip_type ipty
 			IPACMDBG_H("xlat meta-data is modified for rule: %d has index: %d with xlat_mux_id: %d\n",
 					cnt, index, xlat_mux_id);
                 }
-
+#ifdef FEATURE_IPA_V3
+		flt_rule_entry.rule.hashable = prop->prop[cnt].is_rule_hashable;
+		flt_rule_entry.rule.rule_id = prop->prop[cnt].rule_id;
+#endif
 		memcpy(&pFilteringTable->rules[cnt], &flt_rule_entry, sizeof(flt_rule_entry));
 
 		IPACMDBG_H("Modem UL filtering rule %d has index %d\n", cnt, index);
+#ifndef FEATURE_IPA_V3
 		flt_index.filter_index_list[cnt].filter_index = index;
-		index++;
-
 		flt_index.filter_index_list[cnt].filter_handle = prop->prop[cnt].filter_hdl;
+#else /* defined (FEATURE_IPA_V3) */
+		flt_index.rule_id[cnt] = prop->prop[cnt].rule_id;
+#endif
+		index++;
 	}
 
 	if(false == m_filtering.SendFilteringRuleIndex(&flt_index))
@@ -2050,7 +2202,6 @@ int IPACM_Wlan::handle_wlan_client_route_rule(uint8_t *mac_addr, ipa_ip_type ipt
 				rt_rule_entry->rule.hdr_hdl = get_client_memptr(wlan_client, wlan_index)->hdr_hdl_v4;
 				rt_rule_entry->rule.attrib.u.v4.dst_addr = get_client_memptr(wlan_client, wlan_index)->v4_addr;
 				rt_rule_entry->rule.attrib.u.v4.dst_addr_mask = 0xFFFFFFFF;
-
 				if (false == m_routing.AddRoutingRule(rt_rule))
 				{
 					IPACMERR("Routing rule addition failed!\n");
@@ -2090,7 +2241,6 @@ int IPACM_Wlan::handle_wlan_client_route_rule(uint8_t *mac_addr, ipa_ip_type ipt
 					rt_rule_entry->rule.attrib.u.v6.dst_addr_mask[1] = 0xFFFFFFFF;
 					rt_rule_entry->rule.attrib.u.v6.dst_addr_mask[2] = 0xFFFFFFFF;
 					rt_rule_entry->rule.attrib.u.v6.dst_addr_mask[3] = 0xFFFFFFFF;
-
 					if (false == m_routing.AddRoutingRule(rt_rule))
 					{
 						IPACMERR("Routing rule addition failed!\n");
@@ -2131,7 +2281,6 @@ int IPACM_Wlan::handle_wlan_client_route_rule(uint8_t *mac_addr, ipa_ip_type ipt
 					rt_rule_entry->rule.attrib.u.v6.dst_addr_mask[1] = 0xFFFFFFFF;
 					rt_rule_entry->rule.attrib.u.v6.dst_addr_mask[2] = 0xFFFFFFFF;
 					rt_rule_entry->rule.attrib.u.v6.dst_addr_mask[3] = 0xFFFFFFFF;
-
 					if (false == m_routing.AddRoutingRule(rt_rule))
 					{
 						IPACMERR("Routing rule addition failed!\n");
@@ -2336,13 +2485,13 @@ int IPACM_Wlan::handle_down_evt()
 #endif
 
 	/* delete wan filter rule */
-	if (IPACM_Wan::isWanUP() && rx_prop != NULL)
+	if (IPACM_Wan::isWanUP(ipa_if_num) && rx_prop != NULL)
 	{
 		IPACMDBG_H("LAN IF goes down, backhaul type %d\n", IPACM_Wan::backhaul_is_sta_mode);
 		IPACM_Lan::handle_wan_down(IPACM_Wan::backhaul_is_sta_mode);
 	}
 
-	if (IPACM_Wan::isWanUP_V6() && rx_prop != NULL)
+	if (IPACM_Wan::isWanUP_V6(ipa_if_num) && rx_prop != NULL)
 	{
 		IPACMDBG_H("LAN IF goes down, backhaul type %d\n", IPACM_Wan::backhaul_is_sta_mode);
 		IPACM_Lan::handle_wan_down_v6(IPACM_Wan::backhaul_is_sta_mode);
@@ -2630,6 +2779,8 @@ int IPACM_Wlan::handle_down_evt()
 			IPACMERR(" can't Delete IPACM private subnet_addr as: 0x%x \n", if_ipv4_subnet);
 		}
 	}
+	/* reset the IPA-client pipe enum */
+	handle_tethering_client(true, IPACM_CLIENT_WLAN);
 #endif /* defined(FEATURE_IPA_ANDROID)*/
 
 fail:
@@ -3184,7 +3335,6 @@ int IPACM_Wlan::install_dummy_flt_rule(ipa_ip_type iptype, int num_rule)
 	flt_rule.flt_rule_hdl = -1;
 	flt_rule.status = -1;
 	flt_rule.rule.action = IPA_PASS_TO_EXCEPTION;
-
 	memcpy(&flt_rule.rule.attrib, &rx_prop->rx[0].attrib,
 			sizeof(flt_rule.rule.attrib));
 
@@ -4365,7 +4515,6 @@ int IPACM_Wlan::eth_bridge_add_wlan_client_rt_rule(uint8_t* mac, eth_bridge_src_
 			position++;
 		}
 	}
-
 	if(false == m_routing.AddRoutingRule(rt_rule_table))
 	{
 		IPACMERR("Routing rule addition failed!\n");

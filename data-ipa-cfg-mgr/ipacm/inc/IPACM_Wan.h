@@ -97,18 +97,47 @@ public:
 	static uint8_t xlat_mux_id;
 	/* IPACM interface name */
 	static char wan_up_dev_name[IF_NAME_LEN];
-
 	IPACM_Wan(int, ipacm_wan_iface_type, uint8_t *);
 	virtual ~IPACM_Wan();
 
-	static bool isWanUP()
+	static bool isWanUP(int ipa_if_num_tether)
 	{
+#ifdef FEATURE_IPA_ANDROID
+		int i;
+		for (i=0; i < ipa_if_num_tether_v4_total;i++)
+		{
+			if (ipa_if_num_tether_v4[i] == ipa_if_num_tether)
+			{
+				IPACMDBG_H("support ipv4 tether_iface(%s)\n",
+					IPACM_Iface::ipacmcfg->iface_table[ipa_if_num_tether].iface_name);
+				return wan_up;
+				break;
+			}
+		}
+		return false;
+#else
 		return wan_up;
+#endif
 	}
 
-	static bool isWanUP_V6()
+	static bool isWanUP_V6(int ipa_if_num_tether)
 	{
+#ifdef FEATURE_IPA_ANDROID
+		int i;
+		for (i=0; i < ipa_if_num_tether_v6_total;i++)
+		{
+			if (ipa_if_num_tether_v6[i] == ipa_if_num_tether)
+			{
+				IPACMDBG_H("support ipv6 tether_iface(%s)\n",
+					IPACM_Iface::ipacmcfg->iface_table[ipa_if_num_tether].iface_name);
+				return wan_up_v6;
+				break;
+			}
+		}
+		return false;
+#else
 		return wan_up_v6;
+#endif
 	}
 
 	static bool getXlat_Mux_Id()
@@ -137,6 +166,13 @@ public:
 	{
 		return backhaul_is_wan_bridge;
 	}
+#ifdef FEATURE_IPA_ANDROID
+	/* IPACM interface id */
+	static int ipa_if_num_tether_v4_total;
+	static int ipa_if_num_tether_v4[IPA_MAX_IFACE_ENTRIES];
+	static int ipa_if_num_tether_v6_total;
+	static int ipa_if_num_tether_v6[IPA_MAX_IFACE_ENTRIES];
+#endif
 
 private:
 
@@ -386,6 +422,12 @@ private:
 
 	bool check_dft_firewall_rules_attr_mask(IPACM_firewall_conf_t *firewall_config);
 
+#ifdef FEATURE_IPA_ANDROID
+	/* wan posting supported tether_iface */
+	int post_wan_up_tether_evt(ipa_ip_type iptype, int ipa_if_num_tether);
+
+	int post_wan_down_tether_evt(ipa_ip_type iptype, int ipa_if_num_tether);
+#endif
 	int config_dft_firewall_rules(ipa_ip_type iptype);
 
 	/* configure the initial firewall filter rules */

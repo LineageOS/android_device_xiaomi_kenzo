@@ -190,6 +190,10 @@ typedef enum
 	IPA_WAN_XLAT_CONNECT_EVENT,               /* 53 ipacm_event_data_fid */
 	IPA_TETHERING_STATS_UPDATE_EVENT,         /* 54 ipacm_event_data_fid */
 	IPA_NETWORK_STATS_UPDATE_EVENT,           /* 55 ipacm_event_data_fid */
+	IPA_HANDLE_WAN_UP_TETHER,                 /* 56 ipacm_event_iface_up_tehter */
+	IPA_HANDLE_WAN_DOWN_TETHER,               /* 57 ipacm_event_iface_up_tehter */
+	IPA_HANDLE_WAN_UP_V6_TETHER,		  /* 58 ipacm_event_iface_up_tehter */
+	IPA_HANDLE_WAN_DOWN_V6_TETHER,		  /* 59 ipacm_event_iface_up_tehter */
 	IPACM_EVENT_MAX
 } ipa_cm_event_id;
 
@@ -292,6 +296,7 @@ typedef struct
 typedef struct _ipacm_event_data_iptype
 {
 	int if_index;
+	int if_index_tether;
 	enum ipa_ip_type iptype;
 } ipacm_event_data_iptype;
 
@@ -330,6 +335,13 @@ typedef struct _ipacm_event_iface_up
 	bool is_sta;
 	uint8_t xlat_mux_id;
 }ipacm_event_iface_up;
+
+typedef struct _ipacm_event_iface_up_tether
+{
+	uint32_t if_index_tether;
+	uint32_t ipv6_prefix[2];
+	bool is_sta;
+}ipacm_event_iface_up_tehter;
 
 typedef enum
 {
