@@ -1,0 +1,10 @@
+prefix=@prefix@
+exec_prefix=@exec_prefix@
+libdir=@libdir@
+includedir=@includedir@
+
+Name: loc-api
+Description: Qualcomm GPS Location API
+Version: @VERSION@
+Libs: -L${libdir} -lgps_utils_so -lloc_adapter_so -lloc_eng_so -lgps_default_so -lloc_api
+Cflags: -I${includedir}/loc-api/libloc_api_50001 -I${includedir}/loc-api/utils -I${includedir}/ -I${includedir}/loc-api
