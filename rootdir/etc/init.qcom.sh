@@ -80,6 +80,7 @@ echo 1 > /proc/sys/net/ipv6/conf/default/accept_ra_defrtr
 
 start_sensors
 start_copying_prebuilt_qcril_db
+start_msm_irqbalance_8952
 
 if [ -f /sys/class/graphics/fb0/modes ]; then
 	panel_res=`cat /sys/class/graphics/fb0/modes`
@@ -89,32 +90,6 @@ if [ -f /sys/class/graphics/fb0/modes ]; then
 		panel_xres=${panel_res:2:4}
 	fi
 fi
-
-case "$target" in
-    "msm8952")
-	start_msm_irqbalance_8952
-
-        if [ -f /sys/devices/soc0/platform_subtype_id ]; then
-             platform_subtype_id=`cat /sys/devices/soc0/platform_subtype_id`
-        fi
-        if [ -f /sys/devices/soc0/hw_platform ]; then
-             hw_platform=`cat /sys/devices/soc0/hw_platform`
-        fi
-        case "$platformid" in
-             "266")
-                  case "$hw_platform" in
-                       "MTP")
-                            case "$platform_subtype_id" in
-                                 "0" | "1")
-                                      setprop qemu.hw.mainkeys 1
-                                      ;;
-                            esac
-                            ;;
-                  esac
-                  ;;
-        esac
-        ;;
-esac
 
 bootmode=`getprop ro.bootmode`
 emmc_boot=`getprop ro.boot.emmc`
