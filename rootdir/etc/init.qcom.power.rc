@@ -1,0 +1,166 @@
+on enable-low-power
+    # Apply Scheduler and Governor settings for 8956
+
+    # HMP scheduler (big.Little cluster related) settings
+    write /proc/sys/kernel/sched_upmigrate 95
+    write /proc/sys/kernel/sched_downmigrate 85
+
+    write /proc/sys/kernel/sched_window_stats_policy 5
+    write /proc/sys/kernel/sched_ravg_hist_size 5
+
+    write /sys/devices/system/cpu/cpu0/sched_mostly_idle_nr_run 3
+    write /sys/devices/system/cpu/cpu1/sched_mostly_idle_nr_run 3
+    write /sys/devices/system/cpu/cpu2/sched_mostly_idle_nr_run 3
+    write /sys/devices/system/cpu/cpu3/sched_mostly_idle_nr_run 3
+    write /sys/devices/system/cpu/cpu4/sched_mostly_idle_nr_run 3
+    write /sys/devices/system/cpu/cpu5/sched_mostly_idle_nr_run 3
+
+    write /sys/class/devfreq/mincpubw/governor "cpufreq"
+    write /sys/class/devfreq/cpubw/governor "bw_hwmon"
+    write /sys/class/devfreq/cpubw/bw_hwmon/io_percent 20
+    write /sys/class/devfreq/cpubw/bw_hwmon/guard_band_mbps 30
+    write /sys/class/devfreq/gpubw/bw_hwmon/io_percent 40
+
+    # Disable thermal & BCL core_control to update interactive gov settings
+    write /sys/module/msm_thermal/core_control/enabled 0
+    write /sys/devices/soc.0/qcom,bcl.56/mode disable
+    write /sys/devices/soc.0/qcom,bcl.56/hotplug_mask 0
+    write /sys/devices/soc.0/qcom,bcl.56/hotplug_soc_mask 0
+    write /sys/devices/soc.0/qcom,bcl.56/mode enable
+
+    # Enable governor for power cluster
+    write /sys/devices/system/cpu/cpu0/online 1
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor "interactive"
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/go_hispeed_load 80
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/timer_rate 20000
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/hispeed_freq 1305600
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/io_is_busy 0
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/target_loads "691200:60 806400:80"
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/min_sample_time 40000
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq 400000
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/above_hispeed_delay 59000
+
+    # Enable governor for perf cluster
+    write /sys/devices/system/cpu/cpu4/online 1
+    write /sys/devices/system/cpu/cpu4/cpufreq/scaling_governor "interactive"
+    write /sys/devices/system/cpu/cpu4/cpufreq/interactive/above_hispeed_delay "19000 1382400:39000"
+    write /sys/devices/system/cpu/cpu4/cpufreq/interactive/go_hispeed_load 85
+    write /sys/devices/system/cpu/cpu4/cpufreq/interactive/timer_rate 20000
+    write /sys/devices/system/cpu/cpu4/cpufreq/interactive/hispeed_freq 1382400
+    write /sys/devices/system/cpu/cpu4/cpufreq/interactive/io_is_busy 0
+    write /sys/devices/system/cpu/cpu4/cpufreq/interactive/target_loads "85 1382400:90 1747200:80"
+    write /sys/devices/system/cpu/cpu4/cpufreq/interactive/min_sample_time 40000
+    write /sys/devices/system/cpu/cpu4/cpufreq/scaling_min_freq 400000
+    write /sys/devices/system/cpu/cpu4/cpufreq/interactive/sampling_down_factor 40000
+    write /sys/devices/system/cpu/cpu4/cpufreq/interactive/max_freq_hysteresis 60000
+
+    # HMP Task packing settings for 8956
+    write /proc/sys/kernel/sched_small_task 30
+    write /sys/devices/system/cpu/cpu0/sched_mostly_idle_load 20
+    write /sys/devices/system/cpu/cpu1/sched_mostly_idle_load 20
+    write /sys/devices/system/cpu/cpu2/sched_mostly_idle_load 20
+    write /sys/devices/system/cpu/cpu3/sched_mostly_idle_load 20
+    write /sys/devices/system/cpu/cpu4/sched_mostly_idle_load 20
+    write /sys/devices/system/cpu/cpu5/sched_mostly_idle_load 20
+
+    write /proc/sys/kernel/sched_boost 0
+
+    # Re-enable thermal & BCL core_control now
+    write /sys/module/msm_thermal/core_control/enabled 1
+    write /sys/devices/soc.0/qcom,bcl.56/mode disable
+    write /sys/devices/soc.0/qcom,bcl.56/hotplug_mask 48
+    write /sys/devices/soc.0/qcom,bcl.56/hotplug_soc_mask 48
+    write /sys/devices/soc.0/qcom,bcl.56/mode enable
+
+    # Bring up all cores online
+    write /sys/devices/system/cpu/cpu1/online 1
+    write /sys/devices/system/cpu/cpu2/online 1
+    write /sys/devices/system/cpu/cpu3/online 1
+    write /sys/devices/system/cpu/cpu4/online 1
+    write /sys/devices/system/cpu/cpu5/online 1
+
+    # Disable L2 GDHS on 8956
+    write /sys/module/lpm_levels/system/a53/a53-l2-gdhs/idle_enabled N
+    write /sys/module/lpm_levels/system/a72/a72-l2-gdhs/idle_enabled N
+
+    # Enable Low power modes
+    write /sys/module/lpm_levels/parameters/sleep_disabled 0
+
+    # Enable sched guided freq control
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/use_sched_load 1
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/use_migration_notif 1
+    write /sys/devices/system/cpu/cpu4/cpufreq/interactive/use_sched_load 1
+    write /sys/devices/system/cpu/cpu4/cpufreq/interactive/use_migration_notif 1
+    write /proc/sys/kernel/sched_freq_inc_notify 50000
+    write /proc/sys/kernel/sched_freq_dec_notify 50000
+
+    # Enable timer migration to little cluster
+    write /proc/sys/kernel/power_aware_timer_migration 1
+
+    # disallow upmigrate for cgroup's tasks
+    write /dev/cpuctl/bg_non_interactive/cpu.upmigrate_discourage 1
+
+    # Enable sched colocation and colocation inheritance
+    write /proc/sys/kernel/sched_grp_upmigrate 130
+    write /proc/sys/kernel/sched_grp_downmigrate 110
+    write /proc/sys/kernel/sched_enable_thread_grouping 1
+
+    # set cpu_boost parameters
+    write /sys/module/cpu_boost/parameters/input_boost_freq 0:1305600
+    write /sys/module/cpu_boost/parameters/input_boost_ms "40"
+    write /proc/sys/kernel/sched_upmigrate_min_nice 9
+
+    # set (super) packing parameters
+    write /sys/devices/system/cpu/cpu0/sched_mostly_idle_freq 1017600
+    write /sys/devices/system/cpu/cpu4/sched_mostly_idle_freq 0
+
+    # Enable adaptive LMK
+    write /sys/module/lowmemorykiller/parameters/enable_adaptive_lmk 1
+    write /sys/module/lowmemorykiller/parameters/vmpressure_file_min 81250
+
+    chmod 0660 /sys/module/lowmemorykiller/parameters/minfree
+    write /sys/module/lowmemorykiller/parameters/minfree "14746,18432,22118,25805,40000,55000"
+
+on charger
+    # Disable thermal
+    write /sys/module/msm_thermal/core_control/enabled 0
+
+    # Bring CPUs online
+    write /sys/devices/system/cpu/cpu1/online 1
+    write /sys/devices/system/cpu/cpu2/online 1
+    write /sys/devices/system/cpu/cpu3/online 1
+    write /sys/devices/system/cpu/cpu4/online 1
+    write /sys/devices/system/cpu/cpu5/online 1
+    write /sys/devices/system/cpu/cpu6/online 1
+    write /sys/devices/system/cpu/cpu7/online 1
+
+    # Configure governor settings for little cluster
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor "powersave"
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq 400000
+
+    # Configure governor settings for big cluster
+    write /sys/devices/system/cpu/cpu4/cpufreq/scaling_governor "powersave"
+    write /sys/devices/system/cpu/cpu4/cpufreq/scaling_min_freq 400000
+
+    # Bring CPUs offline
+    write /sys/devices/system/cpu/cpu1/online 0
+    write /sys/devices/system/cpu/cpu2/online 0
+    write /sys/devices/system/cpu/cpu3/online 0
+    write /sys/devices/system/cpu/cpu4/online 0
+    write /sys/devices/system/cpu/cpu5/online 0
+    write /sys/devices/system/cpu/cpu6/online 0
+    write /sys/devices/system/cpu/cpu7/online 0
+
+    # Enable thermal
+    write /sys/module/msm_thermal/core_control/enabled 1
+
+on class_start:late_start
+    trigger enable-low-power
+
+on property:init.svc.recovery=running
+    trigger enable-low-power
+
+on property:dev.bootcomplete=1
+    rm /data/system/perfd/default_values
+    setprop sys.io.scheduler bfq
+    start perfd
