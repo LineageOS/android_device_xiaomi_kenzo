@@ -121,7 +121,14 @@ rild.libargs=-d /dev/smd0
 rild.libpath=/vendor/lib64/libril-qc-qmi-1.so
 ril.subscription.types=RUIM
 ro.telephony.default_network=9,9
+ro.telephony.call_ring.multiple=false
 telephony.lteOnCdmaDevice=1
+
+# TCP
+net.tcp.2g_init_rwnd=10
 
 # Time
 persist.timed.enable=true
+
+# WiFi
+wifi.interface=wlan0
