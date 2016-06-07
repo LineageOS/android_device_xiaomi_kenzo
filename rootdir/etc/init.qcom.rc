@@ -25,6 +25,7 @@
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 
+import init.qcom.power.rc
 import init.qcom.usb.rc
 import init.target.rc
 
@@ -522,11 +523,6 @@ on property:crypto.driver.load=1
      insmod /system/lib/modules/qce.ko
      insmod /system/lib/modules/qcedev.ko
 
-service qcom-post-boot /system/bin/sh /system/etc/init.qcom.post_boot.sh
-    class late_start
-    user root
-    oneshot
-
 service hostapd /system/bin/hostapd -dd /data/hostapd/hostapd.conf
     class late_start
     user root
@@ -666,7 +662,6 @@ on property:persist.sys.display_eyecare=4
     write /sys/class/graphics/fb0/msm_fb_eyecare 8
 
 on charger
-    start qcom-post-boot
     start hvdcp_opti
 
 service per_mgr /system/bin/pm-service
