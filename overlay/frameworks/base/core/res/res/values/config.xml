@@ -268,7 +268,7 @@
 
     <!-- Configure wifi tcp buffersizes in the form:
          rmem_min,rmem_def,rmem_max,wmem_min,wmem_def,wmem_max -->
-    <string name="config_wifi_tcp_buffers" translatable="false">524288,1048576,2097152,262144,524288,1048576</string>
+    <string name="config_wifi_tcp_buffers" translatable="false">524288,2097152,4194304,262144,524288,1048576</string>
 
     <!-- Hardware keys present on the device, stored as a bit field.
          This integer should equal the sum of the corresponding value for each
