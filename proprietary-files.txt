@@ -603,7 +603,7 @@ vendor/bin/perfd
 vendor/lib64/libqti-perfd-client.so
 vendor/lib/libqti-perfd-client.so
 
-# Peripheral manager
+# Peripheral manager - from Mi MAX
 bin/pm-proxy
 bin/pm-service
 vendor/lib64/libperipheral_client.so
@@ -618,7 +618,7 @@ vendor/lib64/libmm-qdcm-diag.so
 vendor/lib64/libmm-qdcm.so
 vendor/lib/libmm-als.so
 
-# QMI
+# QMI - from Mi MAX
 bin/irsc_util
 etc/data/dsi_config.xml
 etc/data/netmgr_config.xml
@@ -658,7 +658,7 @@ vendor/lib/libqmiservices.so
 vendor/lib/libqmi.so
 vendor/lib/libsmemlog.so
 
-# Radio
+# Radio - from Mi MAX
 -priv-app/qcrilmsgtunnel/qcrilmsgtunnel.apk
 -app/shutdownlistener/shutdownlistener.apk
 bin/netmgrd
@@ -673,6 +673,7 @@ vendor/lib64/libconfigdb.so
 vendor/lib64/libmdmdetect.so
 vendor/lib64/libnetmgr.so
 vendor/lib64/libril-qc-qmi-1.so
+vendor/lib64/libril-qc-radioconfig.so
 vendor/lib64/libril-qcril-hook-oem.so
 vendor/lib64/libsystem_health_mon.so
 vendor/lib64/libxml.so
@@ -680,7 +681,7 @@ vendor/lib/libmdmdetect.so
 vendor/lib/libxml.so
 vendor/qcril.db
 
-# Radio - IMS
+# Radio - IMS  - from Mi MAX
 bin/imscmservice
 bin/imsdatadaemon
 bin/imsqmidaemon
