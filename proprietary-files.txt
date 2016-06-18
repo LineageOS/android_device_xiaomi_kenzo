@@ -620,6 +620,9 @@ vendor/lib/libmm-als.so
 
 # QMI
 bin/irsc_util
+etc/data/dsi_config.xml
+etc/data/netmgr_config.xml
+etc/data/qmi_config.xml
 vendor/lib64/libdiag.so
 vendor/lib64/libdsi_netctrl.so
 vendor/lib64/libdsutils.so
