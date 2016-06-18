@@ -27,7 +27,14 @@
 
 on init
     write /sys/class/android_usb/android0/f_rndis/wceis 1
+
+on boot
     write /sys/class/android_usb/android0/iSerial ${ro.serialno}
+    write /sys/class/android_usb/android0/iManufacturer ${ro.product.manufacturer}
+    write /sys/class/android_usb/android0/iProduct ${ro.product.model}
+    write /sys/class/android_usb/android0/f_rndis/vendorID 05C6
+    write /sys/class/android_usb/android0/f_rndis/manufacturer ${ro.product.manufacturer}
+    setprop persist.sys.usb.config.extra none
 
 on charger
     setprop sys.usb.config mass_storage
@@ -37,11 +44,6 @@ on fs
     mkdir /dev/usb-ffs/adb 0770 shell shell
     mount functionfs adb /dev/usb-ffs/adb uid=2000,gid=2000
     write /sys/class/android_usb/android0/f_ffs/aliases adb
-
-service qcom-usb-sh /system/bin/sh /init.qcom.usb.sh
-    class main
-    user root
-    oneshot
 
 # Following are the parameters required for usb functionality. They provide configurable options like
 # product_id/vendor id and allows specifying required functions:
