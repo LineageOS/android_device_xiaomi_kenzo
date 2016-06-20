@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5faad753_ed1a0bca",
+        "filename": "rootdir/etc/init.qcom.power.rc",
+        "patchSetId": 2
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 7880
+      },
+      "writtenOn": "2016-06-20T14:32:38Z",
+      "side": 1,
+      "message": "Might as well group these together with the rest of the scheduler settings?",
+      "revId": "0bb51b23a9c804d3ee6c0e26efd53577ee991117",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5faad753_2deee3b3",
+        "filename": "rootdir/etc/init.qcom.power.rc",
+        "patchSetId": 2
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 7880
+      },
+      "writtenOn": "2016-06-20T14:32:38Z",
+      "side": 1,
+      "message": "Like I mentioned here: http://review.cyanogenmod.org/#/c/149494,\n\nSince Qualcomm names the kernel module \"core_ctl.ko\", why not name the kernel module \"core_ctl.ko\", and the prebuilt kernel object \"msm_core_ctl.ko\"?",
+      "revId": "0bb51b23a9c804d3ee6c0e26efd53577ee991117",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5faad753_0df1a795",
+        "filename": "rootdir/etc/init.qcom.power.rc",
+        "patchSetId": 2
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 7880
+      },
+      "writtenOn": "2016-06-20T14:32:38Z",
+      "side": 1,
+      "message": "Just a personal preference, but the quotation marks are unnecessary",
+      "revId": "0bb51b23a9c804d3ee6c0e26efd53577ee991117",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5faad753_6df85b7a",
+        "filename": "rootdir/etc/init.qcom.power.rc",
+        "patchSetId": 2
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 7880
+      },
+      "writtenOn": "2016-06-20T14:32:38Z",
+      "side": 1,
+      "message": "Does something else need to write to or read from this?",
+      "revId": "0bb51b23a9c804d3ee6c0e26efd53577ee991117",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
