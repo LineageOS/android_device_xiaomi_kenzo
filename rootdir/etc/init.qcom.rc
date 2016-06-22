@@ -556,6 +556,7 @@ service qcamerasvr /system/bin/mm-qcamera-daemon
     class late_start
     user camera
     group camera system inet input graphics
+    writepid /dev/cpuset/system-background/tasks
 
 service qseecomd /system/bin/qseecomd
    class core
@@ -566,6 +567,7 @@ service perfd /system/vendor/bin/perfd
    class main
    user root
    disabled
+   writepid /dev/cpuset/system-background/tasks
 
 service thermal-engine /system/vendor/bin/thermal-engine
    class main
@@ -683,6 +685,7 @@ service msm_irqbal_lb /system/bin/msm_irqbalance -f /system/vendor/etc/msm_irqba
     user root
     group root
     disabled
+    writepid /dev/cpuset/system-background/tasks
 
 service imsqmidaemon /system/bin/imsqmidaemon
     class main

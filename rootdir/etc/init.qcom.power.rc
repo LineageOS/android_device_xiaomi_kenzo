@@ -1,3 +1,10 @@
+on boot
+    # Update foreground cpuset now that processors are up
+    write /dev/cpuset/foreground/cpus 0-5
+    write /dev/cpuset/foreground/boost/cpus 4-5
+    write /dev/cpuset/background/cpus 0
+    write /dev/cpuset/system-background/cpus 0-3
+
 on enable-low-power
     # Apply Scheduler and Governor settings for 8956
 
