@@ -1,9 +1,6 @@
 # IR Blaster
 /dev/lirc[0-9]*                                                       u:object_r:lirc_device:s0
 
-# Cache filesystem
-/dev/block/platform/soc.0/7824900.sdhci/by-name/cache                 u:object_r:cache_block_device:s0
-
 # Fingerprint
 /dev/socket/fpce                                                      u:object_r:fpc_socket:s0
 /data/fpc(/.*)?                                                       u:object_r:fpc_data_file:s0

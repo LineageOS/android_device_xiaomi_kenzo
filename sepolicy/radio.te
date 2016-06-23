@@ -1,2 +1,1 @@
-allow radio system_app_data_file:dir search;
-allow radio system_app_data_file:file getattr;
+dontaudit radio net_radio_prop:property_service set;
