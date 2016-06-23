@@ -53,6 +53,9 @@ persist.hwc.downscale_threshold=1.15
 ro.opengles.version=196609
 ro.sf.lcd_density=480
 
+# FRP
+ro.frp.pst=/dev/block/bootdevice/by-name/config
+
 # GPS
 persist.gps.qc_nlp_in_use=1
 ro.gps.agps_provider=1
