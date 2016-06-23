@@ -1,2 +1,1 @@
 allow qti_init_shell ctl_default_prop:property_service set;
-allow qti_init_shell qmuxd_socket:dir search;
