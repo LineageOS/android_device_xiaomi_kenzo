@@ -1,2 +1,0 @@
-allow radio system_app_data_file:dir search;
-allow radio system_app_data_file:file getattr;
