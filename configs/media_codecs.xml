@@ -92,7 +92,6 @@ Only the three quirks included above are recognized at this point:
   | mpeg2    | 1920    1088    30       40     244800  |  N       Y        |
   | vc1      | 1920    1088    60       60     489600  |  N       N        |
   | vp8      | 3840    2160    30      100     972000  |  Y       N        |
-  | vp9      | 3840    2160    30      100     972000  |  N       N        |
   | divx3    |  720     480    30        2      40500  |  N       N        |
   | div4/5/6 | 1920    1088    30       10     244800  |  N       N        |
   |__________|_________________________________________|___________________|
@@ -345,17 +344,6 @@ Only the three quirks included above are recognized at this point:
             <Limit name="concurrent-instances" max="16" />
         </MediaCodec>
         <MediaCodec name="OMX.qcom.video.decoder.vp8" type="video/x-vnd.on2.vp8" >
-            <Quirk name="requires-allocate-on-input-ports" />
-            <Quirk name="requires-allocate-on-output-ports" />
-            <Limit name="size" min="64x64" max="3840x2160" />
-            <Limit name="alignment" value="2x2" />
-            <Limit name="block-size" value="16x16" />
-            <Limit name="blocks-per-second" min="1" max="972000" />
-            <Limit name="bitrate" range="1-100000000" />
-            <Feature name="adaptive-playback" />
-            <Limit name="concurrent-instances" max="16" />
-        </MediaCodec>
-        <MediaCodec name="OMX.qcom.video.decoder.vp9" type="video/x-vnd.on2.vp9" >
             <Quirk name="requires-allocate-on-input-ports" />
             <Quirk name="requires-allocate-on-output-ports" />
             <Limit name="size" min="64x64" max="3840x2160" />
