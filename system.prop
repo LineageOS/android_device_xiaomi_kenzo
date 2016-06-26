@@ -2,31 +2,30 @@
 audio.dolby.ds2.enabled=true
 audio.deep_buffer.media=true
 audio.offload.buffer.size.kb=64
+audio.offload.disable=1
 audio.offload.gapless.enabled=true
 audio.offload.min.duration.secs=30
 audio.offload.multiple.enabled=false
-audio.offload.pcm.16bit.enable=true
-audio.offload.pcm.24bit.enable=true
+audio.offload.pcm.16bit.enable=false
+audio.offload.pcm.24bit.enable=false
 audio.offload.track.enable=false
-audio.offload.video=true
+audio.offload.video=false
 audio.playback.mch.downsample=true
-audio.pp.asphere.enabled=false
 audio.safx.pbe.enabled=true
 
 persist.audio.dirac.speaker=true
+persist.audio.fluence.audiorec=false
+persist.audio.fluence.speaker=true
+persist.audio.fluence.spk.mono=true
 persist.audio.fluence.voicecall=true
 persist.audio.fluence.voicerec=true
-persist.audio.fluence.speaker=true
-persist.audio.fluence.audiorec=false
-persist.audio.fluence.spk.mono=true
 persist.sys.button_jack_profile=volume
 persist.sys.button_jack_switch=0
 
 ro.qc.sdk.audio.fluencetype=none
 ro.qc.sdk.audio.ssr=false
-tunnel.audio.encode = false
+tunnel.audio.encode=false
 use.voice.path.for.pcm.voip=true
-vidc.enc.narrow.searchrange=1
 voice.conc.fallbackpath=deep-buffer
 voice.playback.conc.disabled=true
 voice.record.conc.disabled=false
@@ -77,6 +76,7 @@ ro.hwui.text_large_cache_height=2048
 sys.io.scheduler=bfq
 
 # Media
+media.msm8956hw=1
 mm.enable.smoothstreaming=true
 mmp.enable.3g2=true
 media.aac_51_output_enabled=true
