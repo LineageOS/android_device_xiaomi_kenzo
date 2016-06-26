@@ -776,3 +776,6 @@ bin/time_daemon
 -vendor/lib/libtime_genoff.so
 vendor/lib64/libTimeService.so
 vendor/lib/libTimeService.so
+
+# WCNSS - from Mi MAX
+bin/wcnss_service
