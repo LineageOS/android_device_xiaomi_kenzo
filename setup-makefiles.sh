@@ -136,6 +136,7 @@ LOCAL_PATH := \$(call my-dir)
 
 ifneq (\$(filter kenzo,\$(TARGET_DEVICE)),)
 
+include \$(CLEAR_VARS)
 LOCAL_MODULE := CNEService
 LOCAL_MODULE_OWNER := $VENDOR
 LOCAL_SRC_FILES := proprietary/priv-app/CNEService/CNEService.apk
