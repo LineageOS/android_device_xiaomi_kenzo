@@ -4,10 +4,12 @@
 #<src>                                              <mnt_point>  <type>  <mnt_flags and options>                                                        <fs_mgr_flags>
 
 /dev/block/bootdevice/by-name/system                /system      ext4    ro,barrier=1                                                                   wait
-/dev/block/bootdevice/by-name/userdata              /data        ext4    rw,nosuid,nodev,noatime,nodiratime,noauto_da_alloc,nobarrier                   wait,check,formattable,encryptable=footer,length=-16384
-/dev/block/bootdevice/by-name/cache                 /cache       ext4    rw,nosuid,nodev,noatime,nodiratime,barrier=1,data=ordered                      wait,check,formattable
+/dev/block/bootdevice/by-name/userdata              /data        f2fs    nosuid,nodev,noatime,nodiratime,inline_xattr,data_flush                        wait,check,encryptable=footer,formattable,length=-16384
+/dev/block/bootdevice/by-name/userdata              /data        ext4    nosuid,nodev,noatime,nodiratime,barrier=1,noauto_da_alloc                      wait,check,encryptable=footer,formattable,length=-16384
+/dev/block/bootdevice/by-name/cache                 /cache       f2fs    nosuid,nodev,noatime,nodiratime,inline_xattr,flush_merge,data_flush            wait,check,formattable
+/dev/block/bootdevice/by-name/cache                 /cache       ext4    nosuid,nodev,noatime,nodiratime,barrier=1                                      wait,check,formattable
 /dev/block/bootdevice/by-name/modem                 /firmware    vfat    ro,shortname=lower,dmask=222,fmask=333,context=u:object_r:firmware_file:s0     wait
-/dev/block/bootdevice/by-name/persist               /persist     ext4    rw,nosuid,nodev,barrier=1                                                      wait
+/dev/block/bootdevice/by-name/persist               /persist     ext4    nosuid,nodev,barrier=1                                                         wait
 /dev/block/bootdevice/by-name/config                /frp         emmc    defaults                                                                       defaults
 
 /dev/block/bootdevice/by-name/boot                  /boot        emmc    defaults                                                                       recoveryonly
