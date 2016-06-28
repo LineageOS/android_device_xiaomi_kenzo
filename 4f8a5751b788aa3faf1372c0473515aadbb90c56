@@ -60,6 +60,24 @@
     },
     {
       "key": {
+        "uuid": "3fa7e38b_8d4789bd",
+        "filename": "BoardConfig.mk",
+        "patchSetId": 2
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 7880
+      },
+      "writtenOn": "2016-06-28T08:11:46Z",
+      "side": 1,
+      "message": "I don\u0027t really see the point of having a compressed kernel over an uncompressed one though, especially if kenzo isn\u0027t hitting the partition size cap. Furthermore, won\u0027t having a compressed kernel increase boot time?",
+      "parentUuid": "3fa7e38b_2d9d3559",
+      "revId": "4f8a5751b788aa3faf1372c0473515aadbb90c56",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3fa7e38b_0d34f949",
         "filename": "BoardConfig.mk",
         "patchSetId": 2
