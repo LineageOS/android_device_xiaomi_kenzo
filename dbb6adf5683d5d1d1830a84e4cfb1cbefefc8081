@@ -16,6 +16,24 @@
       "revId": "dbb6adf5683d5d1d1830a84e4cfb1cbefefc8081",
       "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3fa7e38b_0d987968",
+        "filename": "BoardConfig.mk",
+        "patchSetId": 2
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 13452
+      },
+      "writtenOn": "2016-06-28T04:22:06Z",
+      "side": 0,
+      "message": "Compressed one is much smaller in size and works great on kenzo.",
+      "parentUuid": "3fa7e38b_4d8e7128",
+      "revId": "dbb6adf5683d5d1d1830a84e4cfb1cbefefc8081",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
     }
   ]
 }

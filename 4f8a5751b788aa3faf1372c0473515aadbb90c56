@@ -16,6 +16,24 @@
       "revId": "4f8a5751b788aa3faf1372c0473515aadbb90c56",
       "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3fa7e38b_2d9d3559",
+        "filename": "BoardConfig.mk",
+        "patchSetId": 2
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 13452
+      },
+      "writtenOn": "2016-06-28T04:22:06Z",
+      "side": 1,
+      "message": "I thought it maybe useful somewhere, CAF and op3 uses it.",
+      "parentUuid": "3fa7e38b_ad73654d",
+      "revId": "4f8a5751b788aa3faf1372c0473515aadbb90c56",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
     }
   ]
 }
