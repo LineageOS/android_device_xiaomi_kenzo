@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "3fa7e38b_2d39b540",
+        "filename": "BoardConfig.mk",
+        "patchSetId": 2
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 11883
+      },
+      "writtenOn": "2016-06-28T08:01:12Z",
+      "side": 1,
+      "message": "These flags aren\u0027t used for generating boot.img\nYou should add\nBOARD_MKBOOTIMG_ARGS :\u003d --kernel_offset $(BOARD_KERNEL_TAGS_OFFSET) etc",
+      "range": {
+        "startLine": 53,
+        "startChar": 0,
+        "endLine": 54,
+        "endChar": 34
+      },
+      "revId": "4f8a5751b788aa3faf1372c0473515aadbb90c56",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3fa7e38b_ad73654d",
         "filename": "BoardConfig.mk",
         "patchSetId": 2
@@ -31,6 +54,52 @@
       "side": 1,
       "message": "I thought it maybe useful somewhere, CAF and op3 uses it.",
       "parentUuid": "3fa7e38b_ad73654d",
+      "revId": "4f8a5751b788aa3faf1372c0473515aadbb90c56",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3fa7e38b_0d34f949",
+        "filename": "BoardConfig.mk",
+        "patchSetId": 2
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 11883
+      },
+      "writtenOn": "2016-06-28T08:01:12Z",
+      "side": 1,
+      "message": "Unused",
+      "range": {
+        "startLine": 154,
+        "startChar": 0,
+        "endLine": 154,
+        "endChar": 30
+      },
+      "revId": "4f8a5751b788aa3faf1372c0473515aadbb90c56",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3fa7e38b_cd3d812d",
+        "filename": "BoardConfig.mk",
+        "patchSetId": 2
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 11883
+      },
+      "writtenOn": "2016-06-28T08:01:12Z",
+      "side": 1,
+      "message": "Ennecessary",
+      "range": {
+        "startLine": 177,
+        "startChar": 0,
+        "endLine": 177,
+        "endChar": 33
+      },
       "revId": "4f8a5751b788aa3faf1372c0473515aadbb90c56",
       "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
       "unresolved": false
