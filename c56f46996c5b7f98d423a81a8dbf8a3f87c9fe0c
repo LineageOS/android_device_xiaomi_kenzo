@@ -16,6 +16,24 @@
       "revId": "c56f46996c5b7f98d423a81a8dbf8a3f87c9fe0c",
       "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3fa7e38b_41e155fe",
+        "filename": "BoardConfig.mk",
+        "patchSetId": 3
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 13452
+      },
+      "writtenOn": "2016-07-01T11:24:36Z",
+      "side": 0,
+      "message": "Nope, we wan\u0027t this to be done and not the case above: \nhttps://github.com/CyanogenMod/android_hardware_qcom_wlan/blob/cm-13.0-caf/wcnss-service/Android.mk#L39",
+      "parentUuid": "3fa7e38b_8e99bc20",
+      "revId": "c56f46996c5b7f98d423a81a8dbf8a3f87c9fe0c",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
     }
   ]
 }

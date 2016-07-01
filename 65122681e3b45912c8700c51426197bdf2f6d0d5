@@ -16,6 +16,24 @@
       "revId": "65122681e3b45912c8700c51426197bdf2f6d0d5",
       "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3fa7e38b_e1e5e10b",
+        "filename": "BoardConfig.mk",
+        "patchSetId": 3
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 13452
+      },
+      "writtenOn": "2016-07-01T11:24:36Z",
+      "side": 1,
+      "message": "Hmm, yep. I\u0027ll make a build without it and test.",
+      "parentUuid": "3fa7e38b_6e9480e9",
+      "revId": "65122681e3b45912c8700c51426197bdf2f6d0d5",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
     }
   ]
 }
