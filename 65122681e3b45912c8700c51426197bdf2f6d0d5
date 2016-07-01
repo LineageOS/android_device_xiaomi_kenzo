@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3fa7e38b_6e9480e9",
+        "filename": "BoardConfig.mk",
+        "patchSetId": 3
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 7880
+      },
+      "writtenOn": "2016-07-01T08:46:28Z",
+      "side": 1,
+      "message": "Does this do anything? I grepped the entire cm tree but couldn\u0027t find any references",
+      "revId": "65122681e3b45912c8700c51426197bdf2f6d0d5",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
