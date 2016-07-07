@@ -138,8 +138,6 @@ on charger
     write /sys/devices/system/cpu/cpu3/online 1
     write /sys/devices/system/cpu/cpu4/online 1
     write /sys/devices/system/cpu/cpu5/online 1
-    write /sys/devices/system/cpu/cpu6/online 1
-    write /sys/devices/system/cpu/cpu7/online 1
 
     # Configure governor settings for little cluster
     write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor "powersave"
@@ -155,8 +153,6 @@ on charger
     write /sys/devices/system/cpu/cpu3/online 0
     write /sys/devices/system/cpu/cpu4/online 0
     write /sys/devices/system/cpu/cpu5/online 0
-    write /sys/devices/system/cpu/cpu6/online 0
-    write /sys/devices/system/cpu/cpu7/online 0
 
     # Enable thermal
     write /sys/module/msm_thermal/core_control/enabled 1
