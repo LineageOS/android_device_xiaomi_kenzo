@@ -16,6 +16,23 @@
       "revId": "7103ba4cf4d4a934bfbf156a8032af3becdfd04c",
       "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3fa7e38b_6bd0e351",
+        "filename": "system.prop",
+        "patchSetId": 1
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 7880
+      },
+      "writtenOn": "2016-07-08T09:45:01Z",
+      "side": 1,
+      "message": "Do you know what requires the properties ro.vendor.at_library and ro.vendor.gt_library? I tried searching but couldn\u0027t really find any references.",
+      "revId": "7103ba4cf4d4a934bfbf156a8032af3becdfd04c",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
     }
   ]
 }
