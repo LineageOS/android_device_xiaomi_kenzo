@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3fa7e38b_0b404f35",
+        "filename": "proprietary-files.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 617,
+      "author": {
+        "id": 3261
+      },
+      "writtenOn": "2016-07-08T06:04:27Z",
+      "side": 1,
+      "message": "not needed unless you are planning QCPATH build.",
+      "revId": "7103ba4cf4d4a934bfbf156a8032af3becdfd04c",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
