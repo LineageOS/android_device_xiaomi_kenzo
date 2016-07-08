@@ -612,8 +612,13 @@ vendor/lib/libQtiTether.so
 
 # Perf
 bin/msm_irqbalance
+etc/whitelistedapps.xml
 vendor/bin/perfd
+vendor/lib64/libqti-at.so
+vendor/lib64/libqti-gt.so
 vendor/lib64/libqti-perfd-client.so
+vendor/lib/libqti-at.so
+vendor/lib/libqti-gt.so
 vendor/lib/libqti-perfd-client.so
 
 # Peripheral manager - from Mi MAX

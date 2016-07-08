@@ -102,6 +102,9 @@ persist.rild.nitz_short_ons_3=
 
 # Perf
 ro.vendor.extension_library=libqti-perfd-client.so
+ro.vendor.at_library=libqti-at.so
+ro.vendor.gt_library=libqti-gt.so
+sched.colocate.enable=1
 
 # Qualcomm
 ro.qualcomm.cabl=2
