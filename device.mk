@@ -190,10 +190,6 @@ PRODUCT_PACKAGES += \
     libOmxVenc \
     libstagefrighthw
 
-# Power
-PRODUCT_PACKAGES += \
-    power.msm8952
-
 # Qualcomm dependencies
 PRODUCT_PACKAGES += \
     libtinyxml \
