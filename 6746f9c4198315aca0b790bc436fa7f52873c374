@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3fa7e38b_8be3d505",
+        "filename": "rootdir/etc/init.qcom.rc",
+        "patchSetId": 3
+      },
+      "lineNbr": 338,
+      "author": {
+        "id": 13648
+      },
+      "writtenOn": "2016-07-13T06:33:38Z",
+      "side": 1,
+      "message": "Derp. It should be config_bt_addr",
+      "range": {
+        "startLine": 338,
+        "startChar": 10,
+        "endLine": 338,
+        "endChar": 26
+      },
+      "revId": "6746f9c4198315aca0b790bc436fa7f52873c374",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
