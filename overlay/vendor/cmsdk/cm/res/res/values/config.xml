@@ -19,4 +19,15 @@
     <!-- Is the notification LED brightness adjustable ? Used to decide if the user can set LED brightness -->
     <bool name="config_adjustableNotificationLedBrightness">true</bool>
 
+    <!-- Enable the option to check proximity sensor when deciding whether to turn the screen on
+         NOTE ! - Enable for devices that have a fast response proximity sensor
+    -->
+    <!-- Proximity check on screen on -->
+    <bool name="config_proximityCheckOnWake">true</bool>
+
+    <!-- Proximity check timeout -->
+    <integer name="config_proximityCheckTimeout">100</integer>
+
+    <!-- Proximity check on screen on default -->
+    <bool name="config_proximityCheckOnWakeEnabledByDefault">true</bool>
 </resources>
