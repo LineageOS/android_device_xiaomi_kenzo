@@ -1,4 +1,4 @@
-/* Copyright (c) 2009-2014, The Linux Foundation. All rights reserved.
+/* Copyright (c) 2009-2015, The Linux Foundation. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
@@ -94,7 +94,7 @@ loc_gps_cfg_s_type gps_conf;
 loc_sap_cfg_s_type sap_conf;
 
 /* Parameter spec table */
-static loc_param_s_type gps_conf_table[] =
+static const loc_param_s_type gps_conf_table[] =
 {
   {"GPS_LOCK",                       &gps_conf.GPS_LOCK,                       NULL, 'n'},
   {"SUPL_VER",                       &gps_conf.SUPL_VER,                       NULL, 'n'},
@@ -113,7 +113,7 @@ static loc_param_s_type gps_conf_table[] =
   {"USE_EMERGENCY_PDN_FOR_EMERGENCY_SUPL",  &gps_conf.USE_EMERGENCY_PDN_FOR_EMERGENCY_SUPL,          NULL, 'n'},
 };
 
-static loc_param_s_type sap_conf_table[] =
+static const loc_param_s_type sap_conf_table[] =
 {
   {"GYRO_BIAS_RANDOM_WALK",          &sap_conf.GYRO_BIAS_RANDOM_WALK,          &sap_conf.GYRO_BIAS_RANDOM_WALK_VALID, 'f'},
   {"ACCEL_RANDOM_WALK_SPECTRAL_DENSITY",     &sap_conf.ACCEL_RANDOM_WALK_SPECTRAL_DENSITY,    &sap_conf.ACCEL_RANDOM_WALK_SPECTRAL_DENSITY_VALID, 'f'},
@@ -902,7 +902,6 @@ void LocEngReportNmea::proc() const {
     struct timeval tv;
     gettimeofday(&tv, (struct timezone *) NULL);
     int64_t now = tv.tv_sec * 1000LL + tv.tv_usec / 1000;
-    CALLBACK_LOG_CALLFLOW("nmea_cb", %d, mLen);
 
     if (locEng->nmea_cb != NULL)
         locEng->nmea_cb(now, mNmea, mLen);
@@ -2736,7 +2735,6 @@ void loc_eng_configuration_update (loc_eng_data_s_type &loc_eng_data,
         gps_conf_tmp.SUPL_VER = gps_conf.SUPL_VER;
         gps_conf_tmp.LPP_PROFILE = gps_conf.LPP_PROFILE;
         gps_conf_tmp.A_GLONASS_POS_PROTOCOL_SELECT = gps_conf.A_GLONASS_POS_PROTOCOL_SELECT;
-        gps_conf_tmp.SUPL_MODE = gps_conf.SUPL_MODE;
         gps_conf_tmp.GPS_LOCK = gps_conf.GPS_LOCK;
         gps_conf = gps_conf_tmp;
     }

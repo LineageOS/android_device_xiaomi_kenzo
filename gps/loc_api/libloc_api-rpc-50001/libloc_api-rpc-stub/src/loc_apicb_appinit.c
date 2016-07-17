@@ -1,4 +1,4 @@
-/* Copyright (c) 2011-2012, 2015 The Linux Foundation. All rights reserved.
+/* Copyright (c) 2011, The Linux Foundation. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
@@ -9,7 +9,7 @@
  *       copyright notice, this list of conditions and the following
  *       disclaimer in the documentation and/or other materials provided
  *       with the distribution.
- *     * Neither the name of The Linux Foundation, nor the names of its
+ *     * Neither the name of The Linux Foundation nor the names of its
  *       contributors may be used to endorse or promote products derived
  *       from this software without specific prior written permission.
  *
@@ -26,46 +26,49 @@
  * IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  */
+#include "librpc.h"
+#include "loc_api_rpcgen_rpc.h"
+#include "loc_api_rpcgen_cb_rpc.h"
 
-#ifndef LOC_LOG_H
-#define LOC_LOG_H
 
-#ifdef __cplusplus
-extern "C"
+#define RPC_FUNC_VERSION_BASE(a,b) a ## b
+#define RPC_CB_FUNC_VERS(a,b) RPC_FUNC_VERSION_BASE(a,b)
+
+
+static SVCXPRT* svrPort = NULL;
+
+extern void RPC_CB_FUNC_VERS(loc_apicbprog_,LOC_APICBVERS_0001)(struct svc_req *rqstp, register SVCXPRT *transp);
+
+int loc_apicb_app_init(void)
 {
-#endif
 
-#include <ctype.h>
-#include <stdlib.h>
-#include "loc_target.h"
+  /* Register a callback server to use the loc_apicbprog_0x00010001  */
+  if (svrPort == NULL) {
+        svrPort = svcrtr_create();
+  }
+  if (!svrPort) return -1;
 
-typedef struct
-{
-   const char *name;
-   long        val;
-} loc_name_val_s_type;
+  xprt_register(svrPort);
 
-#define NAME_VAL(x) {"" #x "", x }
 
-#define UNKNOWN_STR "UNKNOWN"
 
-#define CHECK_MASK(type, value, mask_var, mask) \
-   (((mask_var) & (mask)) ? (type) (value) : (type) (-1))
-
-#define LOC_TABLE_SIZE(table) (sizeof(table)/sizeof((table)[0]))
-
-/* Get names from value */
-const char* loc_get_name_from_mask(const loc_name_val_s_type table[], size_t table_size, long mask);
-const char* loc_get_name_from_val(const loc_name_val_s_type table[], size_t table_size, long value);
-const char* loc_get_msg_q_status(int status);
-const char* loc_get_target_name(unsigned int target);
-
-extern const char* log_succ_fail_string(int is_succ);
-
-extern char *loc_get_time(char *time_string, size_t buf_size);
-
-#ifdef __cplusplus
+  if(svc_register(svrPort, LOC_APICBPROG,LOC_APICBVERS_0001, RPC_CB_FUNC_VERS(loc_apicbprog_,LOC_APICBVERS_0001),0))
+  {
+     return 0;
+  }
+  else
+  {
+    return -1;
+  }
 }
-#endif
+void loc_apicb_app_deinit(void)
+{
 
-#endif /* LOC_LOG_H */
+   if (svrPort == NULL)
+   {
+      return;
+   }
+
+
+  svc_unregister(svrPort, LOC_APICBPROG,LOC_APICBVERS_0001);
+}
