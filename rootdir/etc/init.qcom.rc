@@ -94,6 +94,9 @@ on boot
     chown net_bt bluetooth /sys/class/rfkill/rfkill0/device/extldo
     chmod 0660 /sys/class/rfkill/rfkill0/device/extldo
 
+    #Liblight
+    chown system system /sys/class/leds/button-backlight/brightness
+
     #Create QMUX deamon socket area
     mkdir /dev/socket/qmux_radio 0770 radio radio
     chmod 2770 /dev/socket/qmux_radio
