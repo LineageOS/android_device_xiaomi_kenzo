@@ -71,13 +71,6 @@
         <item>190</item>
     </integer-array>
 
-    <!-- Array of output values for button backlight corresponding to the LUX values
-         in the config_autoBrightnessLevels array.  This array should have size one greater
-         than the size of the config_autoBrightnessLevels array.
-         This must be overridden in platform specific overlays -->
-    <integer-array name="config_autoBrightnessButtonBacklightValues">
-    </integer-array>
-
     <!-- Array of output values for keyboard backlight corresponding to the LUX values
          in the config_autoBrightnessLevels array.  This array should have size one greater
          than the size of the config_autoBrightnessLevels array.
@@ -358,5 +351,9 @@
 
     <!-- enable doze powersaving mode -->
     <bool name="config_enableAutoPowerModes">true</bool>
+
+    <!-- Button illumination -->
+    <bool name="config_deviceHasVariableButtonBrightness">true</bool>
+    <integer name="config_buttonBrightnessSettingDefault">153</integer>
 
 </resources>
