@@ -49,14 +49,7 @@ on init
 on early-boot
     # set RLIMIT_MEMLOCK to 64MB
     setrlimit 8 67108864 67108864
-    write /sys/block/dm-0/queue/read_ahead_kb 2048
-    # Allow subsystem (modem etc) debugging
-    write /sys/module/subsystem_restart/parameters/enable_debug ${persist.sys.ssr.enable_debug}
-    write /sys/module/pil_msa/parameters/pbl_mba_boot_timeout_ms ${persist.sys.mba_boot_timeout}
-    write /sys/module/pil_msa/parameters/modem_auth_timeout_ms ${persist.sys.modem_auth_timeout}
-    write /sys/module/pil_msa/parameters/modem_dbg_cfg ${persist.sys.modem_dbg_cfg}
-    write /sys/module/peripheral_loader/parameters/proxy_timeout_ms ${persist.sys.pil_proxy_timeout}
-    write /sys/kernel/codec_type/boot ${persist.sys.external}
+
     write /sys/kernel/boot_adsp/boot 1
     chown root audio /sys/kernel/boot_adsp/boot
 
@@ -308,37 +301,13 @@ on property:sys.boot_completed=1
     # CPE fw_name used by sound trigger HAL
     chown media audio /sys/kernel/wcd_cpe0/fw_name
 
-# corefile limit
-on property:persist.debug.trace=1
-    mkdir /data/core 0777 root root
-    write /proc/sys/kernel/core_pattern "/data/core/%E.%p.%e"
-
 on property:init.svc.wpa_supplicant=stopped
     stop dhcpcd
-
-on property:bluetooth.isEnabled=true
-    start btwlancoex
-    write /sys/class/bluetooth/hci0/idle_timeout 7000
-
-on property:bluetooth.sap.status=running
-    start bt-sap
-
-on property:bluetooth.sap.status=stopped
-    stop bt-sap
-
-on property:bluetooth.startbtsnoop=true
-    start btsnoop
-
-on property:bluetooth.startbtsnoop=false
-    stop btsnoop
 
 on property:vold.decrypt=trigger_restart_framework
     start config_bluetooth
     start wcnss-service
-    start config_bluetooth
-
-on property:persist.env.fastdorm.enabled=true
-    setprop persist.radio.data_no_toggle 1
+    start config_bt_addr
 
 service cnd /system/bin/cnd
     class late_start
@@ -391,20 +360,6 @@ on property:bluetooth.hciattach=true
 on property:bluetooth.hciattach=false
     setprop bluetooth.status off
 
-service bt-sap /system/bin/sapd 15
-    user bluetooth
-    group bluetooth net_bt_admin
-    class late_start
-    disabled
-    oneshot
-
-service btsnoop /system/bin/btsnoop
-   user bluetooth
-   group bluetooth net_bt_admin sdcard_rw sdcard_r media_rw
-   class late_start
-   disabled
-   oneshot
-
 # FM
 on property:hw.fm.init=0
     write /sys/module/radio_iris_transport/parameters/fmsmd_set 0
@@ -451,9 +406,6 @@ on property:ro.use_data_netmgrd=false
 # but only if ro.data.large_tcp_window_size property is set.
 on property:ro.data.large_tcp_window_size=true
     write /proc/sys/net/ipv4/tcp_adv_win_scale  2
-
-on property:sys.sysctl.tcp_adv_win_scale=*
-    write /proc/sys/net/ipv4/tcp_adv_win_scale ${sys.sysctl.tcp_adv_win_scale}
 
 service p2p_supplicant /system/bin/wpa_supplicant \
     -ip2p0 -Dnl80211 -c/data/misc/wifi/p2p_supplicant.conf \
@@ -536,8 +488,8 @@ service dhcpcd_bnep4 /system/bin/dhcpcd -BKLG
     oneshot
 
 on property:crypto.driver.load=1
-     insmod /system/lib/modules/qce.ko
-     insmod /system/lib/modules/qcedev.ko
+    insmod /system/lib/modules/qce.ko
+    insmod /system/lib/modules/qcedev.ko
 
 service hostapd /system/bin/hostapd -dd /data/hostapd/hostapd.conf
     class late_start
@@ -627,58 +579,6 @@ on property:init.svc.surfaceflinger=stopped
 on property:init.svc.surfaceflinger=running
     start ppd
 
-# Allow usb charging to be disabled peristently
-on property:persist.usb.chgdisabled=1
-    write /sys/class/power_supply/battery/charging_enabled 0
-
-on property:persist.usb.chgdisabled=0
-    write /sys/class/power_supply/battery/charging_enabled 1
-
-on property:persist.sys.display_prefer=0
-    write /sys/class/graphics/fb0/msm_fb_dispparam 0
-
-on property:persist.sys.display_prefer=1
-    write /sys/class/graphics/fb0/msm_fb_dispparam 1
-
-on property:persist.sys.display_prefer=2
-    write /sys/class/graphics/fb0/msm_fb_dispparam 2
-
-on property:persist.sys.display_prefer=3
-    write /sys/class/graphics/fb0/msm_fb_dispparam 3
-
-on property:persist.sys.display_ce=10
-    write /sys/class/graphics/fb0/msm_fb_dispparam 240
-
-on property:persist.sys.display_ce=11
-    write /sys/class/graphics/fb0/msm_fb_dispparam 16
-
-on property:persist.sys.display_eyecare=0
-    write /sys/class/graphics/fb0/msm_fb_eyecare 0
-
-on property:persist.sys.display_eyecare=1
-    write /sys/class/graphics/fb0/msm_fb_eyecare 1
-    
-on property:persist.sys.display_eyecare=2
-    write /sys/class/graphics/fb0/msm_fb_eyecare 2
-
-on property:persist.sys.display_eyecare=3
-    write /sys/class/graphics/fb0/msm_fb_eyecare 3
-
-on property:persist.sys.display_eyecare=4
-    write /sys/class/graphics/fb0/msm_fb_eyecare 4
-
- on property:persist.sys.display_eyecare=5
-    write /sys/class/graphics/fb0/msm_fb_eyecare 5
-
- on property:persist.sys.display_eyecare=6
-    write /sys/class/graphics/fb0/msm_fb_eyecare 6
-
- on property:persist.sys.display_eyecare=7
-    write /sys/class/graphics/fb0/msm_fb_eyecare 7
-
- on property:persist.sys.display_eyecare=8
-    write /sys/class/graphics/fb0/msm_fb_eyecare 8
-
 on charger
     start hvdcp_opti
 
@@ -687,15 +587,6 @@ service per_mgr /system/bin/pm-service
     user system
     group system net_raw
 
-service qlogd /system/xbin/qlogd
-    socket qlogd stream 0662 system system
-    class main
-    disabled
-on property:persist.sys.qlogd=1
-    start qlogd
-on property:persist.sys.qlogd=0
-    stop qlogd
-    
 service msm_irqbal_lb /system/bin/msm_irqbalance -f /system/vendor/etc/msm_irqbalance_little_big.conf
     class core
     user root
@@ -707,9 +598,3 @@ service fingerprintd /system/bin/fingerprintd
     class late_start
     socket fpce stream 0666 system system
     user system
-
-on property:persist.sys.runin=enable
-    write /sys/class/power_supply/battery/device/BatteryTestStatus 1
-
-on property:persist.sys.runin=disable
-    write /sys/class/power_supply/battery/device/BatteryTestStatus 0
