@@ -75,9 +75,6 @@ ro.hwui.text_small_cache_height=1024
 ro.hwui.text_large_cache_width=2048
 ro.hwui.text_large_cache_height=2048
 
-# IO Scheduler
-sys.io.scheduler=bfq
-
 # Media
 media.msm8956hw=1
 mm.enable.smoothstreaming=true
@@ -110,22 +107,19 @@ ro.qcom.ad.calib.data=/data/misc/display/ad_calib.cfg
 
 # Radio
 DEVICE_PROVISIONED=1
-persist.dbg.volte_avail_ovr=1
-persist.dbg.vt_avail_ovr=1
+ril.subscription.types=RUIM
+rild.libargs=-d /dev/smd0
+rild.libpath=/vendor/lib64/libril-qc-qmi-1.so
+ro.telephony.call_ring.multiple=false
+ro.telephony.default_cdma_sub=0
+ro.telephony.default_network=22,22
+telephony.lteOnCdmaDevice=1,1
 persist.radio.apm_sim_not_pwdn=1
-persist.radio.cs_srv_type=1
 persist.radio.custom_ecc=1
-persist.radio.force_on_dc=true
 persist.radio.multisim.config=dsds
 persist.radio.NO_STAPA=1
 persist.radio.rat_on=combine
-persist.sys.ssr.restart_level=modem
-rild.libargs=-d /dev/smd0
-rild.libpath=/vendor/lib64/libril-qc-qmi-1.so
-ril.subscription.types=RUIM
-ro.telephony.default_network=9,9
-ro.telephony.call_ring.multiple=false
-telephony.lteOnCdmaDevice=1
+persist.radio.sib16_support=1
 
 # TCP
 net.tcp.2g_init_rwnd=10
