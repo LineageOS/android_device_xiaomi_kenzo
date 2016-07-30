@@ -1,61 +1,115 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-    Copyright (c) 2016, The Linux Foundation. All rights reserved.
-
-    Redistribution and use in source and binary forms, with or without
-    modification, are permitted provided that the following conditions are
-    met:
-        * Redistributions of source code must retain the above copyright
-          notice, this list of conditions and the following disclaimer.
-        * Redistributions in binary form must reproduce the above
-          copyright notice, this list of conditions and the following
-          disclaimer in the documentation and/or other materials provided
-          with the distribution.
-        * Neither the name of The Linux Foundation nor the names of its
-          contributors may be used to endorse or promote products derived
-          from this software without specific prior written permission.
-
-    THIS SOFTWARE IS PROVIDED "AS IS" AND ANY EXPRESS OR IMPLIED
-    WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
-    MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT
-    ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS
-    BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
-    CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
-    SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR
-    BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
-    WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
-    OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN
-    IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE
+**
+** Copyright 2009, The Android Open Source Project
+**
+** Licensed under the Apache License, Version 2.0 (the "License")
+** you may not use this file except in compliance with the License.
+** You may obtain a copy of the License at
+**
+**     http://www.apache.org/licenses/LICENSE-2.0
+**
+** Unless required by applicable law or agreed to in writing, software
+** distributed under the License is distributed on an "AS IS" BASIS,
+** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+** See the License for the specific language governing permissions and
+** limitations under the License.
+*/
 -->
 
 <device name="Android">
-  <item name="screen.on">63</item>
-  <item name="screen.full">261</item>
- <!-- Different CPU speeds as reported in
-       /sys/devices/system/cpu/cpu0/cpufreq/stats/time_in_state -->
-  <array name="cpu.speeds">
-      <value>200000</value> <!-- 200 MHz CPU speed -->
-      <value>499200</value> <!-- 499 MHz CPU speed -->
-      <value>533333</value> <!-- 533 MHz CPU speed -->
-      <value>800000</value> <!-- 800 MHz CPU speed -->
-      <value>998400</value> <!-- 998 MHz CPU speed -->
-      <value>1094400</value> <!-- 1094 MHz CPU speed -->
-      <value>1209600</value> <!-- 1209 MHz CPU speed -->
-  </array>
-  <!-- Current at each CPU speed, as per 'cpu.speeds' -->
-  <array name="cpu.active">
-      <value>151</value>
-      <value>169</value>
-      <value>177</value>
-      <value>195</value>
-      <value>259</value>
-      <value>307</value>
-      <value>353</value>
-  </array>
-  <!-- Current when CPU is awake -->
-  <item name="cpu.awake">1.6</item>
-  <!-- Current when CPU is idle -->
-  <item name="cpu.idle">1.6</item>
-  <!-- This is the battery capacity in mAh (measured at nominal voltage) -->
-  <item name="battery.capacity">4000</item>
+    <!-- All values are in mAh except as noted -->
+    <item name="none">0</item>
+    <item name="screen.on">50</item>
+    <item name="screen.full">240</item>
+    <item name="bluetooth.active">21</item>
+    <item name="bluetooth.on">0.6</item>
+    <item name="wifi.on">1</item>
+    <item name="wifi.active">120</item>
+    <item name="wifi.scan">88</item>
+    <item name="dsp.audio">60</item>
+    <item name="dsp.video">160</item>
+    <item name="camera.avg">600</item>
+    <item name="camera.flashlight">200</item>
+    <item name="gps.on">27</item>
+    <!-- The current consumed by the radio when it is scanning for a signal -->
+    <item name="radio.active">200</item>
+    <item name="radio.scanning">3</item>
+    <!-- Current consumed by the radio at different signal strengths, when paging -->
+    <array name="radio.on"> <!-- Strength 0 to BINS-1 -->
+        <value>3</value>
+        <value>3</value>
+    </array>
+
+    <!-- Different CPU speeds as reported in
+         /sys/devices/system/cpu/cpu0/cpufreq/stats/time_in_state -->
+    <array name="cpu.speeds.cluster0">
+        <value>400000</value> <!-- 400 MHz CPU speed -->
+        <value>691200</value> <!-- 691.2 MHz CPU speed -->
+        <value>806400</value> <!-- 806.4 MHz CPU speed -->
+        <value>1017600</value> <!-- 1017.6 MHz CPU speed -->
+        <value>1190400</value> <!-- 1190.4 MHz CPU speed -->
+        <value>1305600</value> <!-- 1305.6 MHz CPU speed -->
+        <value>1382400</value> <!-- 1382.4 MHz CPU speed -->
+        <value>1401600</value> <!-- 1401.6 MHz CPU speed -->
+    </array>
+    <array name="cpu.speeds.cluster1">
+        <value>400000</value> <!-- 400 MHz CPU speed -->
+        <value>883200</value> <!-- 883.2 MHz CPU speed -->
+        <value>940800</value> <!-- 940.8 MHz CPU speed -->
+        <value>998400</value> <!-- 998.4 MHz CPU speed -->
+        <value>1056000</value> <!-- 1056 MHz CPU speed -->
+        <value>1113600</value> <!-- 1113.6 MHz CPU speed -->
+        <value>1190400</value> <!-- 1190.4 MHz CPU speed -->
+        <value>1248000</value> <!-- 1248 MHz CPU speed -->
+        <value>1305600</value> <!-- 1305.6 MHz CPU speed -->
+        <value>1382400</value> <!-- 1382.4 MHz CPU speed -->
+        <value>1612800</value> <!-- 1612.8 MHz CPU speed -->
+        <value>1747200</value> <!-- 1747.2 MHz CPU speed -->
+        <value>1804800</value> <!-- 1804.8 MHz CPU speed -->
+    </array>
+    <!-- Power consumption when CPU is idle -->
+    <item name="cpu.idle">8</item>
+    <item name="cpu.awake">25</item>
+    <!-- Power consumption at different speeds -->
+    <array name="cpu.active.cluster0">
+        <value>39</value> <!-- 400 MHz CPU speed -->
+        <value>45</value> <!-- 691.2 MHz CPU speed -->
+        <value>49</value> <!-- 806.4 MHz CPU speed -->
+        <value>57</value> <!-- 1017.6 MHz CPU speed -->
+        <value>78</value> <!-- 1190.4 MHz CPU speed -->
+        <value>84</value> <!-- 1305.6 MHz CPU speed -->
+        <value>88</value> <!-- 1382.4 MHz CPU speed -->
+        <value>90</value> <!-- 1401.6 MHz CPU speed -->
+    </array>
+    <array name="cpu.active.cluster1">
+        <value>67</value> <!-- 400 MHz CPU speed -->
+        <value>96</value> <!-- 883.2 MHz CPU speed -->
+        <value>109</value> <!-- 940.8 MHz CPU speed -->
+        <value>99</value> <!-- 998.4 MHz CPU speed -->
+        <value>104</value> <!-- 1056 MHz CPU speed -->
+        <value>106</value> <!-- 1113.6 MHz CPU speed -->
+        <value>109</value> <!-- 1190.4 MHz CPU speed -->
+        <value>122</value> <!-- 1248 MHz CPU speed -->
+        <value>127</value> <!-- 1305.6 MHz CPU speed -->
+        <value>132</value> <!-- 1382.4 MHz CPU speed -->
+        <value>177</value> <!-- 1612.8 MHz CPU speed -->
+        <value>196</value> <!-- 1747.2 MHz CPU speed -->
+        <value>206</value> <!-- 1804.8 MHz CPU speed -->
+    </array>
+    <array name="cpu.clusters.cores">
+        <value>4</value> <!-- Cluster 0 has 4 cores (cpu0, cpu1, cpu2, cpu3) -->
+        <value>2</value> <!-- Cluster 0 has 2 cores (cpu4, cpu5) -->
+    </array>
+
+    <!-- This is the battery capacity in mAh -->
+    <item name="battery.capacity">4000</item>
+
+    <array name="wifi.batchedscan"> <!-- mA.  Current figures based on .0801 s/c and 75.48mA while scanning -->
+        <value>.0002</value> <!-- 1-8/hr -->
+        <value>.002</value>  <!-- 9-64/hr -->
+        <value>.02</value>   <!-- 65-512/hr -->
+        <value>.2</value>    <!-- 513-4,096/hr -->
+        <value>2</value>    <!-- 4097-/hr -->
+    </array>
 </device>
