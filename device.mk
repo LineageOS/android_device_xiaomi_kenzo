@@ -255,3 +255,17 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     p2p_supplicant_overlay.conf \
     wpa_supplicant_overlay.conf
+
+# OTA
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/firmware-update/adspso.bin:firmware-update/adspso.bin \
+    $(LOCAL_PATH)/firmware-update/cmnlib.mbn:firmware-update/cmnlib.mbn \
+    $(LOCAL_PATH)/firmware-update/devinfo.img:firmware-update/devinfo.img \
+    $(LOCAL_PATH)/firmware-update/emmc_appsboot.mbn:firmware-update/emmc_appsboot.mbn \
+    $(LOCAL_PATH)/firmware-update/hyp.mbn:firmware-update/hyp.mbn \
+    $(LOCAL_PATH)/firmware-update/keymaster.mbn:firmware-update/keymaster.mbn \
+    $(LOCAL_PATH)/firmware-update/mdtp.img:firmware-update/mdtp.img \
+    $(LOCAL_PATH)/firmware-update/NON-HLOS.bin:firmware-update/NON-HLOS.bin \
+    $(LOCAL_PATH)/firmware-update/rpm.mbn:firmware-update/rpm.mbn \
+    $(LOCAL_PATH)/firmware-update/sbl1.mbn:firmware-update/sbl1.mbn \
+    $(LOCAL_PATH)/firmware-update/tz.mbn:firmware-update/tz.mbn
