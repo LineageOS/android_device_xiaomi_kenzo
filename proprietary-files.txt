@@ -563,6 +563,7 @@ vendor/lib/libRSDriver_adreno.so
 vendor/lib/librs_adreno.so
 vendor/lib/librs_adreno_sha1.so
 vendor/lib/libscale.so
+vendor/lib64/libuiblur.so
 
 # Graphics firmware
 etc/firmware/a530_pfp.fw
