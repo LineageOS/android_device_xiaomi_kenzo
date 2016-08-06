@@ -363,4 +363,7 @@
 
     <!-- Operating volatage for bluetooth controller. 0 by default-->
     <integer translatable="false" name="config_bluetooth_operating_voltage_mv">3300</integer>
+
+    <!-- Enable blur support -->
+    <bool name="config_ui_blur_enabled">true</bool>
 </resources>
