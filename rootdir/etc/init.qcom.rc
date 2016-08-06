@@ -253,9 +253,6 @@ on post-fs-data
 
     setprop vold.post_fs_data_done 1
 
-    #Create a folder for SRS to be able to create a usercfg file
-    mkdir /data/data/media 0770 media media
-
     #Create folder for mm-qcamera-daemon
     mkdir /data/camera 0770 media camera
 
