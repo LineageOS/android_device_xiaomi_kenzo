@@ -42,9 +42,6 @@ on init
     # Set permissions for persist partition
     mkdir /persist 0771 system system
 
-    # Support legacy paths
-    symlink /sdcard /mnt/sdcard
-
 on early-boot
     # set RLIMIT_MEMLOCK to 64MB
     setrlimit 8 67108864 67108864
@@ -164,6 +161,11 @@ on fs
     mount_all fstab.qcom
     mkdir /persist/data 0700 system system
     restorecon_recursive /persist
+
+on post-fs
+    # Support legacy paths
+    symlink /sdcard /mnt/sdcard
+    symlink /sdcard /storage/sdcard0
 
 # msm specific files that need to be created on /data
 on post-fs-data
