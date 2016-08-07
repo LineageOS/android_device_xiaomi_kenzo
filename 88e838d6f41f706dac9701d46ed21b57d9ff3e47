@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3fa7e38b_9ea438bb",
+        "filename": "BoardConfig.mk",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 11883
+      },
+      "writtenOn": "2016-08-07T13:52:04Z",
+      "side": 1,
+      "message": "Remove this too, it\u0027s disabled kernel side",
+      "range": {
+        "startLine": 48,
+        "startChar": 104,
+        "endLine": 48,
+        "endChar": 124
+      },
+      "revId": "88e838d6f41f706dac9701d46ed21b57d9ff3e47",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
