@@ -1,65 +1,65 @@
-# ACBD Data
-etc/acdbdata/MTP/msm8952-tomtom-snd-card/MTP_WCD9330_Bluetooth_cal.acdb
-etc/acdbdata/MTP/msm8952-tomtom-snd-card/MTP_WCD9330_General_cal.acdb
-etc/acdbdata/MTP/msm8952-tomtom-snd-card/MTP_WCD9330_Global_cal.acdb
-etc/acdbdata/MTP/msm8952-tomtom-snd-card/MTP_WCD9330_Handset_cal.acdb
-etc/acdbdata/MTP/msm8952-tomtom-snd-card/MTP_WCD9330_Hdmi_cal.acdb
-etc/acdbdata/MTP/msm8952-tomtom-snd-card/MTP_WCD9330_Headset_cal.acdb
-etc/acdbdata/MTP/msm8952-tomtom-snd-card/MTP_WCD9330_Speaker_cal.acdb
-etc/acdbdata/MTP/msm8976-tasha-snd-card/MTP_WCD9335_Bluetooth_cal.acdb
-etc/acdbdata/MTP/msm8976-tasha-snd-card/MTP_WCD9335_General_cal.acdb
-etc/acdbdata/MTP/msm8976-tasha-snd-card/MTP_WCD9335_Global_cal.acdb
-etc/acdbdata/MTP/msm8976-tasha-snd-card/MTP_WCD9335_Handset_cal.acdb
-etc/acdbdata/MTP/msm8976-tasha-snd-card/MTP_WCD9335_Hdmi_cal.acdb
-etc/acdbdata/MTP/msm8976-tasha-snd-card/MTP_WCD9335_Headset_cal.acdb
-etc/acdbdata/MTP/msm8976-tasha-snd-card/MTP_WCD9335_Speaker_cal.acdb
-etc/acdbdata/MTP/MTP_Bluetooth_cal.acdb
-etc/acdbdata/MTP/MTP_General_cal.acdb
-etc/acdbdata/MTP/MTP_Global_cal.acdb
-etc/acdbdata/MTP/MTP_Handset_cal.acdb
-etc/acdbdata/MTP/MTP_Hdmi_cal.acdb
-etc/acdbdata/MTP/MTP_Headset_cal.acdb
-etc/acdbdata/MTP/MTP_Speaker_cal.acdb
-etc/acdbdata/QRD/msm8976-skun-snd-card/QRD_SKUN_Bluetooth_cal.acdb
-etc/acdbdata/QRD/msm8976-skun-snd-card/QRD_SKUN_General_cal.acdb
-etc/acdbdata/QRD/msm8976-skun-snd-card/QRD_SKUN_Global_cal.acdb
-etc/acdbdata/QRD/msm8976-skun-snd-card/QRD_SKUN_Handset_cal.acdb
-etc/acdbdata/QRD/msm8976-skun-snd-card/QRD_SKUN_Hdmi_cal.acdb
-etc/acdbdata/QRD/msm8976-skun-snd-card/QRD_SKUN_Headset_cal.acdb
-etc/acdbdata/QRD/msm8976-skun-snd-card/QRD_SKUN_Speaker_cal.acdb
-etc/acdbdata/QRD/QRD_Bluetooth_cal.acdb
-etc/acdbdata/QRD/QRD_General_cal.acdb
-etc/acdbdata/QRD/QRD_Global_cal.acdb
-etc/acdbdata/QRD/QRD_Handset_cal.acdb
-etc/acdbdata/QRD/QRD_Hdmi_cal.acdb
-etc/acdbdata/QRD/QRD_Headset_cal.acdb
-etc/acdbdata/QRD/QRD_Speaker_cal.acdb
+# ACBD Data - from Mi Max
+etc/acdbdata/Forte/Forte_Bluetooth_cal.acdb|bc5b3ac45dcfb171859f3efd016c8c0bac4d7a97
+etc/acdbdata/Forte/Forte_General_cal.acdb|87da6b751d71d3db0b2b38d283f02e3633619619
+etc/acdbdata/Forte/Forte_Global_cal.acdb|72c3646717d9ae41505708203c1f4bf50fbb5f50
+etc/acdbdata/Forte/Forte_Handset_cal.acdb|9867f83f458531cad41bd85b0d21e9023565c483
+etc/acdbdata/Forte/Forte_Hdmi_cal.acdb|653a2163bdf586520111306082e35bfaa4e6c3b9
+etc/acdbdata/Forte/Forte_Headset_cal.acdb|3a49b04f6e760b983186b85ed260c71f0dc28012
+etc/acdbdata/Forte/Forte_Speaker_cal.acdb|da6a7dd8c5f4c05e3063e3cb1e2d1386df19e1c9
+etc/acdbdata/MTP/msm8952-tomtom-snd-card/MTP_WCD9330_Bluetooth_cal.acdb|5af0e89bbb9d1ca3bec96745e72901aa978430bc
+etc/acdbdata/MTP/msm8952-tomtom-snd-card/MTP_WCD9330_General_cal.acdb|5c4498260bf5a2f6f40f214190ab97b30cfe5a45
+etc/acdbdata/MTP/msm8952-tomtom-snd-card/MTP_WCD9330_Global_cal.acdb|1f7a0ed8f40ffbb00885e27b8de45ff70a94f4b7
+etc/acdbdata/MTP/msm8952-tomtom-snd-card/MTP_WCD9330_Handset_cal.acdb|1d3094f4966c1c258303be5f60e6c182d8d4bd78
+etc/acdbdata/MTP/msm8952-tomtom-snd-card/MTP_WCD9330_Hdmi_cal.acdb|cd07ef90fc22d698f44405ff51aa6ac23cae8518
+etc/acdbdata/MTP/msm8952-tomtom-snd-card/MTP_WCD9330_Headset_cal.acdb|e1b89d1e7d490ab3cc020d4a1d517175c4813699
+etc/acdbdata/MTP/msm8952-tomtom-snd-card/MTP_WCD9330_Speaker_cal.acdb|bb48c26ed45c186a13719a6795837096ae524f4d
+etc/acdbdata/MTP/msm8976-tasha-snd-card/MTP_WCD9335_Bluetooth_cal.acdb|fe5b24fc866f9707b7a8e027a2b59e49a9f5898b
+etc/acdbdata/MTP/msm8976-tasha-snd-card/MTP_WCD9335_General_cal.acdb|fae3678073893f90f76ae2ce2e7badb42bf356b2
+etc/acdbdata/MTP/msm8976-tasha-snd-card/MTP_WCD9335_Global_cal.acdb|b48b4f580687e034d0a2463e675548e08d8fcd63
+etc/acdbdata/MTP/msm8976-tasha-snd-card/MTP_WCD9335_Handset_cal.acdb|8c27c129d10daee46dd8cbb3b3a7e7f2f30b8f68
+etc/acdbdata/MTP/msm8976-tasha-snd-card/MTP_WCD9335_Hdmi_cal.acdb|edbe31ddf1825280d29f5dd43125030f7a0eba89
+etc/acdbdata/MTP/msm8976-tasha-snd-card/MTP_WCD9335_Headset_cal.acdb|9e57cab97bea64c9c99d28e4417c99987bf6d0dc
+etc/acdbdata/MTP/msm8976-tasha-snd-card/MTP_WCD9335_Speaker_cal.acdb|de8ccce4edb669245bab98c8635e5ffc6831e9cf
 
-# ADSP
-bin/adsprpcd
-vendor/lib64/libadsprpc.so
-vendor/lib/libadsprpc.so
-vendor/lib/libfastcvadsp_stub.so
-vendor/lib/libfastcvopt.so
+# ADSP - from Mi Max
+bin/adsprpcd|d27cf31fab32bc85d9acab047ccecc586918b8cf
+vendor/lib64/libadsprpc.so|18df4ca05c178dfb1d14459a966ac0b1a656a197
+vendor/lib/libadsprpc.so|104f56cf016917f4ea931fbbea5bb154f8b3c743
+vendor/lib/libfastcvadsp_stub.so|d071b12c1f380a055ffcb49fe5adadc35d014fcb
+vendor/lib/libfastcvopt.so|aedce15db611b7354bdaa6243b39349292fa9b0d
 
-# Audio libraries
-lib/soundfx/libdirac.so
-lib/libDiracAPI_SHARED.so
-vendor/lib64/libacdb-fts.so
-vendor/lib64/libacdbloader.so
-vendor/lib64/libacdbrtac.so
-vendor/lib64/libadiertac.so
-vendor/lib64/libaudcal.so
-vendor/lib64/libhwdaphal.so
-vendor/lib/libacdb-fts.so
-vendor/lib/libacdbloader.so
-vendor/lib/libacdbrtac.so
-vendor/lib/libadiertac.so
-vendor/lib/libaudcal.so
-vendor/lib/libhwdaphal.so
-vendor/lib/soundfx/libqcbassboost.so
-vendor/lib/soundfx/libqcreverb.so
-vendor/lib/soundfx/libqcvirt.so
+# ADSP modules - from Mi Max
+vendor/lib/rfsa/adsp/libapps_mem_heap.so|d9f61bc2350cbccc09e94974ae89dff98feac920
+vendor/lib/rfsa/adsp/libdspCV_skel.so|e2aa658b5ff78cb8528653b58fbc5eb1c4208eac
+vendor/lib/rfsa/adsp/libfastcvadsp_skel.so|d53a702c64f1681db998fbfa06e0ce480b20f4b0
+vendor/lib/rfsa/adsp/libfastcvadsp.so|059757414b4083991958a0dc91f1325a3d5432a3
+vendor/lib/rfsa/adsp/libobjectMattingApp_skel.so|8d5b8f2095c9f95b7a66508bb107c0c752ede166
+vendor/lib/rfsa/adsp/libpanorama_skel.so|7dbfc72ea7f6b7001ca9e300df6ffb1e3f56f6a1
+vendor/lib/rfsa/adsp/libscveBlobDescriptor_skel.so|c971caeab9c9d373af3cc50e319d8124be456ffb
+vendor/lib/rfsa/adsp/libscveObjectSegmentation_skel.so|61e11043e54d26e6c7d820f7a67d55887eceb292
+vendor/lib/rfsa/adsp/libscveT2T_skel.so|837c9065d61f9abc57b74a639e0e84fc8effa6a8
+vendor/lib/rfsa/adsp/libscveTextReco_skel.so|16a1afcbbd204194f2121c54a9393f73805283db
+
+# Audio libraries - from Mi Max
+lib/soundfx/libdirac.so|30c2b627911514870eff4c47e0c183e6227160b6
+lib/libDiracAPI_SHARED.so|42b49679d38eca93fead05ea06ddbdc8108fd4b1
+vendor/lib64/libacdb-fts.so|c3ac468b9e028933cc923ae2ba13453c65ffc50f
+vendor/lib64/libacdbloader.so|b7b6e388f23d45c66c3f624632003461a1ec9699
+vendor/lib64/libacdbmapper.so|f0b0fe9e1899cc13c0aa1a25908dc98e02e03347
+vendor/lib64/libacdbrtac.so|b70e51b8432061982f33b951293417f5a0a0a48a
+vendor/lib64/libadiertac.so|5806a174c4ce1e8a9698c4e0cd9dc0855c106042
+vendor/lib64/libaudcal.so|83e2fff770a07b9dcfccc4f05bb6e3df8b5553c5
+vendor/lib64/libhwdaphal.so|7c4e473d6f2b82f9a4f02671d5ee9e9760da0341
+vendor/lib/libacdb-fts.so|d4c3d9eb30612ffc686598abf10bcc3f8703bb40
+vendor/lib/libacdbloader.so|5c12ffc82e6f7fa9a9b474068034d6c92311313e
+vendor/lib/libacdbmapper.so|19b4c732009b9dfd607d8569614eeb406ce89751
+vendor/lib/libacdbrtac.so|84cfcb8c550c771c0fe72269a461000609b1cb42
+vendor/lib/libadiertac.so|212cfbeea700c1d8c7649b9b5bbd47df6f6faf89
+vendor/lib/libaudcal.so|a9ef4516b5e4e30567fa4708c9fa23f1cf778e5d
+vendor/lib/libhwdaphal.so|34b58c70c0eedfa2a21076883bf766413186b4d7
+vendor/lib/soundfx/libqcbassboost.so|7edc563da92cdbe593cef36f105919224654970e
+vendor/lib/soundfx/libqcreverb.so|a164b4b4fff276ef1c0480c03c38110a7ea9e047
+vendor/lib/soundfx/libqcvirt.so|cb6395ed1740aca40b85a1e8e0a0b5284ab2b27c
 
 # Bluetooth
 bin/btnvtool
@@ -707,9 +707,9 @@ vendor/lib/libsensor_user_cal.so
 vendor/lib/sensor_calibrate.so
 vendor/lib/sensors.ssc.so
 
-# Sound trigger
-vendor/lib/hw/sound_trigger.primary.msm8952.so
-vendor/lib/libsmwrapper.so
+# Sound trigger - from Mi Max
+vendor/lib/hw/sound_trigger.primary.msm8952.so|04409e7506307ff247c1807fc60b96fac79be728
+vendor/lib/libsmwrapper.so|fc3189736496ae15f6f5205f5ed015eb358dbf91
 
 # Thermal
 vendor/bin/thermal-engine
