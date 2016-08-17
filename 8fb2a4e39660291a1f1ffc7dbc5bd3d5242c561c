@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1fa4df85_a2584b56",
+        "filename": "system.prop",
+        "patchSetId": 8
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 13648
+      },
+      "writtenOn": "2016-08-17T12:13:59Z",
+      "side": 1,
+      "message": "Is this prop okay?\n\nOn BoardConfig.mk you have:\nAUDIO_FEATURE_ENABLED_DS2_DOLBY_DAP :\u003d false",
+      "range": {
+        "startLine": 3,
+        "startChar": 0,
+        "endLine": 3,
+        "endChar": 28
+      },
+      "revId": "8fb2a4e39660291a1f1ffc7dbc5bd3d5242c561c",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
