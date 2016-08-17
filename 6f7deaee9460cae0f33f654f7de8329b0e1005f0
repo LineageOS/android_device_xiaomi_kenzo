@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1fa4df85_4212b7b3",
+        "filename": "BoardConfig.mk",
+        "patchSetId": 3
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 10258
+      },
+      "writtenOn": "2016-08-17T07:07:28Z",
+      "side": 1,
+      "message": "currently unsupported",
+      "range": {
+        "startLine": 70,
+        "startChar": 0,
+        "endLine": 72,
+        "endChar": 41
+      },
+      "revId": "6f7deaee9460cae0f33f654f7de8329b0e1005f0",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1fa4df85_e2264317",
+        "filename": "BoardConfig.mk",
+        "patchSetId": 3
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 10258
+      },
+      "writtenOn": "2016-08-17T07:07:28Z",
+      "side": 1,
+      "message": "no need to keep it",
+      "range": {
+        "startLine": 77,
+        "startChar": 0,
+        "endLine": 77,
+        "endChar": 47
+      },
+      "revId": "6f7deaee9460cae0f33f654f7de8329b0e1005f0",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1fa4df85_0224bf0c",
+        "filename": "BoardConfig.mk",
+        "patchSetId": 3
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 10258
+      },
+      "writtenOn": "2016-08-17T07:07:28Z",
+      "side": 1,
+      "message": "currently unsupported",
+      "range": {
+        "startLine": 88,
+        "startChar": 0,
+        "endLine": 89,
+        "endChar": 41
+      },
+      "revId": "6f7deaee9460cae0f33f654f7de8329b0e1005f0",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1fa4df85_a2204bf9",
+        "filename": "BoardConfig.mk",
+        "patchSetId": 3
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 10258
+      },
+      "writtenOn": "2016-08-17T07:07:28Z",
+      "side": 1,
+      "message": "deprecated",
+      "range": {
+        "startLine": 93,
+        "startChar": 0,
+        "endLine": 93,
+        "endChar": 33
+      },
+      "revId": "6f7deaee9460cae0f33f654f7de8329b0e1005f0",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
