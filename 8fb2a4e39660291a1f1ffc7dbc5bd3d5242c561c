@@ -22,6 +22,30 @@
       "revId": "8fb2a4e39660291a1f1ffc7dbc5bd3d5242c561c",
       "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1fa4df85_452641ba",
+        "filename": "system.prop",
+        "patchSetId": 8
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 13452
+      },
+      "writtenOn": "2016-08-17T12:38:02Z",
+      "side": 1,
+      "message": "Nah, Xiaomi have it probably because it\u0027s enabled by default in CAF tree.. Should be removed acc to me. Doing.",
+      "parentUuid": "1fa4df85_a2584b56",
+      "range": {
+        "startLine": 3,
+        "startChar": 0,
+        "endLine": 3,
+        "endChar": 28
+      },
+      "revId": "8fb2a4e39660291a1f1ffc7dbc5bd3d5242c561c",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
     }
   ]
 }
