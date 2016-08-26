@@ -4,6 +4,4 @@
 # Fingerprint
 /dev/socket/fpce                                                      u:object_r:fpc_socket:s0
 /data/fpc(/.*)?                                                       u:object_r:fpc_data_file:s0
-/sys/devices/soc.0/fpc_fpc1020.*/hw_reset                             u:object_r:fpc_sysfs:s0
-/sys/devices/soc.0/fpc_fpc1020.*/irq                                  u:object_r:fpc_sysfs:s0
-/sys/devices/soc.0/fpc_fpc1020.*/wakeup_enable                        u:object_r:fpc_sysfs:s0
+/sys/devices/soc.0/fpc_fpc1020.*(/.*)?                                u:object_r:fpc_sysfs:s0
