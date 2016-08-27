@@ -39,7 +39,7 @@ on early-init
     mkdir /dsp 0771 media media
 
 on init
-    mount debugfs /sys/kernel/debug /sys/kernel/debug
+    mount debugfs /sys/kernel/debug /sys/kernel/debug mode=755
 
     # Set permissions for persist partition
     mkdir /persist 0771 system system
