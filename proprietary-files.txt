@@ -448,10 +448,16 @@ vendor/lib/libdpmtcm.so|3aa83c9ab38bac8b1144406b97b27e2958ec67c7
 
 # DRM
 bin/qseecomd
+vendor/lib/libQSEEComAPI.so
+vendor/lib64/lib-sec-disp.so
+vendor/lib64/libQSEEComAPI.so
+vendor/lib64/libSecureUILib.so
+vendor/lib64/libStDrvInt.so
 vendor/lib64/libdrmfs.so
 vendor/lib64/libdrmtime.so
-vendor/lib64/libQSEEComAPI.so
 vendor/lib64/librpmb.so
+vendor/lib64/libsecureui.so
+vendor/lib64/libsecureui_svcsock.so
 vendor/lib64/libssd.so
 
 # Firmwares
