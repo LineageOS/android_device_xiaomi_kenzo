@@ -76,10 +76,10 @@
     <ctl name="DEC6 Volume" value="84" />
     <ctl name="DEC7 Volume" value="84" />
     <ctl name="DEC8 Volume" value="84" />
-    <ctl name="COMP1 Switch" value="1" />
-    <ctl name="COMP2 Switch" value="1" />
-    <ctl name="COMP7 Switch" value="1" />
-    <ctl name="COMP8 Switch" value="1" />
+    <ctl name="COMP1 Switch" value="0" />
+    <ctl name="COMP2 Switch" value="0" />
+    <ctl name="COMP7 Switch" value="0" />
+    <ctl name="COMP8 Switch" value="0" />
     <ctl name="RX HPH Mode" value="CLS_H_HIFI" />
     <ctl name="SLIMBUS_3_RX Port Mixer MI2S_TX" value="0" />
     <ctl name="HDMI_RX Port Mixer MI2S_TX" value="0" />
