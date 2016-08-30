@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1fa4df85_c20d1e3f",
+        "filename": "proprietary-files.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 397,
+      "author": {
+        "id": 4550
+      },
+      "writtenOn": "2016-08-30T12:36:56Z",
+      "side": 1,
+      "message": "p goes after f",
+      "revId": "588a0894bff14b014dd839e31f973bf83bbeb6e2",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1fa4df85_e20a9a24",
+        "filename": "proprietary-files.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 488,
+      "author": {
+        "id": 4550
+      },
+      "writtenOn": "2016-08-30T12:36:56Z",
+      "side": 1,
+      "message": "same",
+      "revId": "588a0894bff14b014dd839e31f973bf83bbeb6e2",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1fa4df85_8207261d",
+        "filename": "proprietary-files.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 688,
+      "author": {
+        "id": 4550
+      },
+      "writtenOn": "2016-08-30T12:36:56Z",
+      "side": 1,
+      "message": "same",
+      "revId": "588a0894bff14b014dd839e31f973bf83bbeb6e2",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1fa4df85_a204a218",
+        "filename": "proprietary-files.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 736,
+      "author": {
+        "id": 4550
+      },
+      "writtenOn": "2016-08-30T12:36:56Z",
+      "side": 1,
+      "message": "same",
+      "revId": "588a0894bff14b014dd839e31f973bf83bbeb6e2",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
