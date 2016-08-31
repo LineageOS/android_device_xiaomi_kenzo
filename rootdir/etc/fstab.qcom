@@ -8,7 +8,7 @@
 /dev/block/bootdevice/by-name/userdata              /data        ext4    nosuid,nodev,noatime,nodiratime,barrier=1,noauto_da_alloc                      wait,check,encryptable=footer,formattable,length=-16384
 /dev/block/bootdevice/by-name/cache                 /cache       f2fs    nosuid,nodev,noatime,nodiratime,inline_xattr,flush_merge,data_flush            wait,check,formattable
 /dev/block/bootdevice/by-name/cache                 /cache       ext4    nosuid,nodev,noatime,nodiratime,barrier=1                                      wait,check,formattable
-/dev/block/bootdevice/by-name/modem                 /firmware    vfat    ro,shortname=lower,dmask=222,fmask=333,context=u:object_r:firmware_file:s0     wait
+/dev/block/bootdevice/by-name/modem                 /firmware    vfat    ro,shortname=lower,dmask=222,fmask=333                                         wait
 /dev/block/bootdevice/by-name/dsp                   /dsp         ext4    nosuid,nodev,barrier=1                                                         wait
 /dev/block/bootdevice/by-name/persist               /persist     ext4    nosuid,nodev,barrier=1                                                         wait
 /dev/block/bootdevice/by-name/config                /frp         emmc    defaults                                                                       defaults
