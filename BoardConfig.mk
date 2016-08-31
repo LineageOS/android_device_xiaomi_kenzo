@@ -160,7 +160,7 @@ BOARD_LIGHTS_VARIANT := aw2013
 TARGET_PROVIDES_LIBLIGHT := true
 
 # Malloc
-MALLOC_IMPL := dlmalloc
+MALLOC_SVELTE := true
 
 # Peripheral manager
 TARGET_PER_MGR_ENABLED := true
