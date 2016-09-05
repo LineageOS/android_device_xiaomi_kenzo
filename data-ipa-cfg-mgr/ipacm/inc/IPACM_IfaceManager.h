@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2013, The Linux Foundation. All rights reserved.
+Copyright (c) 2013-2016, The Linux Foundation. All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are
@@ -48,7 +48,6 @@ IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "IPACM_Listener.h"
 #include "IPACM_Iface.h"
 
-#define IPA_MAX_NUM_NEIGHBOR_CLIENTS  17
 #define IPA_INSTANCE_NOT_FOUND  0
 #define IPA_INSTANCE_FOUND  1
 

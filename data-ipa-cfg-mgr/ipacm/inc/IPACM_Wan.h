@@ -202,6 +202,7 @@ private:
 	bool header_partial_default_wan_v4;
 	bool header_partial_default_wan_v6;
 	uint8_t ext_router_mac_addr[IPA_MAC_ADDR_SIZE];
+	uint8_t netdev_mac[IPA_MAC_ADDR_SIZE];
 
 	static int num_ipv4_modem_pdn;
 
@@ -228,6 +229,8 @@ private:
 
 	/* update network stats for CNE */
 	int ipa_network_stats_fd;
+	uint32_t hdr_hdl_dummy_v6;
+	uint32_t hdr_proc_hdl_dummy_v6;
 
 	inline ipa_wan_client* get_client_memptr(ipa_wan_client *param, int cnt)
 	{
@@ -476,6 +479,7 @@ private:
 	bool is_global_ipv6_addr(uint32_t* ipv6_addr);
 
 	void handle_wlan_SCC_MCC_switch(bool, ipa_ip_type);
+
 	void handle_wan_client_SCC_MCC_switch(bool, ipa_ip_type);
 
 	int handle_network_stats_evt();
@@ -483,6 +487,9 @@ private:
 	int m_fd_ipa;
 
 	int handle_network_stats_update(ipa_get_apn_data_stats_resp_msg_v01 *data);
+
+	/* construct dummy ethernet header */
+	int add_dummy_rx_hdr();
 };
 
 #endif /* IPACM_WAN_H */
