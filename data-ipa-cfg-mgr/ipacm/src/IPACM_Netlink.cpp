@@ -1376,13 +1376,13 @@ static int ipa_nl_decode_nlmsg
 				IPACMDBG("\n GOT RTM_NEWNEIGH event (%s) ip %d\n",dev_name,msg_ptr->nl_neigh_info.attr_info.local_addr.ss_family);
 			}
 
-					/* insert to command queue */
+			/* insert to command queue */
 		    data_all = (ipacm_event_data_all *)malloc(sizeof(ipacm_event_data_all));
 		    if(data_all == NULL)
-					{
+			{
 		    	IPACMERR("unable to allocate memory for event data_all\n");
 						return IPACM_FAILURE;
-					}
+			}
 
 		    memset(data_all, 0, sizeof(ipacm_event_data_all));
 		    if(msg_ptr->nl_neigh_info.attr_info.local_addr.ss_family == AF_INET6)
@@ -1390,11 +1390,11 @@ static int ipa_nl_decode_nlmsg
 				IPACM_NL_REPORT_ADDR( " ", msg_ptr->nl_neigh_info.attr_info.local_addr);
 				IPACM_EVENT_COPY_ADDR_v6( data_all->ipv6_addr, msg_ptr->nl_neigh_info.attr_info.local_addr);
 
-                      data_all->ipv6_addr[0]=ntohl(data_all->ipv6_addr[0]);
-                      data_all->ipv6_addr[1]=ntohl(data_all->ipv6_addr[1]);
-                      data_all->ipv6_addr[2]=ntohl(data_all->ipv6_addr[2]);
-                      data_all->ipv6_addr[3]=ntohl(data_all->ipv6_addr[3]);
-		    	data_all->iptype = IPA_IP_v6;
+				data_all->ipv6_addr[0]=ntohl(data_all->ipv6_addr[0]);
+				data_all->ipv6_addr[1]=ntohl(data_all->ipv6_addr[1]);
+				data_all->ipv6_addr[2]=ntohl(data_all->ipv6_addr[2]);
+				data_all->ipv6_addr[3]=ntohl(data_all->ipv6_addr[3]);
+				data_all->iptype = IPA_IP_v6;
 		    }
 		    else if (msg_ptr->nl_neigh_info.attr_info.local_addr.ss_family == AF_INET)
 		    {
@@ -1420,13 +1420,26 @@ static int ipa_nl_decode_nlmsg
 		    memcpy(data_all->mac_addr,
 		    			 msg_ptr->nl_neigh_info.attr_info.lladdr_hwaddr.sa_data,
 		    			 sizeof(data_all->mac_addr));
-		    evt_data.event = IPA_NEW_NEIGH_EVENT;
-		    data_all->if_index = msg_ptr->nl_neigh_info.metainfo.ndm_ifindex;
-
-		    IPACMDBG_H("posting IPA_NEW_NEIGH_EVENT (%s):index:%d ip-family: %d\n",
+			data_all->if_index = msg_ptr->nl_neigh_info.metainfo.ndm_ifindex;
+			/* Add support to replace src-mac as bridge0 mac */
+			if((msg_ptr->nl_neigh_info.metainfo.ndm_family == AF_BRIDGE) &&
+				(msg_ptr->nl_neigh_info.metainfo.ndm_state == NUD_PERMANENT))
+		    {
+				/* Posting IPA_BRIDGE_LINK_UP_EVENT event */
+				evt_data.event = IPA_BRIDGE_LINK_UP_EVENT;
+				IPACMDBG_H("posting IPA_BRIDGE_LINK_UP_EVENT (%s):index:%d \n",
+                                 dev_name,
+ 		                    data_all->if_index);
+			}
+			else
+		    {
+				/* Posting new_neigh events for all LAN/WAN clients */
+				evt_data.event = IPA_NEW_NEIGH_EVENT;
+				IPACMDBG_H("posting IPA_NEW_NEIGH_EVENT (%s):index:%d ip-family: %d\n",
                                  dev_name,
  		                    data_all->if_index,
 		    				 msg_ptr->nl_neigh_info.attr_info.local_addr.ss_family);
+			}
 		    evt_data.evt_data = data_all;
 					IPACM_EvtDispatcher::PostEvt(&evt_data);
 					/* finish command queue */

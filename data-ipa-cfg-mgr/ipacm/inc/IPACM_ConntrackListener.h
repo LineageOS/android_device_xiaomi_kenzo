@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2013, The Linux Foundation. All rights reserved.
+Copyright (c) 2013-2016, The Linux Foundation. All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are
@@ -46,10 +46,20 @@ IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "IPACM_LanToLan.h"
 #endif
 
-#define MAX_NAT_IFACES 50
+#define MAX_IFACE_ADDRESS 50
 #define MAX_STA_CLNT_IFACES 10
+#define STA_CLNT_SUBNET_MASK 0xFFFFFF00
 
 using namespace std;
+
+typedef struct _nat_entry_bundle
+{
+	struct nf_conntrack *ct;
+	enum nf_conntrack_msg_type type;
+	nat_table_entry *rule;
+	bool isTempEntry;
+
+}nat_entry_bundle;
 
 class IPACM_ConntrackListener : public IPACM_Listener
 {
@@ -63,8 +73,8 @@ private:
 	int NatIfaceCnt;
 	int StaClntCnt;
 	NatIfaces *pNatIfaces;
-	uint32_t nat_iface_ipv4_addr[MAX_NAT_IFACES];
-	uint32_t nonnat_iface_ipv4_addr[MAX_NAT_IFACES];
+	uint32_t nat_iface_ipv4_addr[MAX_IFACE_ADDRESS];
+	uint32_t nonnat_iface_ipv4_addr[MAX_IFACE_ADDRESS];
 	uint32_t sta_clnt_ipv4_addr[MAX_STA_CLNT_IFACES];
 	IPACM_Config *pConfig;
 #ifdef CT_OPT
@@ -78,9 +88,17 @@ private:
 	void TriggerWANDown(uint32_t);
 	int  CreateNatThreads(void);
 	int  CreateConnTrackThreads(void);
+	bool AddIface(nat_table_entry *, bool *);
+	void AddORDeleteNatEntry(const nat_entry_bundle *);
+	void PopulateTCPorUDPEntry(struct nf_conntrack *, uint32_t, nat_table_entry *);
+	void CheckSTAClient(const nat_table_entry *, bool *);
+	int CheckNatIface(ipacm_event_data_all *, bool *);
+	void HandleNonNatIPAddr(void *, bool);
 
 #ifdef CT_OPT
 	void ProcessCTV6Message(void *);
+	void HandleLan2Lan(struct nf_conntrack *,
+		enum nf_conntrack_msg_type, nat_table_entry* );
 #endif
 
 public:
