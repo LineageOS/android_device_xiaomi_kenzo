@@ -1,5 +1,5 @@
-/* 
-Copyright (c) 2013, The Linux Foundation. All rights reserved.
+/*
+Copyright (c) 2013-2016, The Linux Foundation. All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are
@@ -80,9 +80,8 @@ bool IPACM_Filtering::AddFilteringRule(struct ipa_ioc_add_flt_rule const *ruleTa
 	IPACMDBG("commit value: %d\n", ruleTable->commit);
 	for (int cnt=0; cnt<ruleTable->num_rules; cnt++)
 	{
-		IPACMDBG("Filter rule:%d attrib mask: 0x%x\n",
-						 cnt, 
-						 ruleTable->rules[cnt].rule.attrib.attrib_mask);
+		IPACMDBG("Filter rule:%d attrib mask: 0x%x\n", cnt,
+				ruleTable->rules[cnt].rule.attrib.attrib_mask);
 	}
 
 	retval = ioctl(fd, IPA_IOC_ADD_FLT_RULE, ruleTable);
@@ -112,6 +111,38 @@ bool IPACM_Filtering::AddFilteringRule(struct ipa_ioc_add_flt_rule const *ruleTa
 	}
 
 	IPACMDBG("Added Filtering rule %p\n", ruleTable);
+	return true;
+}
+
+bool IPACM_Filtering::AddFilteringRuleAfter(struct ipa_ioc_add_flt_rule_after const *ruleTable)
+{
+#ifdef FEATURE_IPA_V3
+	int retval = 0;
+
+	IPACMDBG("Printing filter add attributes\n");
+	IPACMDBG("ip type: %d\n", ruleTable->ip);
+	IPACMDBG("Number of rules: %d\n", ruleTable->num_rules);
+	IPACMDBG("End point: %d\n", ruleTable->ep);
+	IPACMDBG("commit value: %d\n", ruleTable->commit);
+
+	retval = ioctl(fd, IPA_IOC_ADD_FLT_RULE_AFTER, ruleTable);
+
+	for (int cnt = 0; cnt<ruleTable->num_rules; cnt++)
+	{
+		if(ruleTable->rules[cnt].status != 0)
+		{
+			IPACMERR("Adding Filter rule:%d failed with status:%d\n",
+							 cnt, ruleTable->rules[cnt].status);
+		}
+	}
+
+	if (retval != 0)
+	{
+		IPACMERR("Failed adding Filtering rule %p\n", ruleTable);
+		return false;
+	}
+	IPACMDBG("Added Filtering rule %p\n", ruleTable);
+#endif
 	return true;
 }
 
@@ -215,8 +246,7 @@ bool IPACM_Filtering::DeleteFilteringHdls
 			     res = false;
 			     goto fail;
 		        }
-		   
-		   }	   
+		   }
 	    }
 	}
 
@@ -285,7 +315,7 @@ bool IPACM_Filtering::AddWanDLFilteringRule(struct ipa_ioc_add_flt_rule const *r
 		qmi_rule_msg.source_pipe_index_valid = 0;
 
 		IPACMDBG_H("Get %d WAN DL filtering rules in total.\n", num_rules);
-		
+
 		if(rule_table_v4 != NULL)
 		{
 			for(cnt = rule_table_v4->num_rules - 1; cnt >= 0; cnt--)

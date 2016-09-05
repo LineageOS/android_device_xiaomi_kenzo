@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2013-2015, The Linux Foundation. All rights reserved.
+Copyright (c) 2013-2016, The Linux Foundation. All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are
@@ -46,7 +46,7 @@ IPACM_ConntrackListener::IPACM_ConntrackListener()
 	 NatIfaceCnt = 0;
 	 StaClntCnt = 0;
 	 pNatIfaces = NULL;
-	 pConfig = NULL;
+	 pConfig = IPACM_Config::GetInstance();;
 
 	 memset(nat_iface_ipv4_addr, 0, sizeof(nat_iface_ipv4_addr));
 	 memset(nonnat_iface_ipv4_addr, 0, sizeof(nonnat_iface_ipv4_addr));
@@ -58,6 +58,8 @@ IPACM_ConntrackListener::IPACM_ConntrackListener()
 	 IPACM_EvtDispatcher::registr(IPA_PROCESS_CT_MESSAGE_V6, this);
 	 IPACM_EvtDispatcher::registr(IPA_HANDLE_WLAN_UP, this);
 	 IPACM_EvtDispatcher::registr(IPA_HANDLE_LAN_UP, this);
+	 IPACM_EvtDispatcher::registr(IPA_NEIGH_CLIENT_IP_ADDR_ADD_EVENT, this);
+	 IPACM_EvtDispatcher::registr(IPA_NEIGH_CLIENT_IP_ADDR_DEL_EVENT, this);
 
 #ifdef CT_OPT
 	 p_lan2lan = IPACM_LanToLan::getLan2LanInstance();
@@ -65,7 +67,7 @@ IPACM_ConntrackListener::IPACM_ConntrackListener()
 }
 
 void IPACM_ConntrackListener::event_callback(ipa_cm_event_id evt,
-																						 void *data)
+						void *data)
 {
 	 ipacm_event_iface_up *wan_down = NULL;
 
@@ -119,168 +121,232 @@ void IPACM_ConntrackListener::event_callback(ipa_cm_event_id evt,
 			IPACM_ConntrackClient::UpdateTCPFilters(data, false);
 			break;
 
+	 case IPA_NEIGH_CLIENT_IP_ADDR_ADD_EVENT:
+		 IPACMDBG("Received IPA_NEIGH_CLIENT_IP_ADDR_ADD_EVENT event\n");
+		 HandleNonNatIPAddr(data, true);
+		 break;
+
+	 case IPA_NEIGH_CLIENT_IP_ADDR_DEL_EVENT:
+		 IPACMDBG("Received IPA_NEIGH_CLIENT_IP_ADDR_DEL_EVENT event\n");
+		 HandleNonNatIPAddr(data, false);
+		 break;
+
 	 default:
 			IPACMDBG("Ignore cmd %d\n", evt);
 			break;
 	 }
 }
-void IPACM_ConntrackListener::HandleNeighIpAddrAddEvt(ipacm_event_data_all *data)
+
+int IPACM_ConntrackListener::CheckNatIface(
+   ipacm_event_data_all *data, bool *NatIface)
 {
 	int fd = 0, len = 0, cnt, i, j;
 	struct ifreq ifr;
-	bool isNatIface = false;
+	*NatIface = false;
 
-	if(data->ipv4_addr == 0 || data->iptype != IPA_IP_v4)
+	if (data->ipv4_addr == 0 || data->iptype != IPA_IP_v4)
 	{
-		IPACMDBG("Ignoring IPA_NEIGH_CLIENT_IP_ADDR_ADD_EVENT EVENT\n");
-		return;
+		IPACMDBG("Ignoring\n");
+		return IPACM_FAILURE;
 	}
 
-	IPACMDBG("\n");
 	IPACMDBG("Received interface index %d with ip type: %d", data->if_index, data->iptype);
 	iptodot(" and ipv4 address", data->ipv4_addr);
 
-	if(pConfig == NULL)
+	if (pConfig == NULL)
 	{
 		pConfig = IPACM_Config::GetInstance();
-		if(pConfig == NULL)
+		if (pConfig == NULL)
 		{
 			IPACMERR("Unable to get Config instance\n");
-			return;
+			return IPACM_FAILURE;
 		}
 	}
 
-
 	cnt = pConfig->GetNatIfacesCnt();
 	NatIfaceCnt = cnt;
-	if (pNatIfaces != NULL) {
+	IPACMDBG("Total Nat ifaces: %d\n", NatIfaceCnt);
+	if (pNatIfaces != NULL)
+	{
 		free(pNatIfaces);
 		pNatIfaces = NULL;
 	}
 
 	len = (sizeof(NatIfaces) * NatIfaceCnt);
 	pNatIfaces = (NatIfaces *)malloc(len);
-	if (pNatIfaces == NULL) {
+	if (pNatIfaces == NULL)
+	{
 		IPACMERR("Unable to allocate memory for non nat ifaces\n");
-		return;
+		return IPACM_FAILURE;
 	}
+
 	memset(pNatIfaces, 0, len);
-
-	if (pConfig->GetNatIfaces(NatIfaceCnt, pNatIfaces) != 0) {
+	if (pConfig->GetNatIfaces(NatIfaceCnt, pNatIfaces) != 0)
+	{
 		IPACMERR("Unable to retrieve non nat ifaces\n");
-		return;
+		return IPACM_FAILURE;
 	}
-	IPACMDBG("Update %d Nat ifaces\n", NatIfaceCnt); 
-
 
 	/* Search/Configure linux interface-index and map it to IPA interface-index */
-	if((fd = socket(AF_INET, SOCK_DGRAM, 0)) < 0)
+	if ((fd = socket(AF_INET, SOCK_DGRAM, 0)) < 0)
 	{
 		PERROR("get interface name socket create failed");
-		return;
+		return IPACM_FAILURE;
 	}
 
 	memset(&ifr, 0, sizeof(struct ifreq));
 	ifr.ifr_ifindex = data->if_index;
-
-	if(ioctl(fd, SIOCGIFNAME, &ifr) < 0)
+	if (ioctl(fd, SIOCGIFNAME, &ifr) < 0)
 	{
 		PERROR("call_ioctl_on_dev: ioctl failed:");
 		close(fd);
-		return;
+		return IPACM_FAILURE;
 	}
 	close(fd);
 
-	for(i = 0; i < NatIfaceCnt; i++)
+	for (i = 0; i < NatIfaceCnt; i++)
 	{
-		if(strncmp(ifr.ifr_name,
-							 pNatIfaces[i].iface_name,
-							 sizeof(pNatIfaces[i].iface_name)) == 0)
+		if (strncmp(ifr.ifr_name,
+					pNatIfaces[i].iface_name,
+					sizeof(pNatIfaces[i].iface_name)) == 0)
 		{
 			/* copy the ipv4 address to filter out downlink connections
 				 ignore downlink after listening connection event from
 				 conntrack as it is not destinated to private ip address */
 			IPACMDBG("Interface (%s) is nat\n", ifr.ifr_name);
-			for(j = 0; j < MAX_NAT_IFACES; j++)
+			for (j = 0; j < MAX_IFACE_ADDRESS; j++)
 			{
 				/* check if duplicate NAT ip */
-				if(nat_iface_ipv4_addr[j] == data->ipv4_addr)
-					break;
+				if (nat_iface_ipv4_addr[j] == data->ipv4_addr)
+				{
+					*NatIface = true;
+					return IPACM_SUCCESS;
+				}
 
-				if(nat_iface_ipv4_addr[j] == 0)
+				if (nat_iface_ipv4_addr[j] == 0)
 				{
 					nat_iface_ipv4_addr[j] = data->ipv4_addr;
-					nat_inst->ResetPwrSaveIf(data->ipv4_addr);
-					nat_inst->FlushTempEntries(data->ipv4_addr, true);
-					break;
+					IPACMDBG_H("Nating connections of Interface (%s), entry (%d) ",
+						pNatIfaces[i].iface_name, j);
+					iptodot("with ipv4 address: ", nat_iface_ipv4_addr[j]);
+
+					*NatIface = true;
+					return IPACM_SUCCESS;
 				}
 			}
-
-			if(j == MAX_NAT_IFACES)
-			{
-				IPACMERR("Nat ifaces(%d) exceed maximum\n", j);
-				break;
-			}
-
-
-			isNatIface = true;
-			IPACMDBG_H("Nating connections of Interface (%s), entry (%d) ", pNatIfaces[i].iface_name, j);
-			IPACMDBG_H(" with ipv4 address(0x%x): %d.%d.%d.%d\n", nat_iface_ipv4_addr[j],
-					    ((nat_iface_ipv4_addr[j]>>24) & 0xFF), ((nat_iface_ipv4_addr[j]>>16) & 0xFF), 
-					    ((nat_iface_ipv4_addr[j]>>8) & 0xFF), (nat_iface_ipv4_addr[j] & 0xFF));
-			break;
 		}
 	}
 
-	/* Cache the non nat iface ip address */
-	if(isNatIface != true)
-	{
-		for(i = 0; i < MAX_NAT_IFACES; i++)
-		{
-			if(nonnat_iface_ipv4_addr[i] == 0)
-			{
-				nonnat_iface_ipv4_addr[i] = data->ipv4_addr;
-				nat_inst->FlushTempEntries(data->ipv4_addr, false);
-				break;
-			}
-		}
-	}
-
+	return IPACM_SUCCESS;
 }
 
-void IPACM_ConntrackListener::HandleNeighIpAddrDelEvt(uint32_t ipv4_addr)
+void IPACM_ConntrackListener::HandleNonNatIPAddr(
+   void *inParam, bool AddOp)
+{
+	ipacm_event_data_all *data = (ipacm_event_data_all *)inParam;
+	bool NatIface = false;
+	int cnt, ret;
+
+	/* Handle only non nat ifaces, NAT iface should be handle
+	   separately to avoid race conditions between route/nat
+	   rules add/delete operations */
+	if (AddOp)
+	{
+		ret = CheckNatIface(data, &NatIface);
+		if (!NatIface && ret == IPACM_SUCCESS)
+		{
+			/* Cache the non nat iface ip address */
+			for (cnt = 0; cnt < MAX_IFACE_ADDRESS; cnt++)
+			{
+				if (nonnat_iface_ipv4_addr[cnt] == 0)
+				{
+					nonnat_iface_ipv4_addr[cnt] = data->ipv4_addr;
+					/* Add dummy nat rule for non nat ifaces */
+					nat_inst->FlushTempEntries(data->ipv4_addr, true, true);
+					return;
+				}
+			}
+		}
+	}
+	else
+	{
+		/* for delete operation */
+		for (cnt = 0; cnt < MAX_IFACE_ADDRESS; cnt++)
+		{
+			if (nonnat_iface_ipv4_addr[cnt] == data->ipv4_addr)
+			{
+				IPACMDBG("Reseting ct filters, entry (%d) ", cnt);
+				iptodot("with ipv4 address", nonnat_iface_ipv4_addr[cnt]);
+				nonnat_iface_ipv4_addr[cnt] = 0;
+				nat_inst->FlushTempEntries(data->ipv4_addr, false);
+				nat_inst->DelEntriesOnClntDiscon(data->ipv4_addr);
+				return;
+			}
+		}
+
+	}
+
+	return;
+}
+
+void IPACM_ConntrackListener::HandleNeighIpAddrAddEvt(
+   ipacm_event_data_all *data)
+{
+	bool NatIface = false;
+	int j, ret;
+
+	ret = CheckNatIface(data, &NatIface);
+	if (NatIface && ret == IPACM_SUCCESS)
+	{
+		for (j = 0; j < MAX_IFACE_ADDRESS; j++)
+		{
+			/* check if duplicate NAT ip */
+			if (nat_iface_ipv4_addr[j] == data->ipv4_addr)
+				break;
+
+			/* Cache the new nat iface address */
+			if (nat_iface_ipv4_addr[j] == 0)
+			{
+				nat_iface_ipv4_addr[j] = data->ipv4_addr;
+				iptodot("Nating connections of addr: ", nat_iface_ipv4_addr[j]);
+				break;
+			}
+		}
+
+		/* Add the cached temp entries to NAT table */
+		if (j != MAX_IFACE_ADDRESS)
+		{
+			nat_inst->ResetPwrSaveIf(data->ipv4_addr);
+			nat_inst->FlushTempEntries(data->ipv4_addr, true);
+		}
+	}
+	return;
+}
+
+void IPACM_ConntrackListener::HandleNeighIpAddrDelEvt(
+   uint32_t ipv4_addr)
 {
 	int cnt;
 
 	if(ipv4_addr == 0)
 	{
-		IPACMDBG("Ignoring IPA_NEIGH_CLIENT_IP_ADDR_DEL_EVENT EVENT\n");
+		IPACMDBG("Ignoring\n");
 		return;
 	}
 
-  IPACMDBG("\n");
-  iptodot("Received ip addr", ipv4_addr);
-	IPACMDBG("Entering NAT entry deletion checking\n");
-
-	for(cnt = 0; cnt<MAX_NAT_IFACES; cnt++)
+	iptodot("HandleNeighIpAddrDelEvt(): Received ip addr", ipv4_addr);
+	for(cnt = 0; cnt<MAX_IFACE_ADDRESS; cnt++)
 	{
-		if(nat_iface_ipv4_addr[cnt] == ipv4_addr)
+		if (nat_iface_ipv4_addr[cnt] == ipv4_addr)
 		{
 			IPACMDBG("Reseting ct nat iface, entry (%d) ", cnt);
 			iptodot("with ipv4 address", nat_iface_ipv4_addr[cnt]);
 			nat_iface_ipv4_addr[cnt] = 0;
-		}
-
-		if(nonnat_iface_ipv4_addr[cnt] == ipv4_addr)
-		{
-			IPACMDBG("Reseting ct filters, entry (%d) ", cnt);
-			iptodot("with ipv4 address", nonnat_iface_ipv4_addr[cnt]);
-			nonnat_iface_ipv4_addr[cnt] = 0;
+			nat_inst->FlushTempEntries(ipv4_addr, false);
+			nat_inst->DelEntriesOnClntDiscon(ipv4_addr);
 		}
 	}
 
-	nat_inst->FlushTempEntries(ipv4_addr, false);
-	nat_inst->DelEntriesOnClntDiscon(ipv4_addr);
 	return;
 }
 
@@ -467,7 +533,7 @@ void ParseCTMessage(struct nf_conntrack *ct)
 
 void ParseCTV6Message(struct nf_conntrack *ct)
 {
-	 uint32_t status, timeout, secmark;
+	 uint32_t status, timeout;
 	 struct nfct_attr_grp_ipv6 orig_params;
 	 uint8_t l4proto, tcp_flags, tcp_state;
 
@@ -628,6 +694,320 @@ void IPACM_ConntrackListener::ProcessCTMessage(void *param)
 	 return;
 }
 
+bool IPACM_ConntrackListener::AddIface(
+   nat_table_entry *rule, bool *isTempEntry)
+{
+	int cnt;
+
+	*isTempEntry = false;
+	/* check whether nat iface or not */
+	for (cnt = 0; cnt < MAX_IFACE_ADDRESS; cnt++)
+	{
+		if (nat_iface_ipv4_addr[cnt] != 0)
+		{
+			if (rule->private_ip == nat_iface_ipv4_addr[cnt] ||
+				rule->target_ip == nat_iface_ipv4_addr[cnt])
+			{
+				IPACMDBG("matched nat_iface_ipv4_addr entry(%d)\n", cnt);
+				iptodot("AddIface(): Nat entry match with ip addr",
+						nat_iface_ipv4_addr[cnt]);
+				return true;
+			}
+		}
+	}
+
+	/* check whether non nat iface or not, on Nat iface
+	   add dummy rule by copying public ip to private ip */
+	for (cnt = 0; cnt < MAX_IFACE_ADDRESS; cnt++)
+	{
+		if (nonnat_iface_ipv4_addr[cnt] != 0)
+		{
+			if (rule->private_ip == nonnat_iface_ipv4_addr[cnt] ||
+				rule->target_ip == nonnat_iface_ipv4_addr[cnt])
+			{
+				IPACMDBG("matched non_nat_iface_ipv4_addr entry(%d)\n", cnt);
+				iptodot("AddIface(): Non Nat entry match with ip addr",
+						nat_iface_ipv4_addr[cnt]);
+
+				rule->private_ip = rule->public_ip;
+				rule->private_port = rule->public_port;
+				return true;
+			}
+		}
+	}
+
+	IPACMDBG_H("Not mtaching with non-nat ifaces\n");
+	if(pConfig == NULL)
+	{
+		pConfig = IPACM_Config::GetInstance();
+		if(pConfig == NULL)
+		{
+			IPACMERR("Unable to get Config instance\n");
+			return false;
+		}
+	}
+
+	if (pConfig->isPrivateSubnet(rule->private_ip) ||
+		pConfig->isPrivateSubnet(rule->target_ip))
+	{
+		IPACMDBG("Matching with Private subnet\n");
+		*isTempEntry = true;
+		return true;
+	}
+
+	return false;
+}
+
+void IPACM_ConntrackListener::AddORDeleteNatEntry(const nat_entry_bundle *input)
+{
+	u_int8_t tcp_state;
+
+	if (nat_inst == NULL)
+	{
+		IPACMERR("Nat instance is NULL, unable to add or delete\n");
+		return;
+	}
+
+	IPACMDBG_H("Below Nat Entry will either be added or deleted\n");
+	iptodot("AddORDeleteNatEntry(): target ip or dst ip",
+			input->rule->target_ip);
+	IPACMDBG("target port or dst port: 0x%x Decimal:%d\n",
+			 input->rule->target_port, input->rule->target_port);
+	iptodot("AddORDeleteNatEntry(): private ip or src ip",
+			input->rule->private_ip);
+	IPACMDBG("private port or src port: 0x%x, Decimal:%d\n",
+			 input->rule->private_port, input->rule->private_port);
+	IPACMDBG("public port or reply dst port: 0x%x, Decimal:%d\n",
+			 input->rule->public_port, input->rule->public_port);
+	IPACMDBG("Protocol: %d, destination nat flag: %d\n",
+			 input->rule->protocol, input->rule->dst_nat);
+
+	if (IPPROTO_TCP == input->rule->protocol)
+	{
+		tcp_state = nfct_get_attr_u8(input->ct, ATTR_TCP_STATE);
+		if (TCP_CONNTRACK_ESTABLISHED == tcp_state)
+		{
+			IPACMDBG("TCP state TCP_CONNTRACK_ESTABLISHED(%d)\n", tcp_state);
+			if (!CtList->isWanUp())
+			{
+				IPACMDBG("Wan is not up, cache connections\n");
+				nat_inst->CacheEntry(input->rule);
+			}
+			else if (input->isTempEntry)
+			{
+				nat_inst->AddTempEntry(input->rule);
+			}
+			else
+			{
+				nat_inst->AddEntry(input->rule);
+			}
+		}
+		else if (TCP_CONNTRACK_FIN_WAIT == tcp_state ||
+				   input->type == NFCT_T_DESTROY)
+		{
+			IPACMDBG("TCP state TCP_CONNTRACK_FIN_WAIT(%d) "
+					 "or type NFCT_T_DESTROY(%d)\n", tcp_state, input->type);
+
+			nat_inst->DeleteEntry(input->rule);
+			nat_inst->DeleteTempEntry(input->rule);
+		}
+		else
+		{
+			IPACMDBG("Ignore tcp state: %d and type: %d\n",
+					 tcp_state, input->type);
+		}
+
+	}
+	else if (IPPROTO_UDP == input->rule->protocol)
+	{
+		if (NFCT_T_NEW == input->type)
+		{
+			IPACMDBG("New UDP connection at time %ld\n", time(NULL));
+			if (!CtList->isWanUp())
+			{
+				IPACMDBG("Wan is not up, cache connections\n");
+				nat_inst->CacheEntry(input->rule);
+			}
+			else if (input->isTempEntry)
+			{
+				nat_inst->AddTempEntry(input->rule);
+			}
+			else
+			{
+				nat_inst->AddEntry(input->rule);
+			}
+		}
+		else if (NFCT_T_DESTROY == input->type)
+		{
+			IPACMDBG("UDP connection close at time %ld\n", time(NULL));
+			nat_inst->DeleteEntry(input->rule);
+			nat_inst->DeleteTempEntry(input->rule);
+		}
+	}
+
+	return;
+}
+
+void IPACM_ConntrackListener::PopulateTCPorUDPEntry(
+	 struct nf_conntrack *ct,
+	 uint32_t status,
+	 nat_table_entry *rule)
+{
+	if (IPS_DST_NAT == status)
+	{
+		IPACMDBG("Destination NAT\n");
+		rule->dst_nat = true;
+
+		IPACMDBG("Parse reply tuple\n");
+		rule->target_ip = nfct_get_attr_u32(ct, ATTR_ORIG_IPV4_SRC);
+		rule->target_ip = ntohl(rule->target_ip);
+		iptodot("PopulateTCPorUDPEntry(): target ip", rule->target_ip);
+
+		/* Retriev target/dst port */
+		rule->target_port = nfct_get_attr_u16(ct, ATTR_ORIG_PORT_SRC);
+		rule->target_port = ntohs(rule->target_port);
+		if (0 == rule->target_port)
+		{
+			IPACMDBG("unable to retrieve target port\n");
+		}
+
+		rule->public_port = nfct_get_attr_u16(ct, ATTR_ORIG_PORT_DST);
+		rule->public_port = ntohs(rule->public_port);
+
+		/* Retriev src/private ip address */
+		rule->private_ip = nfct_get_attr_u32(ct, ATTR_REPL_IPV4_SRC);
+		rule->private_ip = ntohl(rule->private_ip);
+		iptodot("PopulateTCPorUDPEntry(): private ip", rule->private_ip);
+		if (0 == rule->private_ip)
+		{
+			IPACMDBG("unable to retrieve private ip address\n");
+		}
+
+		/* Retriev src/private port */
+		rule->private_port = nfct_get_attr_u16(ct, ATTR_REPL_PORT_SRC);
+		rule->private_port = ntohs(rule->private_port);
+		if (0 == rule->private_port)
+		{
+			IPACMDBG("unable to retrieve private port\n");
+		}
+	}
+	else if (IPS_SRC_NAT == status)
+	{
+		IPACMDBG("Source NAT\n");
+		rule->dst_nat = false;
+
+		/* Retriev target/dst ip address */
+		IPACMDBG("Parse source tuple\n");
+		rule->target_ip = nfct_get_attr_u32(ct, ATTR_ORIG_IPV4_DST);
+		rule->target_ip = ntohl(rule->target_ip);
+		iptodot("PopulateTCPorUDPEntry(): target ip", rule->target_ip);
+		if (0 == rule->target_ip)
+		{
+			IPACMDBG("unable to retrieve target ip address\n");
+		}
+		/* Retriev target/dst port */
+		rule->target_port = nfct_get_attr_u16(ct, ATTR_ORIG_PORT_DST);
+		rule->target_port = ntohs(rule->target_port);
+		if (0 == rule->target_port)
+		{
+			IPACMDBG("unable to retrieve target port\n");
+		}
+
+		/* Retriev public port */
+		rule->public_port = nfct_get_attr_u16(ct, ATTR_REPL_PORT_DST);
+		rule->public_port = ntohs(rule->public_port);
+		if (0 == rule->public_port)
+		{
+			IPACMDBG("unable to retrieve public port\n");
+		}
+
+		/* Retriev src/private ip address */
+		rule->private_ip = nfct_get_attr_u32(ct, ATTR_ORIG_IPV4_SRC);
+		rule->private_ip = ntohl(rule->private_ip);
+		iptodot("PopulateTCPorUDPEntry(): private ip", rule->private_ip);
+		if (0 == rule->private_ip)
+		{
+			IPACMDBG("unable to retrieve private ip address\n");
+		}
+
+		/* Retriev src/private port */
+		rule->private_port = nfct_get_attr_u16(ct, ATTR_ORIG_PORT_SRC);
+		rule->private_port = ntohs(rule->private_port);
+		if (0 == rule->private_port)
+		{
+			IPACMDBG("unable to retrieve private port\n");
+		}
+	}
+
+	return;
+}
+
+#ifdef CT_OPT
+void IPACM_ConntrackListener::HandleLan2Lan(struct nf_conntrack *ct,
+	enum nf_conntrack_msg_type type,
+	 nat_table_entry *rule)
+{
+	ipacm_event_connection lan2lan_conn = { 0 };
+
+	if (p_lan2lan == NULL)
+	{
+		IPACMERR("Lan2Lan Instance is null\n");
+		return;
+	}
+
+	lan2lan_conn.iptype = IPA_IP_v4;
+	lan2lan_conn.src_ipv4_addr = orig_src_ip;
+	lan2lan_conn.dst_ipv4_addr = orig_dst_ip;
+
+	if (((IPPROTO_UDP == rule->protocol) && (NFCT_T_NEW == type)) ||
+		((IPPROTO_TCP == rule->protocol) && (nfct_get_attr_u8(ct, ATTR_TCP_STATE) == TCP_CONNTRACK_ESTABLISHED)))
+	{
+		p_lan2lan->handle_new_connection(&lan2lan_conn);
+	}
+	else if ((IPPROTO_UDP == rule->protocol && NFCT_T_DESTROY == type) ||
+			   (IPPROTO_TCP == rule->protocol &&
+				nfct_get_attr_u8(ct, ATTR_TCP_STATE) == TCP_CONNTRACK_FIN_WAIT))
+	{
+		p_lan2lan->handle_del_connection(&lan2lan_conn);
+	}
+}
+#endif
+
+void IPACM_ConntrackListener::CheckSTAClient(
+   const nat_table_entry *rule, bool *isTempEntry)
+{
+	int nCnt;
+
+	/* Check whether target is in STA client list or not
+      if not ignore the connection */
+	 if(!isStaMode || (StaClntCnt == 0))
+	 {
+		return;
+	 }
+
+	 if((sta_clnt_ipv4_addr[0] & STA_CLNT_SUBNET_MASK) !=
+		 (rule->target_ip & STA_CLNT_SUBNET_MASK))
+	 {
+		IPACMDBG("STA client subnet mask not matching\n");
+		return;
+	 }
+
+	 IPACMDBG("StaClntCnt %d\n", StaClntCnt);
+	 for(nCnt = 0; nCnt < StaClntCnt; nCnt++)
+	 {
+		IPACMDBG("Comparing trgt_ip 0x%x with sta clnt ip: 0x%x\n",
+			 rule->target_ip, sta_clnt_ipv4_addr[nCnt]);
+		if(rule->target_ip == sta_clnt_ipv4_addr[nCnt])
+		{
+			IPACMDBG("Match index %d\n", nCnt);
+			return;
+		}
+	 }
+
+	IPACMDBG_H("Not matching with STA Clnt Ip Addrs 0x%x\n",
+		rule->target_ip);
+	*isTempEntry = true;
+}
 
 /* conntrack send in host order and ipa expects in host order */
 void IPACM_ConntrackListener::ProcessTCPorUDPMsg(
@@ -636,19 +1016,16 @@ void IPACM_ConntrackListener::ProcessTCPorUDPMsg(
 	 u_int8_t l4proto)
 {
 	 nat_table_entry rule;
-	 u_int8_t tcp_state;
 	 uint32_t status = 0;
-	 IPACM_Config *pConfig;
 	 uint32_t orig_src_ip, orig_dst_ip;
-	 bool isTempEntry = false;
+	 bool isAdd = false;
+
+	 nat_entry_bundle nat_entry;
+	 nat_entry.isTempEntry = false;
+	 nat_entry.ct = ct;
+	 nat_entry.type = type;
 
  	 memset(&rule, 0, sizeof(rule));
-	 pConfig = IPACM_Config::GetInstance();
-	 if(pConfig == NULL)
-	 {
-		 IPACMERR("Unable to get Config instance\n");
-	 }
-
 	 IPACMDBG("Received type:%d with proto:%d\n", type, l4proto);
 	 status = nfct_get_attr_u32(ct, ATTR_STATUS);
 
@@ -695,116 +1072,19 @@ void IPACM_ConntrackListener::ProcessTCPorUDPMsg(
 		else
 		{
 			IPACMDBG_H("Neither orig src ip:0x%x Nor orig Dst IP:0x%x equal to wan ip:0x%x\n",
-					orig_src_ip, orig_dst_ip, wan_ipaddr);
+					   orig_src_ip, orig_dst_ip, wan_ipaddr);
 
 #ifdef CT_OPT
-		if(p_lan2lan == NULL)
-		{
-			IPACMERR("Lan2Lan Instance is null\n");
-			goto IGNORE;
-		}
-
-			 ipacm_event_connection lan2lan_conn = { 0 };
-			 lan2lan_conn.iptype = IPA_IP_v4;
-			 lan2lan_conn.src_ipv4_addr = orig_src_ip;
-			 lan2lan_conn.dst_ipv4_addr = orig_dst_ip;
-
-			 if(((IPPROTO_UDP == rule.protocol) && (NFCT_T_NEW == type)) ||
-					((IPPROTO_TCP == rule.protocol) && (nfct_get_attr_u8(ct, ATTR_TCP_STATE) == TCP_CONNTRACK_ESTABLISHED)))
-			 {
-				 p_lan2lan->handle_new_connection(&lan2lan_conn);
-			 }
-			 else if((IPPROTO_UDP == rule.protocol && NFCT_T_DESTROY == type) ||
-							 (IPPROTO_TCP == rule.protocol &&
-								nfct_get_attr_u8(ct, ATTR_TCP_STATE) == TCP_CONNTRACK_FIN_WAIT))
-			 {
-				 p_lan2lan->handle_del_connection(&lan2lan_conn);
-			 }
+			HandleLan2Lan(ct, type, &rule);
 #endif
-					 return;
-		 }
+			return;
+		}
 	 }
 
-	 if(IPS_DST_NAT == status)
+	 if(IPS_DST_NAT == status || IPS_SRC_NAT == status)
 	 {
-			IPACMDBG("Destination NAT\n");
-			rule.dst_nat = true;
-
-			IPACMDBG("Parse reply tuple\n");
-			rule.target_ip = nfct_get_attr_u32(ct, ATTR_ORIG_IPV4_SRC);
-			rule.target_ip = ntohl(rule.target_ip);
-
-			/* Retriev target/dst port */
-			rule.target_port = nfct_get_attr_u16(ct, ATTR_ORIG_PORT_SRC);
-			rule.target_port = ntohs(rule.target_port);
-			if(0 == rule.target_port)
-			{
-				 IPACMDBG("unable to retrieve target port\n");
-			}
-
-			rule.public_port = nfct_get_attr_u16(ct, ATTR_ORIG_PORT_DST);
-			rule.public_port = ntohs(rule.public_port);
-
-			/* Retriev src/private ip address */
-			rule.private_ip = nfct_get_attr_u32(ct, ATTR_REPL_IPV4_SRC);
-			rule.private_ip = ntohl(rule.private_ip);
-			if(0 == rule.private_ip)
-			{
-				 IPACMDBG("unable to retrieve private ip address\n");
-			}
-
-			/* Retriev src/private port */
-			rule.private_port = nfct_get_attr_u16(ct, ATTR_REPL_PORT_SRC);
-			rule.private_port = ntohs(rule.private_port);
-			if(0 == rule.private_port)
-			{
-				 IPACMDBG("unable to retrieve private port\n");
-			}
-	 }
-	 else if(IPS_SRC_NAT == status)
-	 {
-			IPACMDBG("Source NAT\n");
-			rule.dst_nat = false;
-
-			/* Retriev target/dst ip address */
-			IPACMDBG("Parse source tuple\n");
-			rule.target_ip = nfct_get_attr_u32(ct, ATTR_ORIG_IPV4_DST);
-			rule.target_ip = ntohl(rule.target_ip);
-			if(0 == rule.target_ip)
-			{
-				 IPACMDBG("unable to retrieve target ip address\n");
-			}
-			/* Retriev target/dst port */
-			rule.target_port = nfct_get_attr_u16(ct, ATTR_ORIG_PORT_DST);
-			rule.target_port = ntohs(rule.target_port);
-			if(0 == rule.target_port)
-			{
-				 IPACMDBG("unable to retrieve target port\n");
-			}
-
-			/* Retriev public port */
-			rule.public_port = nfct_get_attr_u16(ct, ATTR_REPL_PORT_DST);
-			rule.public_port = ntohs(rule.public_port);
-			if(0 == rule.public_port)
-			{
-				 IPACMDBG("unable to retrieve public port\n");
-			}
-
-			/* Retriev src/private ip address */
-			rule.private_ip = nfct_get_attr_u32(ct, ATTR_ORIG_IPV4_SRC);
-			rule.private_ip = ntohl(rule.private_ip);
-			if(0 == rule.private_ip)
-			{
-				 IPACMDBG("unable to retrieve private ip address\n");
-			}
-
-			/* Retriev src/private port */
-			rule.private_port = nfct_get_attr_u16(ct, ATTR_ORIG_PORT_SRC);
-			rule.private_port = ntohs(rule.private_port);
-			if(0 == rule.private_port)
-			{
-				 IPACMDBG("unable to retrieve private port\n");
-			}
+		 PopulateTCPorUDPEntry(ct, status, &rule);
+		 rule.public_ip = wan_ipaddr;
 	 }
 	 else
 	 {
@@ -812,188 +1092,41 @@ void IPACM_ConntrackListener::ProcessTCPorUDPMsg(
 		 goto IGNORE;
 	 }
 
-	 if(rule.private_ip != wan_ipaddr)
+	 if (rule.private_ip != wan_ipaddr)
 	 {
-		 int cnt;
-		 for(cnt = 0; cnt < MAX_NAT_IFACES; cnt++)
+		 isAdd = AddIface(&rule, &nat_entry.isTempEntry);
+		 if (!isAdd)
 		 {
-			 if(nat_iface_ipv4_addr[cnt] != 0)
-			 {
-				 if(rule.private_ip == nat_iface_ipv4_addr[cnt] ||
-						rule.target_ip == nat_iface_ipv4_addr[cnt])
-				 {
-					 IPACMDBG("matched nat_iface_ipv4_addr entry(%d)\n", cnt);
-					 iptodot("ProcessTCPorUDPMsg(): Nat entry match with ip addr",
-									nat_iface_ipv4_addr[cnt]);
-					 break;
-				 }
-			 }
+			 goto IGNORE;
 		 }
-
-		if(cnt == MAX_NAT_IFACES)
-		{
-			IPACMDBG_H("Not mtaching with nat ifaces\n");
-			if(pConfig == NULL)
-			{
-				goto IGNORE;
-			}
-
-			 if(pConfig->isPrivateSubnet(rule.private_ip) ||
-						pConfig->isPrivateSubnet(rule.target_ip))
-			 {
-				 IPACMDBG("Matching with Private subnet\n");
-				 isTempEntry = true;
-			 }
-			 else
-			 {
-				 goto IGNORE;
-			 }
-		 }
-
 	 }
 	 else
 	 {
-		 if(isStaMode) {
+		 if (isStaMode)
+		 {
 			 IPACMDBG("In STA mode, ignore connections destinated to STA interface\n");
 			 goto IGNORE;
 		 }
 
-     IPACMDBG("For embedded connections add dummy nat rule\n");
-     IPACMDBG("Change private port %d to %d\n",
-              rule.private_port, rule.public_port);
-     rule.private_port = rule.public_port;
+		 IPACMDBG("For embedded connections add dummy nat rule\n");
+		 IPACMDBG("Change private port %d to %d\n",
+				  rule.private_port, rule.public_port);
+		 rule.private_port = rule.public_port;
 	 }
 
-	 /* Check whether target is in STA client list or not
-      if not ignore the connection */
-	 int nCnt;
-
-	 if(!isStaMode || (StaClntCnt == 0))
-	 {
-		goto ADD;
-	 }
-
-	 if((sta_clnt_ipv4_addr[0] & 0xFFFFFF00) !=
-		 (rule.target_ip & 0xFFFFFF00))
-	 {
-		IPACMDBG("STA client subnet mask not matching\n");
-		goto ADD;
-	 }
-
-	 IPACMDBG("StaClntCnt %d\n", StaClntCnt);
-	 for(nCnt = 0; nCnt < StaClntCnt; nCnt++)
-	 {
-		IPACMDBG("Comparing trgt_ip 0x%x with sta clnt ip: 0x%x\n",
-			 rule.target_ip, sta_clnt_ipv4_addr[nCnt]);
-		if(rule.target_ip == sta_clnt_ipv4_addr[nCnt])
-		{
-			IPACMDBG("Match index %d\n", nCnt);
-			goto ADD;
-		}
-	 }
-
-	IPACMDBG_H("Not matching with STA Clnt Ip Addrs 0x%x\n",
-		rule.target_ip);
-	isTempEntry = true;
-
-
-ADD:
-	 IPACMDBG_H("Nat Entry with below information will either be added or deleted\n");
-	 iptodot("target ip or dst ip", rule.target_ip);
-	 IPACMDBG("target port or dst port: 0x%x Decimal:%d\n", rule.target_port, rule.target_port);
-	 iptodot("private ip or src ip", rule.private_ip);
-	 IPACMDBG("private port or src port: 0x%x, Decimal:%d\n", rule.private_port, rule.private_port);
-	 IPACMDBG("public port or reply dst port: 0x%x, Decimal:%d\n", rule.public_port, rule.public_port);
-	 IPACMDBG("Protocol: %d, destination nat flag: %d\n", rule.protocol, rule.dst_nat);
-
-	rule.public_ip = wan_ipaddr;
-	if(IPPROTO_TCP == rule.protocol)
-	{
-		if(nat_inst == NULL)
-		{
-			return;
-		}
-
-			tcp_state = nfct_get_attr_u8(ct, ATTR_TCP_STATE);
-			if(TCP_CONNTRACK_ESTABLISHED == tcp_state)
-			{
-				 IPACMDBG("TCP state TCP_CONNTRACK_ESTABLISHED(%d)\n", tcp_state);
-				 if(!CtList->isWanUp())
-				 {
-				 	 IPACMDBG("Wan is not up, cache connections\n");
-					 nat_inst->CacheEntry(&rule);
-				 }
-				 else if(isTempEntry)
-				 {
-					 nat_inst->AddTempEntry(&rule);
-				 }
-				 else
-				 {
-					 nat_inst->AddEntry(&rule);
-				 }
-			}
-			else if(TCP_CONNTRACK_FIN_WAIT == tcp_state ||
-			        type == NFCT_T_DESTROY)
-			{
-				 IPACMDBG("TCP state TCP_CONNTRACK_FIN_WAIT(%d) "
-						"or type NFCT_T_DESTROY(%d)\n", tcp_state, type);
-
-				 nat_inst->DeleteEntry(&rule);
-				 nat_inst->DeleteTempEntry(&rule);
-			}
-			else
-			{
-				 IPACMDBG("Ignore tcp state: %d and type: %d\n", tcp_state, type);
-			}
-
-	 }
-	 else if(IPPROTO_UDP == rule.protocol)
-	 {
-			if(nat_inst == NULL)
-			{
-				return;
-			}
-
-			if(NFCT_T_NEW == type)
-			{
-				 IPACMDBG("New UDP connection at time %ld\n", time(NULL));
-				 if(!CtList->isWanUp())
-				 {
-				 	 IPACMDBG("Wan is not up, cache connections\n");
-					 nat_inst->CacheEntry(&rule);
-				 }
-				 else if(isTempEntry)
-				 {
-					 nat_inst->AddTempEntry(&rule);
-				 }
-				 else
-				 {
-					 nat_inst->AddEntry(&rule);
-				 }
-			}
-			else if(NFCT_T_DESTROY == type)
-			{
-				 IPACMDBG("UDP connection close at time %ld\n", time(NULL));
-				 nat_inst->DeleteEntry(&rule);
-				 nat_inst->DeleteTempEntry(&rule);
-			}
-	 }
-	 else
-	 {
-			IPACMDBG("Ignore protocol: %d and type: %d\n", rule.protocol, type);
-	 }
-
+	 CheckSTAClient(&rule, &nat_entry.isTempEntry);
+	 nat_entry.rule = &rule;
+	 AddORDeleteNatEntry(&nat_entry);
 	 return;
 
 IGNORE:
 	IPACMDBG_H("ignoring below Nat Entry\n");
-	iptodot("target ip or dst ip", rule.target_ip);
+	iptodot("ProcessTCPorUDPMsg(): target ip or dst ip", rule.target_ip);
 	IPACMDBG("target port or dst port: 0x%x Decimal:%d\n", rule.target_port, rule.target_port);
-	iptodot("private ip or src ip", rule.private_ip);
+	iptodot("ProcessTCPorUDPMsg(): private ip or src ip", rule.private_ip);
 	IPACMDBG("private port or src port: 0x%x, Decimal:%d\n", rule.private_port, rule.private_port);
 	IPACMDBG("public port or reply dst port: 0x%x, Decimal:%d\n", rule.public_port, rule.public_port);
 	IPACMDBG("Protocol: %d, destination nat flag: %d\n", rule.protocol, rule.dst_nat);
-
 	return;
 }
 

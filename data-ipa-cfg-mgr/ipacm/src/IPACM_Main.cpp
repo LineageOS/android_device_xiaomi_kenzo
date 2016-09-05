@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2013, The Linux Foundation. All rights reserved.
+Copyright (c) 2013-2016, The Linux Foundation. All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are
@@ -57,9 +57,6 @@ IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <signal.h>
 #include "linux/ipa_qmi_service_v01.h"
 
-#define __stringify_1(x...)	#x
-#define __stringify(x...)	__stringify_1(x)
-
 #include "IPACM_CmdQueue.h"
 #include "IPACM_EvtDispatcher.h"
 #include "IPACM_Defs.h"
@@ -75,53 +72,6 @@ IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef FEATURE_IPA_ANDROID
 #include "IPACM_LanToLan.h"
 #endif
-
-
-const char *ipacm_event_name[] = {
-	__stringify(IPA_CFG_CHANGE_EVENT),                     /* 1 NULL */
-	__stringify(IPA_LINK_UP_EVENT),                        /* 2 ipacm_event_data_fid */
-	__stringify(IPA_LINK_DOWN_EVENT),                      /* 3 ipacm_event_data_fid */
-	__stringify(IPA_ADDR_ADD_EVENT),                       /* 4 ipacm_event_data_addr */
-	__stringify(IPA_ADDR_DEL_EVENT),                       /* 5 no use */
-	__stringify(IPA_ROUTE_ADD_EVENT),                      /* 6 ipacm_event_data_addr */
-	__stringify(IPA_ROUTE_DEL_EVENT),                      /* 7 ipacm_event_data_addr */
-	__stringify(IPA_FIREWALL_CHANGE_EVENT),                /* 8 NULL */
-	__stringify(IPA_WLAN_AP_LINK_UP_EVENT),                /* 9 ipacm_event_data_mac */
-	__stringify(IPA_WLAN_STA_LINK_UP_EVENT),               /* 10 ipacm_event_data_mac */
-	__stringify(IPA_WLAN_CLIENT_ADD_EVENT),                /* 11 ipacm_event_data_mac */
-	__stringify(IPA_WLAN_CLIENT_DEL_EVENT),                /* 12 ipacm_event_data_mac */
-	__stringify(IPA_WLAN_CLIENT_POWER_SAVE_EVENT),         /* 13 ipacm_event_data_mac */
-	__stringify(IPA_WLAN_CLIENT_RECOVER_EVENT),            /* 14 ipacm_event_data_mac */
-	__stringify(IPA_NEW_NEIGH_EVENT),                      /* 15 ipacm_event_data_all */
-	__stringify(IPA_DEL_NEIGH_EVENT),                      /* 16 ipacm_event_data_all */
-	__stringify(IPA_NEIGH_CLIENT_IP_ADDR_ADD_EVENT),       /* 17 ipacm_event_data_all */
-	__stringify(IPA_NEIGH_CLIENT_IP_ADDR_DEL_EVENT),       /* 18 ipacm_event_data_all */
-	__stringify(IPA_SW_ROUTING_ENABLE),                    /* 19 NULL */
-	__stringify(IPA_SW_ROUTING_DISABLE),                   /* 20 NULL */
-	__stringify(IPA_PROCESS_CT_MESSAGE),                   /* 21 ipacm_ct_evt_data */
-	__stringify(IPA_HANDLE_WAN_UP),                        /* 22 ipacm_event_iface_up  */
-	__stringify(IPA_HANDLE_WAN_DOWN),                      /* 23 ipacm_event_iface_up  */
-	__stringify(IPA_HANDLE_WLAN_UP),                       /* 24 ipacm_event_iface_up */
-	__stringify(IPA_HANDLE_LAN_UP),                        /* 25 ipacm_event_iface_up */
-	__stringify(IPA_WLAN_CLIENT_ADD_EVENT_EX),             /* 26 ipacm_event_data_wlan_ex */
-	__stringify(IPA_HANDLE_WAN_UP_V6),					   /* 27 NULL */
-	__stringify(IPA_HANDLE_WAN_DOWN_V6),				   /* 28 NULL */
-	__stringify(IPA_LAN_CLIENT_ACTIVE),					   /* 29 ipacm_event_lan_client*/
-	__stringify(IPA_LAN_CLIENT_INACTIVE),				   /* 30 ipacm_event_lan_client*/
-	__stringify(IPA_LAN_CLIENT_DISCONNECT),				   /* 31 ipacm_event_lan_client*/
-	__stringify(IPA_LAN_CLIENT_POWER_SAVE),				   /* 32 ipacm_event_lan_client*/
-	__stringify(IPA_LAN_CLIENT_POWER_RECOVER),			   /* 33 ipacm_event_lan_client*/
-	__stringify(IPA_LAN_TO_LAN_NEW_CONNECTION),			   /* 34 ipacm_event_connection */
-	__stringify(IPA_LAN_TO_LAN_DEL_CONNECTION),			   /* 35 ipacm_event_connection */
-	__stringify(IPA_LAN_DELETE_SELF),                          /* 36 ipacm_event_data_fid */
-	__stringify(IPA_WLAN_LINK_DOWN_EVENT),                     /* 37 ipacm_event_data_mac */
-	__stringify(IPA_USB_LINK_UP_EVENT),                        /* 38 ipacm_event_data_fid */
-	__stringify(IPA_PROCESS_CT_MESSAGE_V6),                    /* 39 ipacm_ct_evt_data */
-	__stringify(IPA_PRIVATE_SUBNET_CHANGE_EVENT),		   /* 40 ipacm_event_data_fid */
-	__stringify(IPA_WAN_UPSTREAM_ROUTE_ADD_EVENT),		   /* 41 ipacm_event_data_fid */
-	__stringify(IPA_WAN_UPSTREAM_ROUTE_DEL_EVENT),		   /* 42 ipacm_event_data_fid */
-	__stringify(IPA_WAN_XLAT_CONNECT_EVENT),                   /* 43 ipacm_event_data_fid */
-};
 
 #define IPA_DRIVER  "/dev/ipa"
 
@@ -780,11 +730,11 @@ int main(int argc, char **argv)
 	IPACMDBG_H("In main()\n");
 	IPACM_Neighbor *neigh = new IPACM_Neighbor();
 	IPACM_IfaceManager *ifacemgr = new IPACM_IfaceManager();
-#ifndef FEATURE_ETH_BRIDGE_LE
-#ifndef FEATURE_IPA_ANDROID
+
+#ifdef FEATURE_ETH_BRIDGE_LE
 	IPACM_LanToLan* lan2lan = new IPACM_LanToLan();
-#endif /* defined(FEATURE_IPA_ANDROID)*/
 #endif
+
 	IPACM_ConntrackClient *cc = IPACM_ConntrackClient::GetInstance();
 	CtList = new IPACM_ConntrackListener();
 
@@ -824,7 +774,8 @@ int main(int argc, char **argv)
 		}
 	}
 
-
+	/* Enable Firewall support only on MDM targets */
+#ifndef FEATURE_IPA_ANDROID
 	if (IPACM_SUCCESS == monitor_thread)
 	{
 		ret = pthread_create(&monitor_thread, NULL, firewall_monitor, NULL);
@@ -839,6 +790,7 @@ int main(int argc, char **argv)
 			IPACMERR("unable to set thread name\n");
 		}
 	}
+#endif
 
 	if (IPACM_SUCCESS == ipa_driver_thread)
 	{
@@ -961,7 +913,7 @@ int ipa_get_if_index
 
 	memset(&ifr, 0, sizeof(struct ifreq));
 
-	(void)strncpy(ifr.ifr_name, if_name, sizeof(ifr.ifr_name));
+	(void)strlcpy(ifr.ifr_name, if_name, sizeof(ifr.ifr_name));
 
 	if (ioctl(fd, SIOCGIFINDEX, &ifr) < 0)
 	{

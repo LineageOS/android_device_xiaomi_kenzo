@@ -1,5 +1,5 @@
-/* 
-Copyright (c) 2013, The Linux Foundation. All rights reserved.
+/*
+Copyright (c) 2013-2016, The Linux Foundation. All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are
@@ -53,6 +53,7 @@ public:
 	IPACM_Filtering();
 	~IPACM_Filtering();
 	bool AddFilteringRule(struct ipa_ioc_add_flt_rule const *ruleTable);
+	bool AddFilteringRuleAfter(struct ipa_ioc_add_flt_rule_after const *ruleTable);
 	bool DeleteFilteringRule(struct ipa_ioc_del_flt_rule *ruleTable);
 	bool Commit(enum ipa_ip_type ip);
 	bool Reset(enum ipa_ip_type ip);
