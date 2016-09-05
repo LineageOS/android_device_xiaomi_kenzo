@@ -335,11 +335,6 @@ service config_bluetooth /system/bin/sh /system/etc/init.qcom.bt.sh "onboot"
     user root
     oneshot
 
-service loc_launcher /system/bin/loc_launcher
-    #loc_launcher will start as root and set its uid to gps
-    class late_start
-    group gps inet net_raw qcom_diag net_admin wifi
-
 service qcom-sh /system/bin/sh /init.qcom.sh
     class late_start
     user root
