@@ -393,58 +393,10 @@ vendor/lib/libmmcamera_sunny_omi5f06_eeprom.so
 # Charger
 bin/hvdcp_opti
 
-# CNE - from Mi Max
-bin/cnd|2d76bea7fd2339cd6e2939c0a23167391826d7a2
-etc/cne/andsfCne.xml|6cc3c91c180c648d431ea96d9b1e597c06b61505
-etc/cne/SwimConfig.xml|68dedcca1c2ac18cf81fdee1854de16a3a60dd02
-etc/permissions/cneapiclient.xml|15831adf0e80243042b90c734eea0a68eb8ae9c9
-etc/permissions/com.quicinc.cne.xml|e99e631d8b06ba4680529e9e4004d8d05baf6904
-etc/permissions/ConnectivityExt.xml|1f043c7a3fbd5c87a5dfc323d627b0b24f081ab3
-framework/cneapiclient.jar|b5c3294eb2d5f5f20ff87942470dd670a80b5e72
-framework/com.quicinc.cne.jar|551ed266151031a5efab404ce51360640783e24f
-framework/ConnectivityExt.jar|9fcb7b49143649da1d845c5d23cf5030da949f99
--priv-app/CNEService/CNEService.apk|46a19177f20fa955fd245209551faba5f8b5a2af
-vendor/lib64/libcne.so|49ec3b2af89a393a4ae243f511cb27d6326f28c8
-vendor/lib64/libcneapiclient.so|54f37777b9e036d9f6ec099e2454dac797e0b66b
-vendor/lib64/libcneconn.so|73337b3a2de06ad95d8768ee48d9c578ed4d2bd6
-vendor/lib64/libcneqmiutils.so|eb1c8b7c04587658406763b4a6a40d142cc98d6f
-vendor/lib64/libNimsWrap.so|4fd9a808a8de4085329d755dc02548b9c0eb4b2b
-vendor/lib64/libvendorconn.so|af4626a47d75c92fdacd118dd420aa700ce33a42
-vendor/lib64/libwms.so|cbb425f740800c48970a8573e7d58ef08124d076
-vendor/lib64/libwqe.so|e2c143283c0ae10b0de2e50b56454b96751ffcb5
-vendor/lib/libcne.so|78e231139c7bd6b9a59d9f1f793bb6454bcccad1
-vendor/lib/libcneapiclient.so|521d1e29f66488db1b224a5b5563e2015f406e0a
-vendor/lib/libcneconn.so|ad3af1088573d11fc6b74dd047b442a8cb709918
-vendor/lib/libcneqmiutils.so|68e1cc26e9e54370aeee724f4f2387d613a39168
-vendor/lib/libNimsWrap.so|9487224324e999b2bcf2bab9d07f9c383c5f507b
-vendor/lib/libvendorconn.so|7617d7612313ce03de5a06c65af795d75196a5dc
-vendor/lib/libwms.so|94afbcf90c323926cd58b69c3dc4051c0b116eaa
-vendor/lib/libwqe.so|b7dd0c80be30a1c919efdd71c9ad16d9db7c9762
-
 # Consumerir
 bin/consumerird
 lib64/hw/consumerir.msm8952.so
 lib/hw/consumerir.msm8952.so
-
-# DPM - from Mi Max
-bin/dpmd|efa6f14f73558ccef05c99e5e32879d766cd6511
-etc/dpm/dpm.conf|f7ab7d1d06ca387eda30275d9e06cba297e2eea2
-etc/dpm/nsrm/NsrmConfiguration.xml|6d1afdda3c0a6260406df1e7b39bacb8dcc31b37
-etc/permissions/com.qti.dpmframework.xml|1038acbf7d36553c4bbb2203fc6bedb6ad2af2c9
-etc/permissions/dpmapi.xml|ded29f9befaef20a7ccee0c75427fda1d1d04890
-framework/com.qti.dpmframework.jar|fb7d04a04199540da71b838c26efaf3271dc6823
-framework/dpmapi.jar|3713d6175de17c30958eeb370b254cc9531318be
-framework/tcmclient.jar|4cc70079247bebf5338ddf3113e317fef0dc4f29
-vendor/lib64/libdpmctmgr.so|9b12c4c0626dce2350f5f9f678de7ca0b2d63ad6
-vendor/lib64/libdpmfdmgr.so|13193d08c244ee773b4c6dcd7a406fe682550cf5
-vendor/lib64/libdpmframework.so|82ed42a0d639b8ae8188c619a2a5c212e26c64ce
-vendor/lib64/libdpmnsrm.so|8cd07231e3f6b08760c161a5bdc792d5d68b1a7a
-vendor/lib64/libdpmtcm.so|4a4e18ccf72c135f5e5574d40c87c02bbcec91f3
-vendor/lib/libdpmctmgr.so|118c5550b2f013d0acdb0e212314bca166e297c0
-vendor/lib/libdpmfdmgr.so|6b1e383520e87c724ef7efb57fdfc2d2d5253e13
-vendor/lib/libdpmframework.so|f19ae7cc60b540bd487fb729dfa5588cecdd5d8c
-vendor/lib/libdpmnsrm.so|3bb574f0fd3b2eb6c3e97cd6b23920c8ebd4acfb
-vendor/lib/libdpmtcm.so|3aa83c9ab38bac8b1144406b97b27e2958ec67c7
 
 # DRM
 bin/qseecomd
@@ -485,48 +437,21 @@ vendor/lib64/hw/gatekeeper.msm8952.so
 -lib64/libloc_ds_api.so|bc8bd9bdcfe059f2dc4271d26c4eb6b3157362b2
 -lib/libloc_api_v02.so|ef6f42a96ba4ce1de247967b2a6719014fd7b988
 -lib/libloc_ds_api.so|4f90c64b2028b2605dd0eeca80d6258142454f0b
-bin/loc_launcher|0e507ea1f3c2acb10dfd32b6bde2eeb9c45e9446
-etc/permissions/com.qti.location.sdk.xml|cb68a566bd77dcc75bb7547199d528289fac01cb
-etc/permissions/com.qualcomm.location.xml|878999ca1861e71cdbda75378164d6113296a428
-framework/com.qti.location.sdk.jar|3ba03bdd97708098356bc4721ccef58fdfdf7170
--priv-app/com.qualcomm.location/com.qualcomm.location.apk|1bb0d820b51abf4aae4d9f0bc8e7ee03ebccb628
-vendor/bin/slim_daemon|c9841bc752b3882a082b730fd0486cb4f0040628
 vendor/lib64/hw/flp.default.so|d2a8024770108fcbd28a80af3cd7337737a361c1
 vendor/lib64/libalarmservice_jni.so|0932315831ca736741f5fcc6419e8ebfa50e2880
-vendor/lib64/libdataitems.so|9200be44aca23eb7ddd5b3d66e19bd453f81577f
 vendor/lib64/libflp.so|5d1dcfc2e2f7160f2cfb17d2b3af80f7949e249e
 vendor/lib64/libgeofence.so|d02e333674ab1c601d94a8dbd43294d56a147ef0
 vendor/lib64/libizat_core.so|98b0b039104228480e6bbae1a0293277fcd1f09e
 vendor/lib64/liblbs_core.so|290920322b2d2b321efd01c77d107c8304468849
 vendor/lib64/libloc_ext.so|9e7fdb928be15b623d91cc28d6c1fbc9d408af4f
 vendor/lib64/libloc_xtra.so|5074fe23d66e041f1037c4f85594a7b3c3fe0a9b
-vendor/lib64/liblocationservice.so|9de45669cef34c763e42f788fc1f861f4f3b93fa
-vendor/lib64/liblocationservice_glue.so|a150fe3fd7470f29ae85f828377d3ea361a1e904
-vendor/lib64/liblowi_client.so|56b8e9bed15ac0d63a31a2f3366fad792882c2da
-vendor/lib64/liblowi_wifihal.so|7a144fd3330d4a23d0a78e23354a21e964394131
-vendor/lib64/liblowi_wifihal_nl.so|4e0b92dae617b0bb0b4cd3feb5a8db0ac76aea00
-vendor/lib64/libquipc_os_api.so|8e02123e8d9be311fce0b2c1138cedcfbba6e367
-vendor/lib64/libulp2.so|2b9720b2aadb7a8c654dd80e75164b0e28186e01
-vendor/lib64/libxt_native.so|1f3aadd60072bde5aa2b6cead9d8b999f4615a82
-vendor/lib64/libxtadapter.so|482443f4af2b414721e4bf950598e1abfe74c8f7
-vendor/lib64/libxtwifi_ulp_adaptor.so|e0e84caa0f3b262f218730b8a861eb7ef9c9d4d6
 vendor/lib/hw/flp.default.so|8fe0c8e1c0dd49a95bc219105eb70c9f45149e3c
 vendor/lib/libalarmservice_jni.so|28e5f82ef9c448eac7b18da4164d7eac3e60b661
-vendor/lib/libdataitems.so|f26410daa917af1045824090565cba41b0b299f8
 vendor/lib/libflp.so|64ff6f433d0d36edcf6d931e392567bcfe79f7e4
 vendor/lib/libgeofence.so|14943b5abe0406341aab7b1b0a9d7f4ee366ca4a
 vendor/lib/libizat_core.so|d89486ff26c4c31febca850af4db880db121cf18
 vendor/lib/liblbs_core.so|5e8c6de3ae75ff218ffb32134946f6ee34671ec8
 vendor/lib/libloc_ext.so|d796745aa4db9219cb3046d405e0a986cf056da3
-vendor/lib/liblocationservice.so|a22feb08552d09163d0dbe78b98e0c8ea5b61ec0
-vendor/lib/liblocationservice_glue.so|383ae2775e0ce9379dd4bf75ae1c917ab7d9760c
-vendor/lib/liblowi_client.so|601d7b0144b574ffe304fe6918440d396ced077c
-vendor/lib/liblowi_wifihal_nl.so|2951d4779872b6866143f5e6a6b2fa0245022a2e
-vendor/lib/libquipc_os_api.so|8db4ad1e899320e051b6ff8fbfbe0206f062ad34
-vendor/lib/libulp2.so|5cd2cdc85a0c4b61c9c8e233f38292e75b34533e
-vendor/lib/libxt_native.so|8fbb57520391b64e761f6d2ea0ada05fc3cba4f3
-vendor/lib/libxtadapter.so|92dbd7f35c584d37d553779b9aae55b172a5f7af
-vendor/lib/libxtwifi_ulp_adaptor.so|bb6ec1c58f57a24e60740fa0a8ee7583a4b11f66
 
 # Graphics - from Mi Max
 vendor/lib64/egl/eglSubDriverAndroid.so|314d78bbab80febc9989df2ef3531eff43b103f6
@@ -612,13 +537,6 @@ etc/firmware/venus.b03
 etc/firmware/venus.b04
 etc/firmware/venus.mbn
 etc/firmware/venus.mdt
-
-# Network
--priv-app/QtiTetherService/QtiTetherService.apk
-vendor/lib64/libconnctrl.so
-vendor/lib64/libQtiTether.so
-vendor/lib/libconnctrl.so
-vendor/lib/libQtiTether.so
 
 # Perf
 bin/msm_irqbalance
