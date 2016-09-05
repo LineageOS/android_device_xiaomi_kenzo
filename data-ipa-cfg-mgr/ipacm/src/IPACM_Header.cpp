@@ -1,4 +1,4 @@
-/* 
+/*
 Copyright (c) 2013, The Linux Foundation. All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -203,7 +203,7 @@ bool IPACM_Header::AddHeaderProcCtx(struct ipa_ioc_add_hdr_proc_ctx* pHeader)
 	int ret = 0;
 	//call the Driver ioctl to add header processing context
 	ret = ioctl(m_fd, IPA_IOC_ADD_HDR_PROC_CTX, pHeader);
-	return (ret != -1);
+	return (ret == 0);
 }
 
 bool IPACM_Header::DeleteHeaderProcCtx(uint32_t hdl)
@@ -225,7 +225,12 @@ bool IPACM_Header::DeleteHeaderProcCtx(uint32_t hdl)
 	pHeaderTable->hdl[0].hdl = hdl;
 
 	ret = ioctl(m_fd, IPA_IOC_DEL_HDR_PROC_CTX, pHeaderTable);
+	if(ret != 0)
+	{
+		IPACMERR("Failed to delete hdr proc ctx: return value %d, status %d\n",
+			ret, pHeaderTable->hdl[0].status);
+	}
 	free(pHeaderTable);
-	return (ret != -1);
+	return (ret == 0);
 }
 

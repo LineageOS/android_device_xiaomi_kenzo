@@ -25,7 +25,7 @@ ifneq (,$(filter userdebug eng, $(TARGET_BUILD_VARIANT)))
 LOCAL_CFLAGS += -DDEBUG
 endif
 
-ifeq ($(TARGET_BOARD_PLATFORM),msm8998)
+ifeq ($(TARGET_BOARD_PLATFORM),msmcobalt)
 LOCAL_CFLAGS += -DFEATURE_IPA_V3
 endif
 
@@ -62,7 +62,7 @@ LOCAL_SHARED_LIBRARIES := libipanat
 LOCAL_SHARED_LIBRARIES += libxml2
 LOCAL_SHARED_LIBRARIES += libnfnetlink
 LOCAL_SHARED_LIBRARIES += libnetfilter_conntrack
-LOCAL_SHARED_LIBRARIES += libdhcpcd
+LOCAL_CLANG := true
 include $(BUILD_EXECUTABLE)
 
 ################################################################################
@@ -87,3 +87,4 @@ LOCAL_MODULE_TAGS := optional
 LOCAL_SRC_FILES := $(LOCAL_MODULE)
 LOCAL_MODULE_OWNER := ipacm
 include $(BUILD_PREBUILT)
+

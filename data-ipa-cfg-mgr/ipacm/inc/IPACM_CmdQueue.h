@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2013, The Linux Foundation. All rights reserved.
+Copyright (c) 2013-2016, The Linux Foundation. All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are
@@ -85,7 +85,8 @@ private:
 	Message *Head;
 	Message *Tail;
 	Message* dequeue(void);
-	static MessageQueue *inst;
+	static MessageQueue *inst_internal;
+	static MessageQueue *inst_external;
 
 	MessageQueue()
 	{
@@ -99,7 +100,8 @@ public:
 	void enqueue(Message *item);
 
 	static void* Process(void *);
-	static MessageQueue* getInstance();
+	static MessageQueue* getInstanceInternal();
+	static MessageQueue* getInstanceExternal();
 
 };
 

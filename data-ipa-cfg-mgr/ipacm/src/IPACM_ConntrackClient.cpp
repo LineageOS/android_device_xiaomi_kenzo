@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2013, The Linux Foundation. All rights reserved.
+Copyright (c) 2013-2016, The Linux Foundation. All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are
@@ -524,9 +524,9 @@ void* IPACM_ConntrackClient::UDPRegisterWithConnTrack(void *)
 	/* Register callback with netfilter handler */
 	IPACMDBG_H("udp handle:%p, fd:%d\n", pClient->udp_hdl, nfct_fd(pClient->udp_hdl));
 	nfct_callback_register(pClient->udp_hdl,
-												 (nf_conntrack_msg_type)(NFCT_T_NEW | NFCT_T_DESTROY),
-												 IPAConntrackEventCB,
-												 NULL);
+			(nf_conntrack_msg_type)(NFCT_T_NEW | NFCT_T_DESTROY),
+			IPAConntrackEventCB,
+			NULL);
 
 	/* Block to catch events from net filter connection track */
 ctcatch:
