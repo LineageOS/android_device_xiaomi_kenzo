@@ -703,8 +703,8 @@ vendor/lib/libscale.so|57f937a95576989e05a384e8d0220a7d9b84d008
 etc/firmware/a530_pfp.fw|8718ba2eadaceb639c055c747655b0e67daf1fba
 etc/firmware/a530_pm4.fw|593ecdbbbd6c01c201462a3dc27fa5ee1a1f1d0e
 
-# IPA
-bin/ipacm-diag
+# IPA - from Mi Max
+bin/ipacm-diag|3d377e518bd10db67d8824a04ff63f5d6eeb67af
 
 # Keystore
 vendor/lib64/hw/keystore.msm8952.so
@@ -759,7 +759,7 @@ vendor/lib/libqti-perfd-client.so
 bin/pm-proxy|92deff448bd24337244bf9ce4d5c6d177131cfd6
 bin/pm-service|c0421e5eb9af29191f72764091fffb899540aefb
 vendor/lib64/libperipheral_client.so|de4548790076dc05c9bb40cc0c2363e6d72ec91a
-vendor/lib/libperipheral_client.so|0bead94fef0a558b2a4257530197c17ac13d67ec
+vendor/lib/libperipheral_client.so|c239c4422092e788d73de3685fe609aae2d33b1d
 
 # Postprocessing
 vendor/bin/mm-pp-daemon
@@ -770,14 +770,14 @@ vendor/lib64/libmm-qdcm-diag.so
 vendor/lib64/libmm-qdcm.so
 vendor/lib/libmm-als.so
 
-# QMI - from Mi MAX
+# QMI - from Mi Max
 bin/irsc_util|abc7c7401faf190017b5004ffa7b5c1d8c835c1c
 etc/data/dsi_config.xml|cf4b39b480f2f1d44b6c8684dcc5898a53cff178
 etc/data/netmgr_config.xml|fcfdec920c10dfc843c2db8e9e99371c5ec3997e
 etc/data/qmi_config.xml|ed0cdec5bc502bb5489761e0ad9ad95258b28778
 vendor/lib64/libdiag.so|b214d6c2f9e87d68548cad5045aa9ee8d533471b
 vendor/lib64/libdsi_netctrl.so|52bf0fcd59150563cf34cbf5bf999d8fb2151171
-vendor/lib64/libdsutils.so|47ea0972a10023691d0bcf3d490f357317729ba6
+vendor/lib64/libdsutils.so|4d5f9518f1fe07232c94cdf8e6069d9f9c644117
 vendor/lib64/libidl.so|34a88e3380f9da83f95df686c50ddde1934e0612
 vendor/lib64/liblqe.so|77727d62053a12b2f885fb504a4a40d26f0f8ea0
 vendor/lib64/libqcci_legacy.so|c63856198686b22b6f67d0085040913c522d4de9
@@ -790,11 +790,11 @@ vendor/lib64/libqmi_client_qmux.so|a71e84700157bec54d2c6f4bccc94594283b3276
 vendor/lib64/libqmi_common_so.so|b16e63e9fa7e557a3e24ca31939fc3e39c390b89
 vendor/lib64/libqmi_csi.so|7b0d336cae7ad7255855c93722bf515c2c35a70c
 vendor/lib64/libqmi_encdec.so|9dcee238524b27b1b71aee97abdf4b786b6f193c
-vendor/lib64/libqmiservices.so|7d1643934810eb3f2909b4b2809e8e2a28b2f359
+vendor/lib64/libqmiservices.so|4750592768986a31a106906ee7d350742e2b860f
 vendor/lib64/libsmemlog.so|62b4bdce809e6386481f799702e47a370c1a86bc
 vendor/lib/libdiag.so|982088222b779fb0e1ed8af343277763463d8b98
 vendor/lib/libdsi_netctrl.so|d976febd5823089c320fff1c4fc51dfe94bf3154
-vendor/lib/libdsutils.so|ff3af140fadda6d3fde70025193b3ede3e7bc6ce
+vendor/lib/libdsutils.so|07c91fe3316e9f54e29128c9882acb935bdde99e
 vendor/lib/libidl.so|67efe2b7b135b98c588407b1c97f773f9110c375
 vendor/lib/liblqe.so|e79daea34300bbc77330c5665b6bf8426459e288
 vendor/lib/libqcci_legacy.so|11279d5aa63535e5c2e4e8aca46a72694e4eebb7
@@ -807,31 +807,32 @@ vendor/lib/libqmi_client_qmux.so|b0739574f19617e96f4b3b076c8866a4cf029ca7
 vendor/lib/libqmi_common_so.so|63b54154ef64a94a9da06df44f1867ccd868cd4f
 vendor/lib/libqmi_csi.so|8d66cc874c1e62c2f57ffb282d31ed07912b2dec
 vendor/lib/libqmi_encdec.so|7c9787e85ee5151d565255ae6e17145de9a75c57
-vendor/lib/libqmiservices.so|49cd38f0523f7424d79bbceba98dfe084b69ccfe
+vendor/lib/libqmiservices.so|9942632e56d9d34870ec1bc22cf75df5ba2694dc
 vendor/lib/libsmemlog.so|17772a496b7d8026a637ef212223c114667dc6e2
 
-# Radio - from Mi MAX
--app/shutdownlistener/shutdownlistener.apk|325df8be20c3f46017695d4ddfb950627ee64d4b
--framework/qcnvitems.jar|65343d8e99ec6dc8a42116ce2f4b28c0255fb6cb
--framework/qcrilhook.jar|ac8e4cc7f899d3c0582f1b2c96151b494b8585be
-bin/netmgrd|06cf21564da65e14a84378f7ce4617d23059317f
+# Radio - from Mi Max
+-app/shutdownlistener/shutdownlistener.apk|9a0174296783c63482aab34bc58cca363d68617a
+-framework/qcnvitems.jar|a3425982238e4382c0f8a9d928d8d332c0a533b9
+-framework/qcrilhook.jar|a76abf182567190071276a16b1101083c850a572
+bin/netmgrd|4986d021b06d08b1bff0000e04d8bceb4b510663
 bin/qmuxd|e4b46b87ebfcb95c336a0543d11f1e30d7c7f7e7
-bin/radish|2f9e30fa23eb6eb61c593f0a634e9f7f4f16971e
+bin/radish|e8fc37d076300d36207bce16412e2e5294f8f9f9
 bin/rmt_storage|d1708d1eac9f5852d0db661e25a5a39044de0192
 etc/permissions/qcnvitems.xml|dc0e70cace2317b5169a454cbc2bbf8887c18d55
 etc/permissions/qcrilhook.xml|9fc58a3d54d20ac1d53bab14608815121aefbce5
--priv-app/qcrilmsgtunnel/qcrilmsgtunnel.apk|49637d76c7b1c4f2efc964cfce37ba616dad4f0c
+-priv-app/qcrilmsgtunnel/qcrilmsgtunnel.apk|a2f1a3bf5b7a325c456e8deb0bdd5ea75977ebb8
+vendor/lib64/libcneapiclient.so|f8292db18e246625879e5002f8691db7d4129304
 vendor/lib64/libconfigdb.so|a67206468da0f6c6ef75271ae1388ba240893e79
 vendor/lib64/libmdmdetect.so|39242836bede71c3c469962de7aac6f684263c46
-vendor/lib64/libnetmgr.so|cbfd2a95ec020d06d87dbbb8273f4c5439711616
-vendor/lib64/libril-qc-qmi-1.so|c5e36e5c0c31433591e897db25193b6e654cadf1
+vendor/lib64/libnetmgr.so|7ca47ab7a658e9427154b6c120c6fa661beca043
+vendor/lib64/libril-qc-qmi-1.so|5c73d91885a29e713a2dafbc205c4e9ba9a79fd6
 vendor/lib64/libril-qc-radioconfig.so|06008c397054b29715f1ca45fb0512f3732a1e8d
 vendor/lib64/libril-qcril-hook-oem.so|075a6890f7af392bb9d834d33cd6a73fdb91ab55
 vendor/lib64/libsystem_health_mon.so|d787c48b755236a2b5913a50aea2641968e887cb
 vendor/lib64/libxml.so|f6a9634142198b5ab75a6fe36c37f63ab9fcdfd6
-vendor/lib/libmdmdetect.so|f310075680d78ee1b7c4190bb3245f4d59e62cb2
-vendor/lib/libxml.so|a5edd46a0c30640b20c6d260eae2b67b3b3db92d
-vendor/qcril.db|3ce026c3c5f3aca6fbeeeabe5dd46c622d2ffe9a
+vendor/lib/libmdmdetect.so|6643f5015310e97e950c08a475a88fdcc181727a
+vendor/lib/libxml.so|9948ba585f5a2e685f64ecf1e4d309abd98448dd
+vendor/qcril.db|7a196bdd04931184be09d03538bfd72e69b38e39
 
 # Sensors
 bin/sensors.qcom
