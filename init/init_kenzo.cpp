@@ -43,8 +43,8 @@ void check_device()
     if (sys.totalram > 2048ull * 1024 * 1024) {
         // from - phone-xxhdpi-3072-dalvik-heap.mk
         heapstartsize = "8m";
-        heapgrowthlimit = "384m";
-        heapsize = "1024m";
+        heapgrowthlimit = "288m";
+        heapsize = "768m";
         heapminfree = "512k";
     } else {
         // from - phone-xxhdpi-2048-dalvik-heap.mk
