@@ -191,6 +191,7 @@ include device/qcom/sepolicy/sepolicy.mk
 BOARD_SEPOLICY_DIRS += $(DEVICE_PATH)/sepolicy
 
 # Sensors
+BOARD_GLOBAL_CFLAGS += -DCOMPAT_SENSORS_M
 USE_SENSOR_MULTI_HAL := true
 
 # Wifi
