@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1fa4df85_b27b6cbc",
+        "filename": "system.prop",
+        "patchSetId": 10
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 13057
+      },
+      "writtenOn": "2016-09-10T08:46:38Z",
+      "side": 1,
+      "message": "thought you said it\u0027s \"redundant prop\"",
+      "range": {
+        "startLine": 90,
+        "startChar": 0,
+        "endLine": 90,
+        "endChar": 28
+      },
+      "revId": "ebca6925729f105ad600e304a203ccea7c939514",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
