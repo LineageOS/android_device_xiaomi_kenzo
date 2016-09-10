@@ -1,0 +1,170 @@
+# Copyright (c) 2014, 2016, The Linux Foundation. All rights reserved.
+#
+# Redistribution and use in source and binary forms, with or without
+# modification, are permitted provided that the following conditions are
+# met:
+#    * Redistributions of source code must retain the above copyright
+#      notice, this list of conditions and the following disclaimer.
+#    * Redistributions in binary form must reproduce the above
+#      copyright notice, this list of conditions and the following
+#      disclaimer in the documentation and/or other materials provided
+#      with the distribution.
+#    * Neither the name of The Linux Foundation nor the names of its
+#      contributors may be used to endorse or promote products derived
+#      from this software without specific prior written permission.
+#
+# THIS SOFTWARE IS PROVIDED "AS IS" AND ANY EXPRESS OR IMPLIED
+# WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+# MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT
+# ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS
+# BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+# CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+# SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR
+# BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+# WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+# OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN
+# IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+#ANC_TEST_P_PATH_MIC_STEREO Capture
+acdb_dev_id:85
+!Capture
+Txdevice:0
+
+enable
+TX7 HPF Switch:0
+TX8 HPF Switch:0
+AIF1_CAP Mixer SLIM TX7:1
+AIF1_CAP Mixer SLIM TX8:1
+SLIM TX7 MUX:DEC9
+DEC9 MUX:DMIC4
+SLIM TX8 MUX:DEC10
+DEC10 MUX:DMIC3
+SLIM_0_TX Channels:Two
+MultiMedia1 Mixer SLIM_0_TX:1
+
+disable
+MultiMedia1 Mixer SLIM_0_TX:0
+AIF1_CAP Mixer SLIM TX7:0
+AIF1_CAP Mixer SLIM TX8:0
+SLIM TX7 MUX:ZERO
+SLIM TX8 MUX:ZERO
+DEC10 MUX:ZERO
+DEC9 MUX:ZERO
+TX7 HPF Switch:0
+TX8 HPF Switch:0
+
+#ANC_TEST_S_PATH_MIC_STEREO Capture
+acdb_dev_id:88
+!Capture
+Txdevice:0
+
+enable
+TX7 HPF Switch:0
+TX8 HPF Switch:0
+AIF1_CAP Mixer SLIM TX7:1
+AIF1_CAP Mixer SLIM TX8:1
+SLIM TX7 MUX:DEC8
+DEC7 MUX:ANC2_FB
+ANC2 MUX:DMIC3
+SLIM TX8 MUX:DEC7
+DEC8 MUX:ANC1_FB
+ANC1 MUX:DMIC3
+ANC1 FB MUX:EAR_HPH_L
+SLIM_0_TX Channels:Two
+MultiMedia1 Mixer SLIM_0_TX:1
+
+disable
+MultiMedia1 Mixer SLIM_0_TX:0
+AIF1_CAP Mixer SLIM TX7:0
+AIF1_CAP Mixer SLIM TX8:0
+SLIM TX7 MUX:ZERO
+SLIM TX8 MUX:ZERO
+DEC7 MUX:ZERO
+ANC2 MUX:ZERO
+ANC1 MUX:ZERO
+DEC8 MUX:ZERO
+ANC1 FB MUX:ZERO
+TX7 HPF Switch:0
+TX8 HPF Switch:0
+
+#ANC_TEST_E_PATH_MIC_STEREO Capture
+acdb_dev_id:91
+!Capture
+Txdevice:0
+
+enable
+TX7 HPF Switch:0
+TX8 HPF Switch:0
+AIF1_CAP Mixer SLIM TX7:1
+AIF1_CAP Mixer SLIM TX8:1
+SLIM TX7 MUX:DEC8
+DEC7 MUX:ANC2_FB
+ANC2 MUX:DMIC4
+ANC1 MUX:DMIC4
+SLIM TX8 MUX:DEC7
+DEC8 MUX:ANC1_FB
+ANC1 FB MUX:EAR_HPH_L
+SLIM_0_TX Channels:Two
+MultiMedia1 Mixer SLIM_0_TX:1
+
+disable
+MultiMedia1 Mixer SLIM_0_TX:0
+AIF1_CAP Mixer SLIM TX7:0
+AIF1_CAP Mixer SLIM TX8:0
+SLIM TX7 MUX:ZERO
+SLIM TX8 MUX:ZERO
+DEC7 MUX:ZERO
+ANC2 MUX:ZERO
+DEC10 MUX:ZERO
+ANC1 FB MUX:ZERO
+TX7 HPF Switch:0
+TX8 HPF Switch:0
+
+#ANC_TEST_S_PATH_HANDSET_SPKR_ANC_MONO
+acdb_dev_id:86
+!Playback
+Rxdevice:0
+
+enable
+ANC Function:ON
+SLIM RX1 MUX:AIF1_PB
+SLIM_0_RX Channels:One
+RX1 MIX1 INP1:RX1
+CLASS_H_DSM MUX:DSM_HPHL_RX1
+RX1 Digital Volume:87
+DAC1 Switch:1
+ANC Slot:7
+SLIMBUS_0_RX Audio Mixer MultiMedia1:1
+
+disable
+SLIMBUS_0_RX Audio Mixer MultiMedia1:0
+ANC Slot:0
+SLIM RX1 MUX:ZERO
+RX1 MIX1 INP1:ZERO
+RX1 Digital Volume:0
+DAC1 Switch:0
+ANC Function:OFF
+
+#ANC_TEST_E_PATH_HANDSET_SPKR_ANC_MONO
+acdb_dev_id:89
+!Playback
+Rxdevice:0
+
+enable
+ANC Function:ON
+SLIM RX1 MUX:AIF1_PB
+SLIM_0_RX Channels:One
+RX1 MIX1 INP1:RX1
+CLASS_H_DSM MUX:DSM_HPHL_RX1
+RX1 Digital Volume:87
+DAC1 Switch:1
+ANC Slot:8
+SLIMBUS_0_RX Audio Mixer MultiMedia1:1
+
+disable
+SLIMBUS_0_RX Audio Mixer MultiMedia1:0
+ANC Slot:0
+SLIM RX1 MUX:ZERO
+RX1 MIX1 INP1:ZERO
+RX1 Digital Volume:0
+DAC1 Switch:0
+ANC Function:OFF
