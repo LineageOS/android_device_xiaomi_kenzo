@@ -161,10 +161,6 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/keylayout/gpio-keys.kl:system/usr/keylayout/gpio-keys.kl \
     $(LOCAL_PATH)/keylayout/msm8976-tashalite-snd-card_Button_Jack.kl:system/usr/keylayout/msm8976-tashalite-snd-card_Button_Jack.kl
 
-# Keymaster
-PRODUCT_PACKAGES += \
-    keystore.msm8952
-
 # Lights
 PRODUCT_PACKAGES += \
     lights.msm8952
