@@ -256,7 +256,7 @@ typedef struct {
 
 /** Represents SV status. */
 typedef struct {
-    /** set to sizeof(QcomGnssSvStatus) */
+    /** set to sizeof(QcomSvStatus) */
     size_t          size;
 
     /** Number of SVs currently visible. */
@@ -293,7 +293,7 @@ typedef struct {
      */
     uint64_t    bds_used_in_fix_mask;
 
-} QcomGnssSvStatus;
+} QcomSvStatus;
 
 enum loc_sess_status {
     LOC_SESS_SUCCESS,

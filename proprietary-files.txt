@@ -544,9 +544,9 @@ lib/lib_fpc_tac_shared.so
 vendor/lib64/hw/gatekeeper.msm8952.so
 
 # GPS - from Mi Max
--lib64/libloc_api_v02.so|ebc6793dba2b02f7b1dfb14fbca2bd8420e1eecb
+-lib64/libloc_api_v02.so|948bb007b604aead954a8334e0e8b78129d5cb40
 -lib64/libloc_ds_api.so|bc8bd9bdcfe059f2dc4271d26c4eb6b3157362b2
--lib/libloc_api_v02.so|ef6f42a96ba4ce1de247967b2a6719014fd7b988
+-lib/libloc_api_v02.so|805e422712ed4b89047f5d7537bad89a251a0c0d
 -lib/libloc_ds_api.so|4f90c64b2028b2605dd0eeca80d6258142454f0b
 vendor/lib64/hw/flp.default.so|d2a8024770108fcbd28a80af3cd7337737a361c1
 vendor/lib64/libalarmservice_jni.so|0932315831ca736741f5fcc6419e8ebfa50e2880
@@ -554,10 +554,10 @@ vendor/lib64/libdataitems.so|9200be44aca23eb7ddd5b3d66e19bd453f81577f
 vendor/lib64/libflp.so|5d1dcfc2e2f7160f2cfb17d2b3af80f7949e249e
 vendor/lib64/libgeofence.so|d02e333674ab1c601d94a8dbd43294d56a147ef0
 vendor/lib64/libizat_core.so|98b0b039104228480e6bbae1a0293277fcd1f09e
-vendor/lib64/liblbs_core.so|290920322b2d2b321efd01c77d107c8304468849
+vendor/lib64/liblbs_core.so|96d55f5b454badb67fb59810e53c4e42dd3cb4bc
 vendor/lib64/libloc_ext.so|9e7fdb928be15b623d91cc28d6c1fbc9d408af4f
 vendor/lib64/libloc_xtra.so|5074fe23d66e041f1037c4f85594a7b3c3fe0a9b
-vendor/lib64/liblocationservice.so|9de45669cef34c763e42f788fc1f861f4f3b93fa
+vendor/lib64/liblocationservice.so|d4e9f48dd675b19ad0efd71d9b3f4362457cd862
 vendor/lib64/liblowi_client.so|56b8e9bed15ac0d63a31a2f3366fad792882c2da
 vendor/lib64/libulp2.so|2b9720b2aadb7a8c654dd80e75164b0e28186e01
 vendor/lib/hw/flp.default.so|8fe0c8e1c0dd49a95bc219105eb70c9f45149e3c
@@ -566,9 +566,9 @@ vendor/lib/libdataitems.so|f26410daa917af1045824090565cba41b0b299f8
 vendor/lib/libflp.so|64ff6f433d0d36edcf6d931e392567bcfe79f7e4
 vendor/lib/libgeofence.so|14943b5abe0406341aab7b1b0a9d7f4ee366ca4a
 vendor/lib/libizat_core.so|d89486ff26c4c31febca850af4db880db121cf18
-vendor/lib/liblbs_core.so|5e8c6de3ae75ff218ffb32134946f6ee34671ec8
+vendor/lib/liblbs_core.so|3b7d3e6ad09f0b3e626333adb8038f699991c8d8
 vendor/lib/libloc_ext.so|d796745aa4db9219cb3046d405e0a986cf056da3
-vendor/lib/liblocationservice.so|a22feb08552d09163d0dbe78b98e0c8ea5b61ec0
+vendor/lib/liblocationservice.so|13b69940db0e7a5b7c7eebdd738a831784b0183d
 vendor/lib/liblowi_client.so|601d7b0144b574ffe304fe6918440d396ced077c
 vendor/lib/libulp2.so|5cd2cdc85a0c4b61c9c8e233f38292e75b34533e
 
