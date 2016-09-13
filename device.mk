@@ -120,6 +120,10 @@ PRODUCT_PACKAGES += \
     memtrack.msm8952 \
     liboverlay
 
+# Face detection extension
+PRODUCT_PACKAGES += \
+    org.codeaurora.camera
+
 # Fingerprint
 PRODUCT_PACKAGES += \
     fingerprintd
