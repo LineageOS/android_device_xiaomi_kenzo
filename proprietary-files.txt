@@ -698,8 +698,14 @@ bin/ipacm-diag
 vendor/lib64/hw/keystore.msm8952.so
 
 # Media
+lib/libOmxVpp.so
+lib/libvpplibrary.so
 vendor/lib/libI420colorconvert.so
 vendor/lib/libmm-color-convertor.so
+vendor/lib/libmmsw_detail_enhancement.so
+vendor/lib/libmmsw_math.so
+vendor/lib/libmmsw_opencl.so
+vendor/lib/libmmsw_platform.so
 vendor/lib/libOmxAacDec.so
 vendor/lib/libOmxAlacDec.so
 vendor/lib/libOmxAmrwbplusDec.so
