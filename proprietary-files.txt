@@ -366,6 +366,31 @@ vendor/lib/libchromatix_s5k3p3_omida01_liveshot.so
 vendor/lib/libchromatix_s5k3p3_omida01_postproc.so
 vendor/lib/libchromatix_s5k3p3_omida01_preview.so
 vendor/lib/libchromatix_s5k3p3_omida01_snapshot.so
+vendor/lib/libchromatix_s5k5e8_z5e8yab_a3_default_preview.so
+vendor/lib/libchromatix_s5k5e8_z5e8yab_a3_default_video.so
+vendor/lib/libchromatix_s5k5e8_z5e8yab_a3_hfr_60.so
+vendor/lib/libchromatix_s5k5e8_z5e8yab_a3_hfr_90.so
+vendor/lib/libchromatix_s5k5e8_z5e8yab_a3_hfr_120.so
+vendor/lib/libchromatix_s5k5e8_z5e8yab_common.so
+vendor/lib/libchromatix_s5k5e8_z5e8yab_cpp_ds_chromatix.so
+vendor/lib/libchromatix_s5k5e8_z5e8yab_cpp_hfr_60.so
+vendor/lib/libchromatix_s5k5e8_z5e8yab_cpp_hfr_90.so
+vendor/lib/libchromatix_s5k5e8_z5e8yab_cpp_hfr_120.so
+vendor/lib/libchromatix_s5k5e8_z5e8yab_cpp_liveshot.so
+vendor/lib/libchromatix_s5k5e8_z5e8yab_cpp_preview.so
+vendor/lib/libchromatix_s5k5e8_z5e8yab_cpp_snapshot.so
+vendor/lib/libchromatix_s5k5e8_z5e8yab_cpp_us_chromatix.so
+vendor/lib/libchromatix_s5k5e8_z5e8yab_cpp_video.so
+vendor/lib/libchromatix_s5k5e8_z5e8yab_default_video.so
+vendor/lib/libchromatix_s5k5e8_z5e8yab_hfr_60.so
+vendor/lib/libchromatix_s5k5e8_z5e8yab_hfr_90.so
+vendor/lib/libchromatix_s5k5e8_z5e8yab_hfr_120.so
+vendor/lib/libchromatix_s5k5e8_z5e8yab_liveshot.so
+vendor/lib/libchromatix_s5k5e8_z5e8yab_postproc.so
+vendor/lib/libchromatix_s5k5e8_z5e8yab_preview.so
+vendor/lib/libchromatix_s5k5e8_z5e8yab_snapshot.so
+vendor/lib/libchromatix_s5k5e8_z5e8yab_zsl_preview.so
+vendor/lib/libchromatix_s5k5e8_z5e8yab_zsl_video.so
 
 # Camera firmware
 etc/firmware/cpp_firmware_v1_1_1.fw
@@ -388,6 +413,8 @@ vendor/lib/libmmcamera_s5k3p3_f16s01c.so
 vendor/lib/libmmcamera_s5k3p3_gt24c64_eeprom.so
 vendor/lib/libmmcamera_s5k3p3_omida01.so
 vendor/lib/libmmcamera_s5k3p3_omida01_eeprom.so
+vendor/lib/libmmcamera_s5k5e8_z5e8yab.so
+vendor/lib/libmmcamera_s5k5e8_z5e8yab_eeprom.so
 vendor/lib/libmmcamera_sunny_omi5f06_eeprom.so
 
 # Charger
