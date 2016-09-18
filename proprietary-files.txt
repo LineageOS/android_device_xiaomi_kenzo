@@ -710,6 +710,10 @@ etc/firmware/venus.b04
 etc/firmware/venus.mbn
 etc/firmware/venus.mdt
 
+# Network - from Mi Max
+vendor/lib64/libconnctrl.so|6ca7f4049f7025bb3fc18c9abdac13c42d61cfd2
+vendor/lib/libconnctrl.so|280b62748e54f14e5a1be943e7e86ea4524dec53
+
 # Perf
 bin/msm_irqbalance
 vendor/bin/perfd
@@ -736,12 +740,14 @@ bin/irsc_util|abc7c7401faf190017b5004ffa7b5c1d8c835c1c
 etc/data/dsi_config.xml|cf4b39b480f2f1d44b6c8684dcc5898a53cff178
 etc/data/netmgr_config.xml|fcfdec920c10dfc843c2db8e9e99371c5ec3997e
 etc/data/qmi_config.xml|ed0cdec5bc502bb5489761e0ad9ad95258b28778
+etc/permissions/qti_permissions.xml|3074f6833abfebdc8ce030352330b974a0bb09ef
 vendor/lib64/libdiag.so|b214d6c2f9e87d68548cad5045aa9ee8d533471b
 vendor/lib64/libdsi_netctrl.so|52bf0fcd59150563cf34cbf5bf999d8fb2151171
 vendor/lib64/libdsutils.so|4d5f9518f1fe07232c94cdf8e6069d9f9c644117
 vendor/lib64/libidl.so|34a88e3380f9da83f95df686c50ddde1934e0612
 vendor/lib64/liblqe.so|77727d62053a12b2f885fb504a4a40d26f0f8ea0
 vendor/lib64/libqcci_legacy.so|c63856198686b22b6f67d0085040913c522d4de9
+vendor/lib64/libqcmaputils.so|51dbb862dc01e3bf452c201bfabfc9d1192aaa58
 vendor/lib64/libqdi.so|57bd69d9ead84b647c208cf98ff1a4fcdaf89585
 vendor/lib64/libqdp.so|3af3ab6f989880bd096f06a74b29c48ee7f83781
 vendor/lib64/libqmi.so|29da6eb4c1ac8921321e974016b67e208c56877b
@@ -752,6 +758,7 @@ vendor/lib64/libqmi_common_so.so|b16e63e9fa7e557a3e24ca31939fc3e39c390b89
 vendor/lib64/libqmi_csi.so|7b0d336cae7ad7255855c93722bf515c2c35a70c
 vendor/lib64/libqmi_encdec.so|9dcee238524b27b1b71aee97abdf4b786b6f193c
 vendor/lib64/libqmiservices.so|4750592768986a31a106906ee7d350742e2b860f
+vendor/lib64/libquipc_os_api.so|632a811496b4dba8bbec89f5af0f852a88524f7a
 vendor/lib64/libsmemlog.so|62b4bdce809e6386481f799702e47a370c1a86bc
 vendor/lib/libdiag.so|982088222b779fb0e1ed8af343277763463d8b98
 vendor/lib/libdsi_netctrl.so|d976febd5823089c320fff1c4fc51dfe94bf3154
@@ -772,6 +779,8 @@ vendor/lib/libqmiservices.so|9942632e56d9d34870ec1bc22cf75df5ba2694dc
 vendor/lib/libsmemlog.so|17772a496b7d8026a637ef212223c114667dc6e2
 
 # Radio - from Mi Max
+-app/fastdormancy/fastdormancy.apk|d1a37c1da93712e7c31865936895543e0a451946
+-app/QtiTelephonyService/QtiTelephonyService.apk|22e349d3d39bd1b9a67b736f5aff4b76e001a281
 -app/shutdownlistener/shutdownlistener.apk|9a0174296783c63482aab34bc58cca363d68617a
 -framework/qcnvitems.jar|a3425982238e4382c0f8a9d928d8d332c0a533b9
 -framework/qcrilhook.jar|a76abf182567190071276a16b1101083c850a572
@@ -779,9 +788,13 @@ bin/netmgrd|4986d021b06d08b1bff0000e04d8bceb4b510663
 bin/qmuxd|e4b46b87ebfcb95c336a0543d11f1e30d7c7f7e7
 bin/radish|e8fc37d076300d36207bce16412e2e5294f8f9f9
 bin/rmt_storage|d1708d1eac9f5852d0db661e25a5a39044de0192
+bin/tftp_server|adcff5067cb489042714486d093aae1e7e83c0b8
 etc/permissions/qcnvitems.xml|dc0e70cace2317b5169a454cbc2bbf8887c18d55
 etc/permissions/qcrilhook.xml|9fc58a3d54d20ac1d53bab14608815121aefbce5
+etc/permissions/telephonyservice.xml|3a6bc2a522270f968ff5a332b8781c0289e6d1ef
+framework/qti-telephony-common.jar|eabfa165b2c4d1d6c7baae424bf13a0e8575e8f6
 -priv-app/qcrilmsgtunnel/qcrilmsgtunnel.apk|a2f1a3bf5b7a325c456e8deb0bdd5ea75977ebb8
+vendor/bin/qti|88bfa0508e4dbce17fec9ce03b1a86b050764e27
 vendor/lib64/libconfigdb.so|a67206468da0f6c6ef75271ae1388ba240893e79
 vendor/lib64/libmdmdetect.so|39242836bede71c3c469962de7aac6f684263c46
 vendor/lib64/libnetmgr.so|7ca47ab7a658e9427154b6c120c6fa661beca043
