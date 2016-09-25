@@ -505,8 +505,13 @@ int LocTimerDelegate::ranks(LocRankable& rankable) {
     LocTimerDelegate* timer = (LocTimerDelegate*)(&rankable);
     if (timer) {
         // larger time ranks lower!!!
-        // IOW, if input obj has bigger tv_sec, this obj outRanks higher
+        // IOW, if input obj has bigger tv_sec/tv_nsec, this obj outRanks higher
         rank = timer->mFutureTime.tv_sec - mFutureTime.tv_sec;
+        if(0 == rank)
+        {
+            //rank against tv_nsec for msec accuracy
+            rank = (int)(timer->mFutureTime.tv_nsec - mFutureTime.tv_nsec);
+        }
     }
     return rank;
 }

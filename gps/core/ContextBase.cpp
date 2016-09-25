@@ -40,6 +40,27 @@
 
 namespace loc_core {
 
+loc_gps_cfg_s_type ContextBase::mGps_conf {0};
+loc_sap_cfg_s_type ContextBase::mSap_conf {0};
+
+uint32_t ContextBase::getCarrierCapabilities() {
+    #define carrierMSA (uint32_t)0x2
+    #define carrierMSB (uint32_t)0x1
+    #define gpsConfMSA (uint32_t)0x4
+    #define gpsConfMSB (uint32_t)0x2
+    uint32_t capabilities = mGps_conf.CAPABILITIES;
+    if ((mGps_conf.SUPL_MODE & carrierMSA) != carrierMSA) {
+        capabilities &= ~gpsConfMSA;
+    }
+    if ((mGps_conf.SUPL_MODE & carrierMSB) != carrierMSB) {
+        capabilities &= ~gpsConfMSB;
+    }
+
+    LOC_LOGV("getCarrierCapabilities: CAPABILITIES %x, SUPL_MODE %x, carrier capabilities %x",
+             mGps_conf.CAPABILITIES, mGps_conf.SUPL_MODE, capabilities);
+    return capabilities;
+}
+
 LBSProxyBase* ContextBase::getLBSProxy(const char* libName)
 {
     LBSProxyBase* proxy = NULL;
