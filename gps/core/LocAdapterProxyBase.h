@@ -46,21 +46,26 @@ protected:
     inline virtual ~LocAdapterProxyBase() {
         delete mLocAdapterBase;
     }
-    ContextBase* getContext() const {
-        return mLocAdapterBase->getContext();
-    }
     inline void updateEvtMask(LOC_API_ADAPTER_EVENT_MASK_T event,
                               loc_registration_mask_status isEnabled) {
         mLocAdapterBase->updateEvtMask(event,isEnabled);
     }
 
 public:
+    inline ContextBase* getContext() const {
+        return mLocAdapterBase->getContext();
+    }
     inline virtual void handleEngineUpEvent() {};
     inline virtual void handleEngineDownEvent() {};
     inline virtual bool reportPosition(UlpLocation &location,
                                        GpsLocationExtended &locationExtended,
                                        enum loc_sess_status status,
                                        LocPosTechMask loc_technology_mask) {
+
+        (void)location;
+        (void)locationExtended;
+        (void)status;
+        (void)loc_technology_mask;
         return false;
     }
 };

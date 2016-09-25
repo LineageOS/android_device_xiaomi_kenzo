@@ -80,10 +80,16 @@ public:
 
     // This will be overridden by the individual adapters
     // if necessary.
-    inline virtual void setUlpProxy(UlpProxyBase* ulp) {}
+    inline virtual void setUlpProxy(UlpProxyBase* ulp) {
+
+        (void)ulp;
+    }
     virtual void handleEngineUpEvent();
     virtual void handleEngineDownEvent();
-    inline virtual void setPositionModeInt(LocPosMode& posMode) {}
+    inline virtual void setPositionModeInt(LocPosMode& posMode) {
+
+        (void)posMode;
+    }
     virtual void startFixInt() {}
     virtual void stopFixInt() {}
     virtual void getZppInt() {}
@@ -111,7 +117,7 @@ public:
                                  const void* data);
     inline virtual bool isInSession() { return false; }
     ContextBase* getContext() const { return mContext; }
-    virtual void reportGpsMeasurementData(GpsData &gpsMeasurementData);
+    virtual void reportGnssMeasurementData(GnssData &gnssMeasurementData);
 };
 
 } // namespace loc_core

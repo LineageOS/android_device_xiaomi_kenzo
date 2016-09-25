@@ -132,6 +132,17 @@ const rpc_loc_event_mask_type LocApiRpc::locBits[] =
     RPC_LOC_EVENT_WPS_NEEDED_REQUEST
 };
 
+LocApiRpc*
+LocApiRpc::createLocApiRpc(const MsgTask* msgTask,
+                     LOC_API_ADAPTER_EVENT_MASK_T exMask,
+                     ContextBase* context)
+{
+    if (NULL == msgTask) {
+        return NULL;
+    }
+    return new LocApiRpc(msgTask, exMask, context);
+}
+
 // constructor
 LocApiRpc::LocApiRpc(const MsgTask* msgTask,
                      LOC_API_ADAPTER_EVENT_MASK_T exMask,
@@ -797,7 +808,7 @@ void LocApiRpc::reportPosition(const rpc_loc_parsed_position_s_type *location_re
 
 void LocApiRpc::reportSv(const rpc_loc_gnss_info_s_type *gnss_report_ptr)
 {
-    GnssSvStatus     SvStatus = {0};
+    QtiGnssSvStatus     SvStatus = {0};
     GpsLocationExtended locationExtended = {0};
     locationExtended.size = sizeof(locationExtended);
     int             num_svs_max = 0;
