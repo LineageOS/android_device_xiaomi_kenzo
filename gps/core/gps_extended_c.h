@@ -1,4 +1,4 @@
-/* Copyright (c) 2013-2015, The Linux Foundation. All rights reserved.
+/* Copyright (c) 2013-2016, The Linux Foundation. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
@@ -165,14 +165,14 @@ typedef struct {
 } AGpsExtCallbacks;
 
 
+typedef void (*loc_ni_notify_callback)(GpsNiNotification *notification, bool esEnalbed);
 /** GPS NI callback structure. */
 typedef struct
 {
     /**
      * Sends the notification request from HAL to GPSLocationProvider.
      */
-    gps_ni_notify_callback notify_cb;
-    gps_create_thread create_thread_cb;
+    loc_ni_notify_callback notify_cb;
 } GpsNiExtCallbacks;
 
 typedef enum loc_server_type {
@@ -217,6 +217,12 @@ typedef uint16_t GpsLocationExtendedFlags;
 #define GPS_LOCATION_EXTENDED_HAS_HOR_RELIABILITY 0x0080
 /** GpsLocationExtended has valid vertical reliability */
 #define GPS_LOCATION_EXTENDED_HAS_VERT_RELIABILITY 0x0100
+/** GpsLocationExtended has valid Horizontal Elliptical Uncertainty (Semi-Major Axis) */
+#define GPS_LOCATION_EXTENDED_HAS_HOR_ELIP_UNC_MAJOR 0x0200
+/** GpsLocationExtended has valid Horizontal Elliptical Uncertainty (Semi-Minor Axis) */
+#define GPS_LOCATION_EXTENDED_HAS_HOR_ELIP_UNC_MINOR 0x0400
+/** GpsLocationExtended has valid Elliptical Horizontal Uncertainty Azimuth */
+#define GPS_LOCATION_EXTENDED_HAS_HOR_ELIP_UNC_AZIMUTH 0x0800
 
 typedef enum {
     LOC_RELIABILITY_NOT_SET = 0,
@@ -252,48 +258,13 @@ typedef struct {
     LocReliability  horizontal_reliability;
     /** vertical reliability. */
     LocReliability  vertical_reliability;
+    /*  Horizontal Elliptical Uncertainty (Semi-Major Axis) */
+    float           horUncEllipseSemiMajor;
+    /*  Horizontal Elliptical Uncertainty (Semi-Minor Axis) */
+    float           horUncEllipseSemiMinor;
+    /*    Elliptical Horizontal Uncertainty Azimuth */
+    float           horUncEllipseOrientAzimuth;
 } GpsLocationExtended;
-
-/** Represents SV status. */
-typedef struct {
-    /** set to sizeof(GnssSvStatus) */
-    size_t          size;
-
-    /** Number of SVs currently visible. */
-    int         num_svs;
-
-    /** Contains an array of SV information. */
-    GpsSvInfo   sv_list[GPS_MAX_SVS];
-
-    /** Represents a bit mask indicating which SVs
-     * have ephemeris data.
-     */
-    uint32_t    ephemeris_mask;
-
-    /** Represents a bit mask indicating which SVs
-     * have almanac data.
-     */
-    uint32_t    almanac_mask;
-
-    /**
-     * Represents a bit mask indicating which GPS SVs
-     * were used for computing the most recent position fix.
-     */
-    uint32_t    gps_used_in_fix_mask;
-
-    /**
-     * Represents a bit mask indicating which GLONASS SVs
-     * were used for computing the most recent position fix.
-     */
-    uint32_t    glo_used_in_fix_mask;
-
-    /**
-     * Represents a bit mask indicating which BDS SVs
-     * were used for computing the most recent position fix.
-     */
-    uint64_t    bds_used_in_fix_mask;
-
-} GnssSvStatus;
 
 enum loc_sess_status {
     LOC_SESS_SUCCESS,
@@ -311,6 +282,34 @@ typedef uint32_t LocPosTechMask;
 #define LOC_POS_TECH_MASK_INJECTED_COARSE_POSITION ((LocPosTechMask)0x00000020)
 #define LOC_POS_TECH_MASK_AFLT ((LocPosTechMask)0x00000040)
 #define LOC_POS_TECH_MASK_HYBRID ((LocPosTechMask)0x00000080)
+
+// Nmea sentence types mask
+typedef uint32_t NmeaSentenceTypesMask;
+#define LOC_NMEA_MASK_GGA_V02   ((NmeaSentenceTypesMask)0x00000001) /**<  Enable GGA type  */
+#define LOC_NMEA_MASK_RMC_V02   ((NmeaSentenceTypesMask)0x00000002) /**<  Enable RMC type  */
+#define LOC_NMEA_MASK_GSV_V02   ((NmeaSentenceTypesMask)0x00000004) /**<  Enable GSV type  */
+#define LOC_NMEA_MASK_GSA_V02   ((NmeaSentenceTypesMask)0x00000008) /**<  Enable GSA type  */
+#define LOC_NMEA_MASK_VTG_V02   ((NmeaSentenceTypesMask)0x00000010) /**<  Enable VTG type  */
+#define LOC_NMEA_MASK_PQXFI_V02 ((NmeaSentenceTypesMask)0x00000020) /**<  Enable PQXFI type  */
+#define LOC_NMEA_MASK_PSTIS_V02 ((NmeaSentenceTypesMask)0x00000040) /**<  Enable PSTIS type  */
+#define LOC_NMEA_MASK_GLGSV_V02 ((NmeaSentenceTypesMask)0x00000080) /**<  Enable GLGSV type  */
+#define LOC_NMEA_MASK_GNGSA_V02 ((NmeaSentenceTypesMask)0x00000100) /**<  Enable GNGSA type  */
+#define LOC_NMEA_MASK_GNGNS_V02 ((NmeaSentenceTypesMask)0x00000200) /**<  Enable GNGNS type  */
+#define LOC_NMEA_MASK_GARMC_V02 ((NmeaSentenceTypesMask)0x00000400) /**<  Enable GARMC type  */
+#define LOC_NMEA_MASK_GAGSV_V02 ((NmeaSentenceTypesMask)0x00000800) /**<  Enable GAGSV type  */
+#define LOC_NMEA_MASK_GAGSA_V02 ((NmeaSentenceTypesMask)0x00001000) /**<  Enable GAGSA type  */
+#define LOC_NMEA_MASK_GAVTG_V02 ((NmeaSentenceTypesMask)0x00002000) /**<  Enable GAVTG type  */
+#define LOC_NMEA_MASK_GAGGA_V02 ((NmeaSentenceTypesMask)0x00004000) /**<  Enable GAGGA type  */
+#define LOC_NMEA_MASK_PQGSA_V02 ((NmeaSentenceTypesMask)0x00008000) /**<  Enable PQGSA type  */
+#define LOC_NMEA_MASK_PQGSV_V02 ((NmeaSentenceTypesMask)0x00010000) /**<  Enable PQGSV type  */
+#define LOC_NMEA_ALL_SUPPORTED_MASK  (LOC_NMEA_MASK_GGA_V02 | LOC_NMEA_MASK_RMC_V02 | \
+              LOC_NMEA_MASK_GSV_V02 | LOC_NMEA_MASK_GSA_V02 | LOC_NMEA_MASK_VTG_V02 | \
+        LOC_NMEA_MASK_PQXFI_V02 | LOC_NMEA_MASK_PSTIS_V02 | LOC_NMEA_MASK_GLGSV_V02 | \
+        LOC_NMEA_MASK_GNGSA_V02 | LOC_NMEA_MASK_GNGNS_V02 | LOC_NMEA_MASK_GARMC_V02 | \
+        LOC_NMEA_MASK_GAGSV_V02 | LOC_NMEA_MASK_GAGSA_V02 | LOC_NMEA_MASK_GAVTG_V02 | \
+        LOC_NMEA_MASK_GAGGA_V02 | LOC_NMEA_MASK_PQGSA_V02 | LOC_NMEA_MASK_PQGSV_V02 )
+
+
 
 typedef enum {
   LOC_ENG_IF_REQUEST_SENDER_ID_QUIPC = 0,

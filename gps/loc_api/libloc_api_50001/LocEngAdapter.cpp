@@ -194,11 +194,9 @@ void LocEngAdapter::setXtraUserAgent() {
                 fclose(file);
 
                 // remove trailing spaces
-                char *s;
-                s = buf + strlen(buf);
-                while (--s >= buf) {
-                    if (!isspace(*s)) break;
-                    *s = 0;
+                size_t len = strlen(buf);
+                while (--len >= 0 && isspace(buf[len])) {
+                    buf[len] = '\0';
                 }
             }
 
@@ -566,10 +564,10 @@ enum loc_api_adapter_err LocEngAdapter::setXtraVersionCheck(int check)
     return ret;
 }
 
-void LocEngAdapter::reportGpsMeasurementData(GpsData &gpsMeasurementData)
+void LocEngAdapter::reportGnssMeasurementData(GnssData &gnssMeasurementData)
 {
-    sendMsg(new LocEngReportGpsMeasurement(mOwner,
-                                           gpsMeasurementData));
+    sendMsg(new LocEngReportGnssMeasurement(mOwner,
+                                           gnssMeasurementData));
 }
 
 /*

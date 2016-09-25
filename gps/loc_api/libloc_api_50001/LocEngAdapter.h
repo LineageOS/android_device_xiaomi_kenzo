@@ -1,4 +1,4 @@
-/* Copyright (c) 2011-2015, The Linux Foundation. All rights reserved.
+/* Copyright (c) 2011-2016, The Linux Foundation. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
@@ -85,6 +85,7 @@ public:
     bool mSupportsAgpsRequests;
     bool mSupportsPositionInjection;
     bool mSupportsTimeInjection;
+    GnssSystemInfo mGnssInfo;
 
     LocEngAdapter(LOC_API_ADAPTER_EVENT_MASK_T mask,
                   void* owner, ContextBase* context,
@@ -104,6 +105,9 @@ public:
     }
     inline bool hasCPIExtendedCapabilities() {
         return mContext->hasCPIExtendedCapabilities();
+    }
+    inline bool hasNativeXtraClient() {
+        return mContext->hasNativeXtraClient();
     }
     inline const MsgTask* getMsgTask() { return mMsgTask; }
 
@@ -185,6 +189,11 @@ public:
         setSUPLVersion(uint32_t version)
     {
         return mLocApi->setSUPLVersion(version);
+    }
+    inline enum loc_api_adapter_err
+        setNMEATypes (uint32_t typesMask)
+    {
+        return mLocApi->setNMEATypes(typesMask);
     }
     inline enum loc_api_adapter_err
         setLPPConfig(uint32_t profile)
@@ -284,7 +293,7 @@ public:
     virtual bool requestSuplES(int connHandle);
     virtual bool reportDataCallOpened();
     virtual bool reportDataCallClosed();
-    virtual void reportGpsMeasurementData(GpsData &gpsMeasurementData);
+    virtual void reportGnssMeasurementData(GnssData &gnssMeasurementData);
 
     inline const LocPosMode& getPositionMode() const
     {return mFixCriteria;}
