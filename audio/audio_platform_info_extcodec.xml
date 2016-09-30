@@ -35,6 +35,9 @@
     <bit_width_configs>
         <device name="SND_DEVICE_OUT_SPEAKER" bit_width="24"/>
     </bit_width_configs>
+    <config_params>
+        <param key="input_mic_max_count" value="4"/>
+    </config_params>
     <interface_names>
         <device name="AUDIO_DEVICE_IN_BUILTIN_MIC" interface="SLIMBUS_0" codec_type="external"/>
         <device name="AUDIO_DEVICE_IN_BACK_MIC" interface="SLIMBUS_0" codec_type="external"/>
@@ -63,3 +66,4 @@
         <feature name="NATIVE_AUDIO_44.1" codec_support="1"/>
     </native_configs>
 </audio_platform_info>
+
