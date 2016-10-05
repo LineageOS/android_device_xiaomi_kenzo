@@ -107,6 +107,10 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     Gello
 
+# Camera
+PRODUCT_PACKAGES += \
+    Camera2
+
 # Connectivity Engine support (CNE)
 PRODUCT_PACKAGES += \
     libcnefeatureconfig
@@ -235,10 +239,6 @@ PRODUCT_COPY_FILES += \
 
 PRODUCT_PACKAGES += \
     sensors.msm8952
-
-# Snapdragon Camera
-PRODUCT_PACKAGES += \
-    Snap
 
 # Sound trigger
 PRODUCT_COPY_FILES += \
