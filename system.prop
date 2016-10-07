@@ -105,6 +105,9 @@ persist.radio.NO_STAPA=1
 persist.radio.rat_on=combine
 persist.radio.sib16_support=1
 
+# Storage
+ro.sys.sdcardfs=true
+
 # TCP
 net.tcp.2g_init_rwnd=10
 
