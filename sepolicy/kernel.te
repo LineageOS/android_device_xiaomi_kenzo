@@ -1,0 +1,23 @@
+allow kernel vfat:file { getattr open };
+
+allow kernel priv_app:process setsched;
+allow kernel debuggerd:process setsched;
+allow kernel fingerprintd:process setsched;
+allow kernel gatekeeperd:process setsched;
+allow kernel ipacm:process setsched;
+allow kernel ipacm-diag:process setsched;
+allow kernel lmkd:process setsched;
+allow kernel logd:process setsched;
+allow kernel msm_irqbalanced:process setsched;
+allow kernel netmgrd:process setsched;
+allow kernel per_mgr:process setsched;
+allow kernel perfprofd:process setsched;
+allow kernel platform_app:process setsched;
+allow kernel qmuxd:process setsched;
+allow kernel rmt_storage:process setsched;
+allow kernel servicemanager:process setsched;
+allow kernel surfaceflinger:process setsched;
+allow kernel system_app:process setsched;
+allow kernel tee:process setsched;
+allow kernel thermal-engine:process setsched;
+allow kernel time_daemon:process setsched;
