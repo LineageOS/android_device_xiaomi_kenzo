@@ -4,3 +4,5 @@ allow fingerprintd fpc_data_file:dir create_dir_perms;
 allow fingerprintd fpc_data_file:sock_file { create unlink };
 
 allow fingerprintd fpc_sysfs:file rw_file_perms;
+
+allow fingerprintd uhid_device:chr_file { ioctl open write };
