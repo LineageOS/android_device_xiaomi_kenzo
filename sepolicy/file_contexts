@@ -1,5 +1,8 @@
-# IR Blaster
-/dev/lirc[0-9]*                                                       u:object_r:lirc_device:s0
+# Cache
+/dev/block/platform/soc.0/7824900.sdhci/by-name/cache                 u:object_r:cache_block_device:s0
+
+# DSP
+/dev/block/platform/soc.0/7824900.sdhci/by-name/dsp                   u:object_r:dsp_block_device:s0
 
 # Fingerprint
 /dev/socket/fpce                                                      u:object_r:fpc_socket:s0
@@ -7,3 +10,6 @@
 /sys/devices/soc.0/fpc_fpc1020.*/hw_reset                             u:object_r:fpc_sysfs:s0
 /sys/devices/soc.0/fpc_fpc1020.*/irq                                  u:object_r:fpc_sysfs:s0
 /sys/devices/soc.0/fpc_fpc1020.*/wakeup_enable                        u:object_r:fpc_sysfs:s0
+
+# IR Blaster
+/dev/lirc[0-9]*                                                       u:object_r:lirc_device:s0
