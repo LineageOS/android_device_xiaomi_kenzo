@@ -1,1 +1,1 @@
-dontaudit radio net_radio_prop:property_service set;
+allow radio system_app_data_file:dir getattr;
