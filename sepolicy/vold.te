@@ -1,0 +1,1 @@
+allow vold adsprpcd_file:dir r_file_perms;

@@ -1,3 +1,9 @@
+# Cache
+/dev/block/platform/soc.0/7824900.sdhci/by-name/cache                 u:object_r:cache_block_device:s0
+
+# DSP
+/dev/block/platform/soc.0/7824900.sdhci/by-name/dsp                   u:object_r:dsp_block_device:s0
+
 # IR Blaster
 /dev/lirc[0-9]*                                                       u:object_r:lirc_device:s0
 
