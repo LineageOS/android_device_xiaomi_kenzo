@@ -1,0 +1,1 @@
+allow mediacodec firmware_file:dir search;

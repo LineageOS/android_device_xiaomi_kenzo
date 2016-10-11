@@ -1,1 +1,0 @@
-allow init fpc_socket:sock_file create_file_perms;

@@ -1,2 +1,4 @@
+type dsp_block_device, dev_type;
+allow fsck dsp_block_device:blk_file rw_file_perms;
 allow fsck cache_block_device:blk_file rw_file_perms;
 allow fsck persist_block_device:blk_file rw_file_perms;
