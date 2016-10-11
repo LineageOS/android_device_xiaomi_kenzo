@@ -1,0 +1,1 @@
+allow kernel domain:process setsched;
