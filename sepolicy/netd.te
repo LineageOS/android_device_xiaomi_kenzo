@@ -1,0 +1,1 @@
+allow netd firmware_file:dir search;
