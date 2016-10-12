@@ -73,7 +73,7 @@ on enable-low-power
 
     write /sys/devices/system/cpu/cpu0/cpufreq/interactive/above_hispeed_delay 59000
     write /sys/devices/system/cpu/cpu0/cpufreq/interactive/hispeed_freq 1305600
-    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/target_loads "691200:60 806400:80"
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/target_loads "90"
     write /sys/devices/system/cpu/cpu4/cpufreq/interactive/hispeed_freq 1382400
     write /sys/devices/system/cpu/cpu4/cpufreq/interactive/above_hispeed_delay "19000 1382400:39000"
     write /sys/devices/system/cpu/cpu4/cpufreq/interactive/target_loads "85 1382400:90 1747200:80"
