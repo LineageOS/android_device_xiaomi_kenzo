@@ -123,6 +123,10 @@ PRODUCT_PACKAGES += \
     memtrack.msm8952 \
     liboverlay
 
+# Display Calibration
+PRODUCT_PACKAGES += \
+    pp_calib_data_sharp_r63315_1080p_video_mode_dsi_panel.xml
+
 # Face detection extension
 PRODUCT_PACKAGES += \
     org.codeaurora.camera
