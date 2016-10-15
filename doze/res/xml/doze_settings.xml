@@ -14,13 +14,8 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-
-    <SwitchPreference
-        android:key="ambient_display"
-        android:defaultValue="true"
-        android:title="@string/ambient_display_title"
-        android:summary="@string/ambient_display_summary" />
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+                  xmlns:cm="http://schemas.android.com/apk/res/cyanogenmod.platform">
 
     <PreferenceCategory
         android:key="tilt_sensor"
@@ -30,8 +25,7 @@
             android:key="pick_up"
             android:defaultValue="false"
             android:title="@string/pick_up_title"
-            android:summary="@string/pick_up_summary"
-            android:dependency="ambient_display" />
+            android:summary="@string/pick_up_summary" />
 
     </PreferenceCategory>
 
@@ -43,15 +37,13 @@
             android:key="gesture_hand_wave"
             android:defaultValue="false"
             android:title="@string/hand_wave_gesture_title"
-            android:summary="@string/hand_wave_gesture_summary"
-            android:dependency="ambient_display" />
+            android:summary="@string/hand_wave_gesture_summary" />
 
         <SwitchPreference
             android:key="gesture_pocket"
             android:defaultValue="false"
             android:title="@string/pocket_gesture_title"
-            android:summary="@string/pocket_gesture_summary"
-            android:dependency="ambient_display" />
+            android:summary="@string/pocket_gesture_summary" />
 
     </PreferenceCategory>
 
