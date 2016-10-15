@@ -13,8 +13,16 @@
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
+    <!-- Label for feature switch [CHAR LIMIT=30] -->
+    <string name="switch_bar_on">On</string>
+
+    <!-- Label for feature switch [CHAR LIMIT=30] -->
+    <string name="switch_bar_off">Off</string>
+
     <string name="ambient_display_title">Ambient display</string>
     <string name="ambient_display_summary">Wake screen when you receive notifications</string>
+    <string name="ambient_display_summary_on">Screen will wake when you receive notifications</string>
+    <string name="ambient_display_summary_off">Screen will not wake when you receive notifications</string>
 
     <!-- Tilt sensor -->
     <string name="tilt_sensor_title">Tilt sensor</string>
@@ -31,5 +39,5 @@
     <!-- Help text -->
     <string name="dlg_ok">OK</string>
     <string name="doze_settings_help_title">Help</string>
-    <string name="doze_settings_help_text">These features use sensor events to launch a doze notification pulse. The chosen sensor is only enabled when the device receives a notification, this helps to reduce battery usage. There is also an option to enable the chosen sensor as soon as the screen turns off, this will cause higher battery usage.</string>
+    <string name="doze_settings_help_text">These features use sensor events to launch a doze notification pulse, this will cause higher battery usage.</string>
 </resources>
