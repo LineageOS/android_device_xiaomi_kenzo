@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ff2e2bb8_1441643a",
+        "filename": "doze/src/com/cyanogenmod/settings/doze/DozeReceiver.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 12149
+      },
+      "writtenOn": "2016-10-30T17:06:10Z",
+      "side": 1,
+      "message": "Typo \"OneplusDoze\"",
+      "revId": "da10d6c231fc65f9b1fdcee9463eefc0181815f8",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
