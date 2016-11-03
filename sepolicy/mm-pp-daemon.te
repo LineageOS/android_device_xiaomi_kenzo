@@ -1,1 +1,0 @@
-allow mm-pp-daemon diag_device:chr_file rw_file_perms;

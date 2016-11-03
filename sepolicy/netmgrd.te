@@ -1,1 +1,0 @@
-allow netmgrd self:capability dac_override;
