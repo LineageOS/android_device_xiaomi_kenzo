@@ -1,110 +1,14 @@
 # Audio
-audio.dolby.ds2.enabled=true
-audio.deep_buffer.media=true
-audio.offload.buffer.size.kb=64
 audio.offload.disable=1
-audio.offload.gapless.enabled=true
-audio.offload.min.duration.secs=30
-audio.offload.multiple.enabled=false
 audio.offload.pcm.16bit.enable=false
 audio.offload.pcm.24bit.enable=false
-audio.offload.track.enable=false
 audio.offload.video=false
-audio.playback.mch.downsample=true
-audio.safx.pbe.enabled=true
-
-persist.audio.dirac.speaker=true
 persist.audio.fluence.audiorec=false
-persist.audio.fluence.speaker=true
 persist.audio.fluence.spk.mono=true
-persist.audio.fluence.voicecall=true
 persist.audio.fluence.voicerec=true
-
-ro.qc.sdk.audio.fluencetype=fluence
-ro.qc.sdk.audio.ssr=false
-tunnel.audio.encode=false
-use.voice.path.for.pcm.voip=true
-voice.conc.fallbackpath=deep-buffer
-voice.playback.conc.disabled=true
-voice.record.conc.disabled=false
 voice.voip.conc.disabled=true
 
-# Bluetooth
-bluetooth.hfp.client=1
-qcom.bluetooth.soc=smd
-
-# Camera
-persist.camera.HAL3.enabled=1
-
-# CNE/DPM
-persist.cne.feature=1
-persist.dpm.feature=5
-persist.dpm.nsrm.bkg.evt=3955
-
-# Dex2oat threads for faster app installation
-ro.sys.fw.dex2oat_thread_count=4
-
-# Display
-debug.egl.hw=0
-debug.enable.sglscale=1
-debug.mdpcomp.logs=0
-debug.sf.hw=0
-dev.pm.dyn_samplingrate=1
-persist.demo.hdmirotationlock=false
-persist.hwc.mdpcomp.enable=true
-persist.hwc.downscale_threshold=1.15
-ro.opengles.version=196609
-ro.sf.lcd_density=480
-
-# FRP
-ro.frp.pst=/dev/block/bootdevice/by-name/config
-
-# Media
-media.msm8956hw=1
-mm.enable.smoothstreaming=true
-mmp.enable.3g2=true
-media.aac_51_output_enabled=true
-
-# Netmgrd
-ro.use_data_netmgrd=true
-persist.data.netmgrd.qos.enable=true
-persist.data.mode=concurrent
-
-# NITZ
-persist.rild.nitz_plmn=
-persist.rild.nitz_long_ons_0=
-persist.rild.nitz_long_ons_1=
-persist.rild.nitz_long_ons_2=
-persist.rild.nitz_long_ons_3=
-persist.rild.nitz_short_ons_0=
-persist.rild.nitz_short_ons_1=
-persist.rild.nitz_short_ons_2=
-persist.rild.nitz_short_ons_3=
-
-# Perf
-ro.vendor.extension_library=libqti-perfd-client.so
-
 # Radio
-DEVICE_PROVISIONED=1
-ril.subscription.types=RUIM
-rild.libargs=-d /dev/smd0
-rild.libpath=/vendor/lib64/libril-qc-qmi-1.so
-ro.telephony.call_ring.multiple=false
-ro.telephony.default_cdma_sub=0
-ro.telephony.default_network=22,22
-telephony.lteOnCdmaDevice=1,1
-persist.radio.apm_sim_not_pwdn=1
-persist.radio.custom_ecc=1
-persist.radio.multisim.config=dsds
-persist.radio.NO_STAPA=1
-persist.radio.rat_on=combine
-persist.radio.sib16_support=1
-
-# TCP
-net.tcp.2g_init_rwnd=10
-
-# Time
-persist.timed.enable=true
-
-# WiFi
-wifi.interface=wlan0
+persist.radio.cs_srv_type=1
+persist.radio.force_on_dc=true
+persist.radio.redir_party_num=0

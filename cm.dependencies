@@ -1,10 +1,6 @@
 [
- {
-   "repository": "android_device_qcom_common",
-   "target_path": "device/qcom/common"
- },
- {
-   "repository": "android_kernel_xiaomi_msm8956",
-   "target_path": "kernel/xiaomi/msm8956"
- }
+  {
+    "repository": "android_device_xiaomi_msm8956-common",
+    "target_path": "device/xiaomi/msm8956-common"
+  }
 ]
