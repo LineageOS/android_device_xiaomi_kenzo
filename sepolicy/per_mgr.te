@@ -1,1 +1,0 @@
-allow per_mgr self:capability net_raw;

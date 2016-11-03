@@ -1,3 +1,0 @@
-allow priv_app device:dir r_dir_perms;
-allow priv_app fuseblk:dir search;
-allow priv_app fuseblk:file r_file_perms;

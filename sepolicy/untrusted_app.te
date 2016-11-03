@@ -1,1 +1,0 @@
-allow untrusted_app fuseblk:file rw_file_perms;
