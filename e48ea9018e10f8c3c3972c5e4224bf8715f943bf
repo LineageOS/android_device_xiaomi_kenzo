@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5f681702_a2c5003f",
+        "filename": "proprietary-files.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 596,
+      "author": {
+        "id": 13452
+      },
+      "writtenOn": "2016-12-03T13:28:35Z",
+      "side": 0,
+      "message": "This is now moved from /system/etc/firmware to /firmware in stock new updates, not I should do same here or just add new ones firmware in /system/etc/firmware and pin it so that it don\u0027t break for old NON-HLOS users.",
+      "range": {
+        "startLine": 592,
+        "startChar": 0,
+        "endLine": 596,
+        "endChar": 25
+      },
+      "revId": "e48ea9018e10f8c3c3972c5e4224bf8715f943bf",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
