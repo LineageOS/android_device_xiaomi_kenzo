@@ -550,8 +550,6 @@ vendor/lib/libwqe.so
 
 # Consumerir
 bin/consumerird
-lib64/hw/consumerir.msm8952.so
-lib/hw/consumerir.msm8952.so
 
 # Display calibration data
 etc/pp_calib_data_sharp_r63315_1080p_video_mode_dsi_panel.xml
