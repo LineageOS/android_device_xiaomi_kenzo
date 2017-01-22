@@ -85,12 +85,7 @@ vendor/lib/libbtnv.so
 
 # Camera
 bin/mm-qcamera-daemon
-lib/libmm-qcamera.so
-lib/libmmcamera_interface.so
-lib/libmmjpeg_interface.so
-lib/libqomx_core.so
 lib/libRecoFace.so
-vendor/lib/hw/camera.msm8952.so
 vendor/lib/lib-imscamera.so
 vendor/lib/libarcsoft_beauty_shot.so
 vendor/lib/libFaceGrade.so
