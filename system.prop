@@ -16,3 +16,4 @@ persist.camera.HAL3.enabled=1
 persist.radio.cs_srv_type=1
 persist.radio.force_on_dc=true
 persist.radio.redir_party_num=0
+persist.radio.start_ota_daemon=1

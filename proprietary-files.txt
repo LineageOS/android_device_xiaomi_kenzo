@@ -784,6 +784,7 @@ vendor/lib/libmm-als.so
 
 # QMI
 bin/irsc_util
+etc/mbn_ota.txt
 etc/data/dsi_config.xml
 etc/data/netmgr_config.xml
 etc/data/qmi_config.xml
