@@ -559,8 +559,6 @@ vendor/lib/libxml.so|4ab8a804dd094f8ebcfc803c62adfa642a3a0ae0
 
 # Consumerir
 bin/consumerird
-lib64/hw/consumerir.msm8952.so
-lib/hw/consumerir.msm8952.so
 
 # Display calibration data
 etc/pp_calib_data_sharp_r63315_1080p_video_mode_dsi_panel.xml
