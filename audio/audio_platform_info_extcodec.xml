@@ -27,6 +27,15 @@
 <!-- IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.                          -->
 <audio_platform_info>
     <acdb_ids>
+        <device name="SND_DEVICE_OUT_SPEAKER_WSA" acdb_id="14"/>
+        <device name="SND_DEVICE_OUT_SPEAKER_REVERSE" acdb_id="135"/>
+        <device name="SND_DEVICE_IN_HANDSET_MIC_SECONDARY" acdb_id="4"/>
+        <device name="SND_DEVICE_IN_VOICE_SPEAKER_DMIC_MONO" acdb_id="42"/>
+        <device name="SND_DEVICE_IN_VOICE_FLUENCE_DMIC_AANC" acdb_id="118"/>
+        <device name="SND_DEVICE_IN_HANDSET_QMIC" acdb_id="105"/>
+        <device name="SND_DEVICE_IN_SPEAKER_QMIC_AEC" acdb_id="125"/>
+        <device name="SND_DEVICE_IN_SPEAKER_QMIC_NS" acdb_id="126"/>
+        <device name="SND_DEVICE_IN_SPEAKER_QMIC_AEC_NS" acdb_id="127"/>
         <device name="SND_DEVICE_OUT_VOICE_SPEAKER_2_PROTECTED" acdb_id="150"/>
         <device name="SND_DEVICE_OUT_VOICE_SPEAKER_2_PROTECTED_VBAT" acdb_id="150"/>
         <device name="SND_DEVICE_IN_CAPTURE_VI_FEEDBACK_MONO_1" acdb_id="151"/>
