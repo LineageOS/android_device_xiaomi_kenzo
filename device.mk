@@ -36,6 +36,14 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/keylayout/msm8976-tashalite-snd-card_Button_Jack.kl:system/usr/keylayout/msm8976-tashalite-snd-card_Button_Jack.kl \
     $(LOCAL_PATH)/keylayout/uinput-fpc.kl:system/usr/keylayout/uinput-fpc.kl
 
+# Libshims
+PRODUCT_PACKAGES += \
+    libshims_ims
+
+# Ramdisk
+PRODUCT_PACKAGES += \
+    init.target.rc
+
 # Sensors
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/sensors/hals.conf:system/etc/sensors/hals.conf \
