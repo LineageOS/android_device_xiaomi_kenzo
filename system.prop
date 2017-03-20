@@ -8,10 +8,6 @@ persist.audio.fluence.spk.mono=true
 persist.audio.fluence.voicerec=true
 voice.voip.conc.disabled=true
 
-# Camera
-media.camera.ts.monotonic=0
-persist.camera.HAL3.enabled=1
-
 # Radio
 persist.radio.cs_srv_type=1
 persist.radio.force_on_dc=true
