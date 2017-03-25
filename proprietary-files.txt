@@ -604,10 +604,23 @@ etc/firmware/DE.o.msm8952
 etc/firmware/DE.o.msm8976
 
 # Fingerprint sensor
-lib64/hw/fingerprint.msm8952.so
+bin/gx_fpd
+lib64/hw/fingerprint.goodix.default.so
+lib64/hw/fingerprint.msm8952.so:lib64/hw/fingerprint.fpc.msm8952.so
+lib64/hw/gxfingerprint.default.so
 lib64/lib_fpc_tac_shared.so
-lib/hw/fingerprint.msm8952.so
+lib64/libfp_client.so
+lib64/libfpnav.so
+lib64/libfpservice.so
+lib/hw/fingerprint.msm8952.so:lib/hw/fingerprint.fpc.msm8952.so
 lib/lib_fpc_tac_shared.so
+
+# Fingerprint firmware
+etc/firmware/goodixfp.b00
+etc/firmware/goodixfp.b01
+etc/firmware/goodixfp.b02
+etc/firmware/goodixfp.b03
+etc/firmware/goodixfp.mdt
 
 # Gatekeeper
 vendor/lib64/hw/gatekeeper.msm8952.so
