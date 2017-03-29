@@ -85,12 +85,7 @@ vendor/lib/libbtnv.so
 
 # Camera
 bin/mm-qcamera-daemon
-lib/libmm-qcamera.so
-lib/libmmcamera_interface.so
-lib/libmmjpeg_interface.so
-lib/libqomx_core.so
 lib/libRecoFace.so
-vendor/lib/hw/camera.msm8952.so
 vendor/lib/lib-imscamera.so
 vendor/lib/libarcsoft_beauty_shot.so
 vendor/lib/libFaceGrade.so
@@ -181,8 +176,8 @@ vendor/lib/libois_lc898122.so
 vendor/lib/libqomx_jpegdec.so
 vendor/lib/libqomx_jpegenc.so
 vendor/lib/libqomx_jpegenc_pipe.so
-vendor/lib/libts_detected_face_hal.so
-vendor/lib/libts_face_beautify_hal.so
+-vendor/lib/libts_detected_face_hal.so
+-vendor/lib/libts_face_beautify_hal.so
 
 # Camera actuators
 vendor/lib/libactuator_ad5816g.so
