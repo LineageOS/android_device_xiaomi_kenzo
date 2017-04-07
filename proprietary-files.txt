@@ -833,7 +833,7 @@ bin/rmt_storage
 bin/tftp_server
 etc/permissions/qcnvitems.xml
 etc/permissions/qcrilhook.xml
--priv-app/qcrilmsgtunnel/qcrilmsgtunnel.apk
+-priv-app/qcrilmsgtunnel/qcrilmsgtunnel.apk|4b35becdda381206deeafd1e955999663a463b87
 vendor/bin/qti
 vendor/Diag.cfg
 vendor/lib64/libconfigdb.so
