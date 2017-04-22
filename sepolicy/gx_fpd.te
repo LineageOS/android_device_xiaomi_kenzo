@@ -1,0 +1,44 @@
+type gx_fpd, domain;
+type gx_fpd_exec, exec_type, file_type;
+type gx_fpd_device, dev_type;
+type gx_fpd_service, service_manager_type;
+type gx_fpd_data_file, file_type, data_file_type;
+
+# gx_fpd
+init_daemon_domain(gx_fpd)
+binder_use(gx_fpd)
+
+# need to find KeyStore and add self
+allow gx_fpd fingerprintd_service:service_manager { add find };
+
+# allow HAL module to read dir contents
+allow gx_fpd gx_fpd_data_file:file create_file_perms;
+
+# allow HAL module to read/write/unlink contents of this dir
+allow gx_fpd gx_fpd_data_file:dir create_dir_perms;
+
+# Need to add auth tokens to KeyStore
+use_keystore(gx_fpd)
+allow gx_fpd keystore:keystore_key { add_auth };
+
+# For permissions checking
+binder_call(gx_fpd, system_server);
+allow gx_fpd permission_service:service_manager find;
+
+#Allow access to goodix device
+allow gx_fpd gx_fpd_device:chr_file rw_file_perms;
+
+#Allow access to tee device
+allow gx_fpd tee_device:chr_file rw_file_perms;
+
+# Allow access to ion device
+allow gx_fpd ion_device:chr_file rw_file_perms;
+
+#allow create socket
+allow gx_fpd self:socket create_socket_perms;
+allow gx_fpd self:{ netlink_socket netlink_generic_socket } create_socket_perms;
+
+#allow read/write property
+set_prop(gx_fpd, system_prop)
+
+allow gx_fpd gx_fpd_service:service_manager { add find };
