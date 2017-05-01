@@ -609,13 +609,6 @@ lib64/lib_fpc_tac_shared.so
 lib/hw/fingerprint.msm8952.so
 lib/lib_fpc_tac_shared.so
 
-# Fingerprint firmware
-etc/firmware/fpctzapp.b00|d2aa8a1b8e021754c2c6f22b5214c682c6402529
-etc/firmware/fpctzapp.b01|7334e9ae6a88fd14643a3219c04cd76fdf28e6e2
-etc/firmware/fpctzapp.b02|ddaa534ef368bdb03b567debf7ebde71c8e50c99
-etc/firmware/fpctzapp.b03|c73d0dedc7afaeebe97ab2019babc26fff6551f9
-etc/firmware/fpctzapp.mdt|047d309029ee4845943d6447fc77b4bb774f6946
-
 # Gatekeeper
 vendor/lib64/hw/gatekeeper.msm8952.so
 
