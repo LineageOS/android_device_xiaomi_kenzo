@@ -1,0 +1,1 @@
+require version-modem=MSM8976.LA.1.0.c3-30041-STD.PROD-1.77504.1.83742.1
