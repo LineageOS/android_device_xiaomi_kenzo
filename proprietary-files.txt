@@ -469,7 +469,7 @@ vendor/lib/libmmcamera_sunny_omi5f06_eeprom.so
 bin/consumerird
 
 # Display calibration data
-etc/pp_calib_data_sharp_r63315_1080p_video_mode_dsi_panel.xml
+etc/pp_calib_data_sharp_r63315_1080p_video_mode_dsi_panel.xml|08d8a40dc05ab00eb0709319b99e507124aacfdd
 
 # DRM
 bin/qseecomd
