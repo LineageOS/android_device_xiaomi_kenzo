@@ -38,5 +38,9 @@ TARGET_SYSTEM_PROP += $(DEVICE_PATH)/system.prop
 # Sepolicy
 BOARD_SEPOLICY_DIRS += $(DEVICE_PATH)/sepolicy
 
+# Wifi
+CONFIG_EAP_PROXY := qmi
+CONFIG_EAP_PROXY_DUAL_SIM := true
+
 # inherit from the proprietary version
 -include vendor/xiaomi/kenzo/BoardConfigVendor.mk

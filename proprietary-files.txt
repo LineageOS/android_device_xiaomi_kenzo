@@ -582,3 +582,4 @@ vendor/lib/libTimeService.so
 
 # WiFi
 bin/wcnss_service
+-lib64/libwpa_qmi_eap_proxy.so
