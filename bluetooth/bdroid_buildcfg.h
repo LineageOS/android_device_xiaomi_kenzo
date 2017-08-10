@@ -32,4 +32,6 @@
 #define BLE_PERIPHERAL_ADV_NAME  FALSE
 #define BTM_LE_SECURE_CONN  TRUE
 #define BT_CLEAN_TURN_ON_DISABLED 1
+#define BTM_WBS_INCLUDED TRUE       /* Enable WBS */
+#define BTIF_HF_WBS_PREFERRED TRUE  /* Use WBS    */
 #endif
