@@ -60,7 +60,8 @@ vendor/lib/libmmcamera2_pp_buf_mgr.so
 vendor/lib/libmmcamera2_pproc_modules.so
 vendor/lib/libmmcamera2_q3a_core.so
 vendor/lib/libmmcamera2_sensor_debug.so
-vendor/lib/libmmcamera2_sensor_modules.so
+# Haxed lib by billchen1977 until shim is fixed
+vendor/lib/libmmcamera2_sensor_modules.so|ad323ce516a48cd74ff1cb2db64d20c6fc25a06d
 vendor/lib/libmmcamera2_stats_algorithm.so
 vendor/lib/libmmcamera2_stats_modules.so
 vendor/lib/libmmcamera2_vpe_module.so
