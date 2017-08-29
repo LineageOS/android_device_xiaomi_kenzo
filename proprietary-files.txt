@@ -572,6 +572,10 @@ vendor/lib64/libsystem_health_mon.so
 vendor/lib/libmdmdetect.so
 vendor/qcril.db
 
+# Sensors
+etc/sensors/hals.conf
+etc/sensors/sensor_def_qcomdev.conf
+
 # Time services
 -app/TimeService/TimeService.apk
 bin/time_daemon
