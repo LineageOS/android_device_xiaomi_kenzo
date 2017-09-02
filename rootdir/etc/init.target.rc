@@ -37,14 +37,6 @@ on boot
     chown system system  /dev/goodix_fp
     chmod 0644 /dev/goodix_fp
 
-on property:ro.boot.fpsensor=fpc
-    setprop persist.sys.fp.goodix 0
-    setprop ro.hardware.fingerprint fpc
-
-on property:ro.boot.fpsensor=gdx
-    setprop persist.sys.fp.goodix 1
-    setprop ro.hardware.fingerprint gdx
-
 service gx_fpd /system/bin/gx_fpd
     class late_start
     user system

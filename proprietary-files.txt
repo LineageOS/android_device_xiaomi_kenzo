@@ -487,14 +487,14 @@ vendor/lib/libQSEEComAPI.so
 
 # Fingerprint sensor
 bin/gx_fpd
-lib64/hw/fingerprint.goodix.default.so:lib64/hw/fingerprint.gdx.so
-lib64/hw/fingerprint.msm8952.so:lib64/hw/fingerprint.fpc.so
+lib64/hw/fingerprint.goodix.default.so
+lib64/hw/fingerprint.msm8952.so:lib64/hw/fingerprint.fpc.msm8952.so
 lib64/hw/gxfingerprint.default.so
 lib64/lib_fpc_tac_shared.so
 lib64/libfp_client.so
 lib64/libfpnav.so
 lib64/libfpservice.so
-lib/hw/fingerprint.msm8952.so:lib/hw/fingerprint.fpc.so
+lib/hw/fingerprint.msm8952.so:lib/hw/fingerprint.fpc.msm8952.so
 lib/lib_fpc_tac_shared.so
 
 # Fingerprint firmware
