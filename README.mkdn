@@ -1,4 +1,4 @@
-Copyright 2016 - The CyanogenMod Project.
+Copyright 2017 - The LineageOS Project.
 
 Device Tree for Xiaomi Redmi Note 3 (kenzo)
 ===========================================
